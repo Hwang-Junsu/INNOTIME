@@ -2,8 +2,10 @@
 import styled from "styled-components";
 import React from "react";
 
+const Btn = styled.button``;
+
 const Button = () => {
-  return <div>Button</div>;
+  return <Btn></Btn>;
 };
 
 export default Button;
