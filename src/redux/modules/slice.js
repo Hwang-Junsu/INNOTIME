@@ -23,8 +23,11 @@ export const toDoSlice = createSlice({
   name: "todo",
   initialState,
   reducers: {
-    ADD: (state, action) => {
+    addTodo: (state, action) => {
       state.todo = [...state.todo, action.payload];
+    },
+    deleteTodo: (state, action) => {
+      state.todo = state.todo.filter((todo) => todo.id !== action.payload);
     },
   },
 });
@@ -34,3 +37,6 @@ export const commentSlice = createSlice({
   initialState: [],
   reducers: {},
 });
+
+export const { addTodo, deleteTodo } = toDoSlice.actions;
+export default toDoSlice.reducer;
