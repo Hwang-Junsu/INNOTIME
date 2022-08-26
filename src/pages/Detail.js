@@ -4,14 +4,22 @@ import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Layout from "../component/Layout";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import Modal from "../component/Modal";
+import { useState } from "react";
 
 const Detail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const todo = useSelector((state) => state.todo.todo);
   const todoList = todo.find((todo) => todo.id === +id);
+
+  //TODO: 수정하기 버튼 클릭시 모달창 구현
+  const [isOpen, setIsOpen] = useState(false);
+  const modalIsOpen = () => {
+    setIsOpen(true);
+    console.log(isOpen);
+  };
 
   return (
     <Layout>
@@ -28,7 +36,8 @@ const Detail = () => {
         </DetailHeader>
         <DetailTitle>{todoList.title}</DetailTitle>
         <p>{todoList.body}</p>
-        <DetailEditBtn>수정하기</DetailEditBtn>
+        <DetailEditBtn onClick={modalIsOpen}>수정하기</DetailEditBtn>
+        {isOpen && <Modal setIsOpen={setIsOpen} />}
       </DetailLayout>
     </Layout>
   );
