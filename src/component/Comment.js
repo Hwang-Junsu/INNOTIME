@@ -31,6 +31,9 @@ const Writer = styled.div`
 `;
 const Contents = styled.div``;
 const Buttons = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-right: 20px;
 `;
 const Button = styled.button`
@@ -56,6 +59,7 @@ const Comment = ({id, writer, body, onEditMode, disabled}) => {
     setIsEdit(!isEdit);
     onEditMode(id);
   };
+
   const updating = () => {
     dispatch(updateComment({id: id, body: editComment}));
     setIsEdit(false);

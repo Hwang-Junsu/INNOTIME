@@ -166,7 +166,10 @@ const Form = styled.form`
 `;
 
 const CommentList = styled.div`
-  visibility: ${(props) => (props.isUp ? "hidden" : "visible")};
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
 `;
 const HeaderButton = styled.div`
   display: flex;
