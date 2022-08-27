@@ -2,13 +2,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
-import styled from "styled-components";
 import Layout from "../component/Layout";
 import { useParams, useNavigate } from "react-router-dom";
 import Modal from "../component/Modal";
 import { useState } from "react";
 import ArrowBack from "@material-ui/icons/ArrowBack";
+import Comments from "../component/Comments";
 
 const Detail = () => {
   const { id } = useParams();
@@ -42,6 +41,7 @@ const Detail = () => {
         <DetailEditBtn onClick={modalIsOpen}>수정하기</DetailEditBtn>
         {isOpen && <Modal isOpen={isOpen} setIsOpen={setIsOpen} />}
       </DetailLayout>
+      <Comments />
     </Layout>
   );
 };
