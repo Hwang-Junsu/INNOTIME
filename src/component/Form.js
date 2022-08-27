@@ -2,29 +2,37 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import Button from "./Button";
+import Input from "./Input";
+import { useDispatch } from "react-redux/";
+import { addTodo } from "../redux/modules/todosSlice";
+import nextId from "react-id-generator";
+
 const Form = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const initialTodo = {
     writer: "",
     title: "",
     body: "",
+    isDone: false,
   };
 
   const [todo, setTodo] = useState(initialTodo);
 
-  //입력값 변화감지
+  //DESC: 입력값 변화감지
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
     setTodo({ ...todo, [name]: value });
   };
 
-  //폼 제출했을 때 동작
+  ///DESC: 폼 제출했을 때 동작
   const onSubmitHandler = (event) => {
-    //새로고침 방지
+    // DESC: 새로고침 방지
     event.preventDefault();
 
-    //유효성 검사
+    // DESC: 유효성 검사
     if (
       todo.writer.trim() === "" ||
       todo.title.trim() === "" ||
@@ -32,12 +40,15 @@ const Form = () => {
     )
       return alert("빈 항목이 존재합니다.");
 
-    console.log(todo);
+    const id = nextId("todo-");
 
-    //제출 성공하면 todo list 로 이동
+    console.log(todo);
+    dispatch(addTodo({ id, ...todo }));
+
+    // DESC: 제출 성공하면 todo list 로 이동
     navigate("/todo");
 
-    //todo 초기화
+    //DESC: todo 값 초기화
     setTodo(initialTodo);
   };
 
@@ -46,23 +57,23 @@ const Form = () => {
       <StyledForm onSubmit={onSubmitHandler}>
         <StyledInputContainer>
           <StyledLabel>작성자</StyledLabel>
-          <StyledInput
+          <Input
             name="writer"
             onChange={onChangeHandler}
             type="text"
             value={todo.writer}
             placeholder="작성자의 이름을 입력해주세요.(5자 이내)"
             maxLength={5}
-          ></StyledInput>
+          />
           <StyledLabel>제목</StyledLabel>
-          <StyledInput
+          <Input
             name="title"
             onChange={onChangeHandler}
             type="text"
             value={todo.title}
             placeholder="제목을 입력해주세요.(50자 이내)"
             maxLength={50}
-          ></StyledInput>
+          />
           <StyledLabel>내용</StyledLabel>
           <StyledTextArea
             name="body"
@@ -73,7 +84,7 @@ const Form = () => {
             maxLength={200}
           ></StyledTextArea>
         </StyledInputContainer>
-        <button>추가하기</button>
+        <Button>추가하기</Button>
       </StyledForm>
     </StyledFormContainer>
   );
@@ -86,6 +97,7 @@ const StyledFormContainer = styled.div`
   border: 1px solid #eee;
   padding: 8px;
   margin-top: 20px;
+  border-radius: 5px;
 `;
 
 const StyledForm = styled.form`
@@ -103,13 +115,6 @@ const StyledInputContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex: 4;
-`;
-const StyledInput = styled.input`
-  margin: 0.4rem;
-  border: 1px solid #eee;
-  border-radius: 5px;
-  padding: 0 8px 0;
-  height: 40px;
 `;
 
 const StyledTextArea = styled.textarea`

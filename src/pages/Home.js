@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Banner from "../component/Banner";
 import HomeBox from "../component/HomeBox";
@@ -6,6 +7,8 @@ import HomeBox from "../component/HomeBox";
 import Layout from "../component/Layout";
 
 const Home = () => {
+  const todos = useSelector((state) => state.todos);
+  console.log(todos);
   const navigate = useNavigate();
 
   return (

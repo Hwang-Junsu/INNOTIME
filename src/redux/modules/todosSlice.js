@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  todo: [
+  todos: [
     {
       id: 1,
       title: "리액트 학습",
@@ -12,21 +12,15 @@ const initialState = {
   ],
 };
 
-export const toDoSlice = createSlice({
-  name: "todo",
+export const todosSlice = createSlice({
+  name: "todos",
   initialState,
   reducers: {
     addTodo: (state, action) => {
-      state.todo = [...state.todo, action.payload];
+      state.todos = [...state.todos, action.payload];
     },
   },
 });
 
-export const commentSlice = createSlice({
-  name: "comment",
-  initialState: [],
-  reducers: {},
-});
-
-export const { addTodo } = toDoSlice.actions;
-export default toDoSlice.reducer;
+export const { addTodo } = todosSlice.actions;
+export default todosSlice.reducer;
