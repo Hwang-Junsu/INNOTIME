@@ -111,7 +111,7 @@ const Comment = ({ id, writer, body, onEditMode, disabled }) => {
           {!isEdit ? (
             <>
               <Contents>
-                {body.length >= 80 ? body.slice(0, 95) + "..." : body}
+                {body.length >= 80 ? body.slice(0, 85) + "..." : body}
               </Contents>
             </>
           ) : (
