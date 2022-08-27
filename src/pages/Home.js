@@ -1,12 +1,33 @@
 import React from "react";
-import {useDispatch} from "react-redux/es/exports";
-import Layout from "../component/Layout";
-import {toDoSlice} from "../redux/modules/slice";
-const Home = () => {
-  const dispatch = useDispatch();
-  dispatch(toDoSlice.actions.ADD()); // redux test
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Banner from "../component/Banner";
+import HomeBox from "../component/HomeBox";
 
-  return <Layout></Layout>;
+import Layout from "../component/Layout";
+
+const Home = () => {
+  const todos = useSelector((state) => state.todos);
+  console.log(todos);
+  const navigate = useNavigate();
+
+  return (
+    <Layout>
+      <Banner title="무엇을 할까요?" backgroundColor="#ffffff" />
+      <HomeBox
+        onClick={() => {
+          navigate("/add");
+        }}
+        title="할 일 추가하기 ➡"
+      ></HomeBox>
+      <HomeBox
+        onClick={() => {
+          navigate("/todo");
+        }}
+        title="Todo List   ➡"
+      ></HomeBox>
+    </Layout>
+  );
 };
 
 export default Home;
