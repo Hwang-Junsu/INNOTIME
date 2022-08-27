@@ -37,5 +37,5 @@ const StyledButton = styled.button`
           width: 120px;
         `;
     }
-  }}}
+  }}
 `;

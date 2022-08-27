@@ -1,16 +1,17 @@
 // 할 일 기록하기 form
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import Input from "./Input";
-import { useDispatch } from "react-redux/";
-import { addTodo } from "../redux/modules/todosSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { __addTodoThunk, clearTodo } from "../redux/modules/todosSlice";
 import nextId from "react-id-generator";
 
 const Form = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isSuccess = useSelector((state) => state.todos.isSuccess);
 
   const initialTodo = {
     writer: "",
@@ -20,6 +21,14 @@ const Form = () => {
   };
 
   const [todo, setTodo] = useState(initialTodo);
+
+  useEffect(() => {
+    if (!isSuccess) return;
+    // DESC: 제출 성공하면 todo list 로 이동
+    if (isSuccess) navigate("/todo");
+
+    return () => dispatch(clearTodo());
+  }, [dispatch, isSuccess, navigate]);
 
   //DESC: 입력값 변화감지
   const onChangeHandler = (event) => {
@@ -40,13 +49,12 @@ const Form = () => {
     )
       return alert("빈 항목이 존재합니다.");
 
+    //TODO : ID 처리 문제..
     const id = nextId("todo-");
+    console.log(id);
 
     console.log(todo);
-    dispatch(addTodo({ id, ...todo }));
-
-    // DESC: 제출 성공하면 todo list 로 이동
-    navigate("/todo");
+    dispatch(__addTodoThunk({ id, ...todo }));
 
     //DESC: todo 값 초기화
     setTodo(initialTodo);
@@ -81,7 +89,8 @@ const Form = () => {
             value={todo.body}
             rows="10"
             placeholder="내용을 입력해주세요.(200자 이내)"
-            maxLength={200}></StyledTextArea>
+            maxLength={200}
+          ></StyledTextArea>
         </StyledInputContainer>
         <Button size="large">추가하기</Button>
       </StyledForm>
