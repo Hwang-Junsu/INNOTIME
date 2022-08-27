@@ -1,19 +1,25 @@
 {
-  "posts": [
+  "todos": [
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
+      "writer": "1",
+      "title": "1",
+      "body": "1",
+      "isDone": false,
+      "id": "todo-1"
+    },
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "writer": "2",
+      "title": "2",
+      "body": "2",
+      "isDone": false,
+      "id": "todo-2"
+    },
+    {
+      "writer": "1",
+      "title": "1",
+      "body": "1",
+      "isDone": false,
+      "id": "todo-3"
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }

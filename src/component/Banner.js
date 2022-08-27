@@ -2,22 +2,24 @@ import styled from "styled-components";
 
 const Banner = ({ title, backgroundColor, textColor }) => {
   return (
-    <StyledHeroContainer
+    <StyledBannerContainer
       textColor={textColor}
-      backgroundColor={backgroundColor}
-    >
+      backgroundColor={backgroundColor}>
       <StyledHeroTitle>{title}</StyledHeroTitle>
-    </StyledHeroContainer>
+    </StyledBannerContainer>
   );
 };
 
 export default Banner;
 
-const StyledHeroContainer = styled.div`
+const StyledBannerContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 5px;
+  width: 100%;
+  height: 150px;
+  font-size: large;
   color: ${(props) => props.textColor || "black"};
   border: 2px solid ${(props) => props.backgroundColor || "black"};
   background-color: ${(props) => props.backgroundColor || "black"};
