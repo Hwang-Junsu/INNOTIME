@@ -9,10 +9,10 @@ const initialState = {
 };
 
 export const __addTodoThunk = createAsyncThunk(
-  "ADD_TODO",
-  async (arg, thunkAPI) => {
+  "todos/addTodo",
+  async (payload, thunkAPI) => {
     try {
-      const { data } = await axios.post("http://localhost:3001/todos", arg);
+      const { data } = await axios.post("http://localhost:3001/todos", payload);
       console.log(data);
       return thunkAPI.fulfillWithValue(data);
     } catch (e) {

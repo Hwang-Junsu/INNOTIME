@@ -20,7 +20,7 @@ const StyledButton = styled.button`
     switch (size) {
       case "large":
         return css`
-          width: 100%;
+          width: 90%;
           margin: 8px;
           align-self: center;
         `;
@@ -38,4 +38,9 @@ const StyledButton = styled.button`
         `;
     }
   }}
+
+  &:hover {
+    background-color: ${(props) => props.hoverBackgroundColor || "#fff"};
+    color: ${(props) => props.hoverTextColor || "#000"};
+  }
 `;

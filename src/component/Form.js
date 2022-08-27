@@ -49,12 +49,10 @@ const Form = () => {
     )
       return alert("빈 항목이 존재합니다.");
 
-    //TODO : ID 처리 문제..
+    //TODO : ID 처리 문제..id 초기화 오류..
     const id = nextId("todo-");
-    console.log(id);
 
-    console.log(todo);
-    dispatch(__addTodoThunk({ id, ...todo }));
+    dispatch(__addTodoThunk({ ...todo, id }));
 
     //DESC: todo 값 초기화
     setTodo(initialTodo);
@@ -92,7 +90,13 @@ const Form = () => {
             maxLength={200}
           ></StyledTextArea>
         </StyledInputContainer>
-        <Button size="large">추가하기</Button>
+        <Button
+          size="large"
+          hoverBackgroundColor="#3399ff"
+          hoverTextColor="#fff"
+        >
+          추가하기
+        </Button>
       </StyledForm>
     </StyledFormContainer>
   );
@@ -129,4 +133,6 @@ const StyledInputContainer = styled.div`
 const StyledTextArea = styled.textarea`
   padding: 8px;
   margin: 8px;
+  border: 1px solid #eee;
+  border-radius: 5px;
 `;
