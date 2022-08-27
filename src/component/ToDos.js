@@ -26,26 +26,3 @@ let ListWrapper = styled.div`
   gap: 20px;
   padding-bottom: 40px;
 `;
-
-let TodoListBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-
-  width: 90vw;
-  border: 1px solid lightgray;
-  border-radius: 10px;
-  padding: 5px 10px 5px 20px;
-`;
-
-let TodoListBoxBody = styled.div`
-  flex-direction: column;
-`;
-
-let TodoListBtn = styled.button`
-  border: none;
-  background-color: white;
-  width: 35px;
-  height: 35px;
-  margin-top: 5px;
-  cursor: pointer;
-`;

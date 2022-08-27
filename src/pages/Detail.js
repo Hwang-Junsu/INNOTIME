@@ -7,6 +7,7 @@ import Layout from "../component/Layout";
 import { useParams, useNavigate } from "react-router-dom";
 import Modal from "../component/Modal";
 import { useState } from "react";
+import ArrowBack from "@material-ui/icons/ArrowBack";
 
 const Detail = () => {
   const { id } = useParams();
@@ -18,7 +19,6 @@ const Detail = () => {
   const [isOpen, setIsOpen] = useState(false);
   const modalIsOpen = () => {
     setIsOpen(true);
-    console.log(isOpen);
   };
 
   return (
@@ -31,13 +31,15 @@ const Detail = () => {
               navigate("/todo");
             }}
           >
-            🔙
+            <span className="material-icons">
+              <ArrowBack />
+            </span>
           </DetailBackBtn>
         </DetailHeader>
         <DetailTitle>{todoList.title}</DetailTitle>
         <p>{todoList.body}</p>
         <DetailEditBtn onClick={modalIsOpen}>수정하기</DetailEditBtn>
-        {isOpen && <Modal setIsOpen={setIsOpen} />}
+        {isOpen && <Modal isOpen={isOpen} setIsOpen={setIsOpen} />}
       </DetailLayout>
     </Layout>
   );

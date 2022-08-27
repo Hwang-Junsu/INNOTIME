@@ -29,6 +29,13 @@ export const toDoSlice = createSlice({
     deleteTodo: (state, action) => {
       state.todo = state.todo.filter((todo) => todo.id !== action.payload);
     },
+    editTodo: (state, action) => {
+      state.todo = state.todo.map((todo) =>
+        todo.id === action.payload.id
+          ? { ...todo, body: action.payload.body }
+          : todo
+      );
+    },
   },
 });
 
@@ -38,5 +45,5 @@ export const commentSlice = createSlice({
   reducers: {},
 });
 
-export const { addTodo, deleteTodo } = toDoSlice.actions;
+export const { addTodo, deleteTodo, editTodo } = toDoSlice.actions;
 export default toDoSlice.reducer;

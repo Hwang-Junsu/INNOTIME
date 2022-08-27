@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { editTodo } from "../redux/modules/slice";
 
-function Modal({ setIsOpen }) {
+function Modal({ isOpen, setIsOpen }) {
   const closeModal = () => {
+    setIsOpen(false);
+  };
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const todo = useSelector((state) => state.todo.todo);
+  const selectTodo = todo.find((todo) => todo.id === +id);
+
+  const [newBody, setNewBody] = useState(selectTodo.body);
+
+  const editHandler = () => {
+    dispatch(editTodo({ id: selectTodo.id, body: newBody }));
     setIsOpen(false);
   };
 
@@ -10,11 +24,14 @@ function Modal({ setIsOpen }) {
     <ModalBack onClick={closeModal}>
       <ModalBox onClick={(e) => e.stopPropagation()}>
         <ModalHeader>
-          <h1>제목입니다.</h1>
+          <h1>{selectTodo.title}</h1>
           <h3 onClick={closeModal}>X</h3>
         </ModalHeader>
-        <ModalText>내용입니다.</ModalText>
-        <ModalEditBtn onClick={closeModal}>저장하기</ModalEditBtn>
+        <ModalText
+          defaultValue={selectTodo.body}
+          onChange={(e) => setNewBody(e.target.value)}
+        ></ModalText>
+        <ModalEditBtn onClick={editHandler}>저장하기</ModalEditBtn>
       </ModalBox>
     </ModalBack>
   );
