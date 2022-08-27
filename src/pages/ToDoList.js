@@ -3,9 +3,11 @@ import Layout from "../component/Layout";
 
 import { useSelector } from "react-redux";
 const ToDoList = () => {
-  const todos = useSelector((state) => state.todos);
-  console.log(todos);
-  return <Layout></Layout>;
+  return (
+    <Layout>
+      <div></div>
+    </Layout>
+  );
 };
 
 export default ToDoList;

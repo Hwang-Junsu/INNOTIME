@@ -81,10 +81,9 @@ const Form = () => {
             value={todo.body}
             rows="10"
             placeholder="내용을 입력해주세요.(200자 이내)"
-            maxLength={200}
-          ></StyledTextArea>
+            maxLength={200}></StyledTextArea>
         </StyledInputContainer>
-        <Button>추가하기</Button>
+        <Button size="large">추가하기</Button>
       </StyledForm>
     </StyledFormContainer>
   );
@@ -109,6 +108,7 @@ const StyledForm = styled.form`
 const StyledLabel = styled.label`
   padding: 8px;
   font-size: x-large;
+  font-weight: bold;
 `;
 
 const StyledInputContainer = styled.div`
@@ -119,5 +119,5 @@ const StyledInputContainer = styled.div`
 
 const StyledTextArea = styled.textarea`
   padding: 8px;
-  margin: 0.4rem;
+  margin: 8px;
 `;
