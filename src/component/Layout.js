@@ -11,8 +11,8 @@ const Layout = ({ children }) => {
   );
 };
 
-export default Layout;
-
 let LayoutStyle = styled.div`
   margin: 20px 20px 20px 20px;
+  height: calc(100vh - 45px);
 `;
+export default Layout;

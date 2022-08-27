@@ -41,8 +41,30 @@ export const toDoSlice = createSlice({
 
 export const commentSlice = createSlice({
   name: "comment",
-  initialState: [],
-  reducers: {},
+  initialState: [
+    {
+      id: "temp",
+      todoId: 0,
+      writer: "다른사람",
+      body: "댓글입니다.",
+      date: Date.now(),
+    },
+  ],
+  reducers: {
+    addComment: (state, action) => {
+      state.push(action.payload);
+    },
+    deleteComment: (state, action) => {
+      return state.filter((comment) => comment.id !== action.payload);
+    },
+    updateComment: (state, action) => {
+      return state.map((comment) =>
+        action.payload.id === comment.id
+          ? { ...comment, body: action.payload.body }
+          : comment
+      );
+    },
+  },
 });
 
 export const { addTodo, deleteTodo, editTodo } = toDoSlice.actions;

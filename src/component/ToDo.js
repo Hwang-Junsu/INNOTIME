@@ -3,6 +3,10 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { deleteTodo } from "../redux/modules/slice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { deleteTodo } from "../redux/modules/slice";
 
 const ToDo = ({ work }) => {
   const dispatch = useDispatch();
