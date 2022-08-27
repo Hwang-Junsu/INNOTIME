@@ -1,22 +1,30 @@
 import React from "react";
 import styled from "styled-components";
 import Comment from "./Comment";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { addComment } from "../redux/modules/slice";
+import {useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {addComment} from "../redux/modules/slice";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 
 const Comments = () => {
   const dispatch = useDispatch();
   const info = useSelector((state) => state.comment);
-
+  const {id} = useParams();
+  const [currentEdit, setCurrentEdit] = React.useState(null);
+  const [editMode, setEditMode] = React.useState(false);
   const [writer, setWriter] = React.useState("");
   const [comment, setComment] = React.useState("");
   const [up, setUp] = React.useState(false);
+
   const reset = () => {
     setWriter("");
     setComment("");
   };
+  const onEditMode = (id) => {
+    setCurrentEdit(id);
+    setEditMode(!editMode);
+  };
+
   const onChange = (event) => {
     if (event.target.name === "writer") {
       setWriter(event.target.value);
@@ -24,6 +32,7 @@ const Comments = () => {
       setComment(event.target.value);
     }
   };
+
   const posting = (event) => {
     event.preventDefault();
     dispatch(
@@ -37,16 +46,16 @@ const Comments = () => {
     );
     reset();
   };
-  const { id } = useParams();
+
   const onClick = () => {
-    let isUp = up;
-    setUp(!isUp);
-    console.log(up);
+    setUp(!up);
   };
 
   return (
-    <Wrapper>
-      <HeaderButton onClick={onClick}>눌러서 댓글 올리기</HeaderButton>
+    <Wrapper isUp={up}>
+      <HeaderButton onClick={onClick}>
+        {up ? "눌러서 댓글 내리기" : "눌러서 댓글 올리기"}
+      </HeaderButton>
       <Form>
         <input
           id="writerInput"
@@ -55,6 +64,8 @@ const Comments = () => {
           value={writer}
           placeholder="이름 (5자 이내)"
           type="text"
+          maxLength={5}
+          required
         />
         <input
           id="commentInput"
@@ -63,20 +74,46 @@ const Comments = () => {
           value={comment}
           placeholder="댓글을 추가하세요(100자 이내)"
           type="text"
+          maxLength={100}
+          required
         />
         <button onClick={posting}>
           <AddCircleOutlineIcon />
         </button>
       </Form>
-      <CommentList isUp={up}>
+      <CommentList>
         {info.map((comment) => {
           return comment.todoId === id ? (
-            <Comment
-              key={comment.id}
-              writer={comment.writer}
-              body={comment.body}
-              id={comment.id}
-            />
+            editMode ? (
+              comment.id === currentEdit ? (
+                <Comment
+                  key={comment.id}
+                  writer={comment.writer}
+                  body={comment.body}
+                  id={comment.id}
+                  onEditMode={onEditMode}
+                  disabled={false}
+                />
+              ) : (
+                <Comment
+                  key={comment.id}
+                  writer={comment.writer}
+                  body={comment.body}
+                  id={comment.id}
+                  onEditMode={onEditMode}
+                  disabled={true}
+                />
+              )
+            ) : (
+              <Comment
+                key={comment.id}
+                writer={comment.writer}
+                body={comment.body}
+                id={comment.id}
+                onEditMode={onEditMode}
+                disabled={false}
+              />
+            )
           ) : null;
         })}
       </CommentList>
@@ -85,25 +122,33 @@ const Comments = () => {
 };
 
 const Wrapper = styled.div`
-  background-color: aliceblue;
+  height: ${(props) => (props.isUp ? 400 : 50)}px;
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 40vh;
-`;
-const Form = styled.form`
+  bottom: 0px;
+  left: 0px;
   width: 100%;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
+  transition: height 400ms ease-in-out 0s;
+`;
+
+const Form = styled.form`
   display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
+  flex-direction: row;
+  gap: 12px;
+  width: 100%;
+  padding: 0px 12px;
 
   input {
-    height: 40px;
-    border: 1px solid gray;
-    border-radius: 5px;
+    box-sizing: border-box;
+    height: 46px;
+    width: 100%;
+    outline: none;
+    border-radius: 8px;
+    padding: 0px 12px;
+    font-size: 14px;
+    border: 1px solid rgb(238, 238, 238);
   }
   #writerInput {
     width: 8%;
@@ -124,6 +169,13 @@ const CommentList = styled.div`
   visibility: ${(props) => (props.isUp ? "hidden" : "visible")};
 `;
 const HeaderButton = styled.div`
-  margin-bottom: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  padding: 0px 12px;
+  border-top: 1px solid gray;
 `;
+
 export default Comments;

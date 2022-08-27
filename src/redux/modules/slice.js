@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
   todo: [
@@ -50,7 +50,14 @@ export const commentSlice = createSlice({
     deleteComment: (state, action) => {
       return state.filter((comment) => comment.id !== action.payload);
     },
+    updateComment: (state, action) => {
+      return state.map((comment) =>
+        action.payload.id === comment.id
+          ? {...comment, body: action.payload.body}
+          : comment
+      );
+    },
   },
 });
-export const { addTodo, deleteTodo } = toDoSlice.actions;
-export const { addComment, deleteComment } = commentSlice.actions;
+export const {addTodo, deleteTodo} = toDoSlice.actions;
+export const {addComment, deleteComment, updateComment} = commentSlice.actions;
