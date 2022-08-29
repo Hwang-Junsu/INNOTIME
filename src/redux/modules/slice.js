@@ -1,44 +1,67 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-  todo: [
-    {
-      id: 1,
-      title: "리액트 학습",
-      body: "이번 주는 프론트 협업이다!",
-      writer: "8조 조장",
-      isDone: false,
-    },
-    {
-      id: 2,
-      title: "저녁 먹기",
-      body: "저녁 뭐먹지..?",
-      writer: "8조 조원",
-      isDone: true,
-    },
-  ],
+  todos: [],
+  isLoading: false,
+  error: null,
 };
 
+export const __getTodos = createAsyncThunk(
+  "todos/getTodos",
+  async (payload, thunkAPI) => {
+    try {
+      console.log(123);
+      const data = await axios.get("http://localhost:3001/todos");
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      console.log(321);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+// export const __deleteTodos = createAsyncThunk(
+//   "todos/deleteTodos",
+//   async (payload, thunkAPI) => {
+//     try {
+//       const data = await axios.delete(`http://localhost:3001/todos/${payload}`);
+//       return thunkAPI.fulfillWithValue(data.data);
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error);
+//     }
+//   }
+// );
+
 export const toDoSlice = createSlice({
-  name: "todo",
+  name: "todos",
   initialState,
   reducers: {
-    loadTodo: (state, action) => {
-      return action.payload;
-    },
     addTodo: (state, action) => {
       state.todo = [...state.todo, action.payload];
     },
     deleteTodo: (state, action) => {
-      state.todo = state.todo.filter((todo) => todo.id !== action.payload);
+      state.todos = state.todos.filter((todo) => todo.id !== action.payload);
     },
     editTodo: (state, action) => {
-      state.todo = state.todo.map((todo) =>
+      state.todos = state.todos.map((todo) =>
         todo.id === action.payload.id
-          ? {...todo, body: action.payload.body}
+          ? { ...todo, body: action.payload.body }
           : todo
       );
+    },
+  },
+  extraReducers: {
+    [__getTodos.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__getTodos.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.todos = action.payload;
+    },
+    [__getTodos.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
     },
   },
 });
@@ -60,7 +83,7 @@ export const commentSlice = createSlice({
     updateComment: (state, action) => {
       const newState = state.map((comment) =>
         action.payload.id === comment.id
-          ? {...comment, body: action.payload.body}
+          ? { ...comment, body: action.payload.body }
           : comment
       );
 
@@ -83,7 +106,7 @@ export const loadToDoFromDB = () => {
   };
 };
 
-export const {addTodo, deleteTodo, editTodo, loadTodo} = toDoSlice.actions;
-export const {addComment, deleteComment, updateComment, loadComment} =
+export const { addTodo, deleteTodo, editTodo, loadTodo } = toDoSlice.actions;
+export const { addComment, deleteComment, updateComment, loadComment } =
   commentSlice.actions;
 export default toDoSlice.reducer;

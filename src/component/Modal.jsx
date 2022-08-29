@@ -10,8 +10,8 @@ function Modal({ isOpen, setIsOpen }) {
   };
   const { id } = useParams();
   const dispatch = useDispatch();
-  const todo = useSelector((state) => state.todo.todo);
-  const selectTodo = todo.find((todo) => todo.id === +id);
+  const { todos } = useSelector((state) => state.todos);
+  const selectTodo = todos.find((todo) => todo.id === id);
 
   const [newBody, setNewBody] = useState(selectTodo.body);
 
