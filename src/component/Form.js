@@ -11,6 +11,7 @@ import nextId from "react-id-generator";
 const Form = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const isSuccess = useSelector((state) => state.todos.isSuccess);
 
   const initialTodo = {
@@ -30,13 +31,13 @@ const Form = () => {
     return () => dispatch(clearTodo());
   }, [dispatch, isSuccess, navigate]);
 
-  //DESC: 입력값 변화감지
+  /** DESC: 입력 값 변화 감지*/
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
     setTodo({ ...todo, [name]: value });
   };
 
-  ///DESC: 폼 제출했을 때 동작
+  /**DESC: 폼 제출했을 때 동작 */
   const onSubmitHandler = (event) => {
     // DESC: 새로고침 방지
     event.preventDefault();
