@@ -1,16 +1,17 @@
 // 글 상세 페이지
-import React from "react";
-import { useSelector } from "react-redux";
+import React, {useEffect} from "react";
+import {useSelector} from "react-redux";
 import styled from "styled-components";
 import Layout from "../component/Layout";
-import { useParams, useNavigate } from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import Modal from "../component/Modal";
-import { useState } from "react";
+import {useState} from "react";
 import ArrowBack from "@material-ui/icons/ArrowBack";
 import Comments from "../component/Comments";
+import axios from "axios";
 
 const Detail = () => {
-  const { id } = useParams();
+  const {id} = useParams();
   const navigate = useNavigate();
   const todo = useSelector((state) => state.todo.todo);
   const todoList = todo.find((todo) => todo.id === +id);
