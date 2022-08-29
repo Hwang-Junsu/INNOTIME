@@ -56,7 +56,7 @@ const Comments = () => {
     <Wrapper isUp={up}>
       <HeaderWrapper>
         <HeaderButton onClick={onClick}>
-          {up ? "눌러서 댓글 올리기" : "눌러서 댓글 내리기"}
+          {up ? "눌러서 댓글 내리기" : "눌러서 댓글 올리기"}
         </HeaderButton>
       </HeaderWrapper>
       <Form>

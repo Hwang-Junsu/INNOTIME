@@ -74,7 +74,7 @@ const Button = styled.button`
 `;
 const Input = styled.input`
   height: 20px;
-  width: 100%;
+  width: 90%;
   border: 1px solid gray;
   border-radius: 5px;
 `;

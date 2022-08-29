@@ -11,7 +11,7 @@ import nextId from "react-id-generator";
 const Form = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isSuccess = useSelector((state) => state.todos.isSuccess);
+  //const isSuccess = useSelector((state) => state.todos.isSuccess);
 
   const initialTodo = {
     writer: "",
@@ -22,13 +22,13 @@ const Form = () => {
 
   const [todo, setTodo] = useState(initialTodo);
 
-  useEffect(() => {
-    if (!isSuccess) return;
-    // DESC: 제출 성공하면 todo list 로 이동
-    if (isSuccess) navigate("/todo");
+  // useEffect(() => {
+  //   if (!isSuccess) return;
+  //   // DESC: 제출 성공하면 todo list 로 이동
+  //   if (isSuccess) navigate("/todo");
 
-    return () => dispatch(clearTodo());
-  }, [dispatch, isSuccess, navigate]);
+  //   return () => dispatch(clearTodo());
+  // }, [dispatch, isSuccess, navigate]);
 
   //DESC: 입력값 변화감지
   const onChangeHandler = (event) => {
