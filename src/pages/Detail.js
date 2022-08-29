@@ -1,6 +1,6 @@
 // 글 상세 페이지
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Layout from "../component/Layout";
 import { useParams, useNavigate } from "react-router-dom";
@@ -8,12 +8,18 @@ import Modal from "../component/Modal";
 import { useState } from "react";
 import ArrowBack from "@material-ui/icons/ArrowBack";
 import Comments from "../component/Comments";
+import { __getTodos } from "../redux/modules/slice";
 
 const Detail = () => {
+  const dispatch = useDispatch();
   const { id } = useParams();
   const navigate = useNavigate();
-  const todo = useSelector((state) => state.todo.todo);
-  const todoList = todo.find((todo) => todo.id === +id);
+  const { todos } = useSelector((state) => state.todos);
+  const todoList = todos.find((todo) => todo.id === id);
+
+  useEffect(() => {
+    dispatch(__getTodos());
+  }, []);
 
   //TODO: 수정하기 버튼 클릭시 모달창 구현
   const [isOpen, setIsOpen] = useState(false);
@@ -25,7 +31,7 @@ const Detail = () => {
     <Layout>
       <DetailLayout>
         <DetailHeader>
-          <h2>Id : {todoList.id}</h2>
+          <h2>Id : {todoList?.id}</h2>
           <DetailBackBtn
             onClick={() => {
               navigate("/todo");
@@ -36,8 +42,8 @@ const Detail = () => {
             </span>
           </DetailBackBtn>
         </DetailHeader>
-        <DetailTitle>{todoList.title}</DetailTitle>
-        <p>{todoList.body}</p>
+        <DetailTitle>{todoList?.title}</DetailTitle>
+        <p>{todoList?.body}</p>
         <DetailEditBtn onClick={modalIsOpen}>수정하기</DetailEditBtn>
         {isOpen && <Modal isOpen={isOpen} setIsOpen={setIsOpen} />}
       </DetailLayout>

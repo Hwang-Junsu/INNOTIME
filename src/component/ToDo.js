@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { deleteTodo } from "../redux/modules/slice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { __deleteTodos } from "../redux/modules/slice";
+import { useEffect } from "react";
 
 const ToDo = ({ work }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const deleteHandler = (event) => {
+
+  async function deleteHandler(event) {
     event.stopPropagation(); // 삭제 버튼 클릭시 상세페이지에 진입하는 현상 방지
+    await axios.delete(`http://localhost:3001/todos/${work.id}`);
     dispatch(deleteTodo(work.id));
-  };
+  }
 
   return (
     <TodoListBox
