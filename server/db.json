@@ -22,13 +22,5 @@
       "id": "todo-3"
     }
   ],
-  "comment": [
-    {
-      "id": "temp",
-      "todoId": 1,
-      "writer": "다른사람",
-      "body": "댓글입니다.",
-      "date": 4544981618
-    }
-  ]
+  "comment": []
 }

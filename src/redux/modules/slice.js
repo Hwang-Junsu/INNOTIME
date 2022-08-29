@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
   todo: [
@@ -23,6 +24,9 @@ export const toDoSlice = createSlice({
   name: "todo",
   initialState,
   reducers: {
+    loadTodo: (state, action) => {
+      return action.payload;
+    },
     addTodo: (state, action) => {
       state.todo = [...state.todo, action.payload];
     },
@@ -32,7 +36,7 @@ export const toDoSlice = createSlice({
     editTodo: (state, action) => {
       state.todo = state.todo.map((todo) =>
         todo.id === action.payload.id
-          ? { ...todo, body: action.payload.body }
+          ? {...todo, body: action.payload.body}
           : todo
       );
     },
@@ -41,33 +45,45 @@ export const toDoSlice = createSlice({
 
 export const commentSlice = createSlice({
   name: "comment",
-  initialState: [
-    {
-      id: "temp",
-      todoId: 0,
-      writer: "다른사람",
-      body: "댓글입니다.",
-      date: Date.now(),
-    },
-  ],
+  initialState: [],
   reducers: {
+    loadComment: (state, action) => {
+      return action.payload;
+    },
     addComment: (state, action) => {
       state.push(action.payload);
     },
     deleteComment: (state, action) => {
-      return state.filter((comment) => comment.id !== action.payload);
+      const newState = state.filter((comment) => comment.id !== action.payload);
+      return newState;
     },
     updateComment: (state, action) => {
-      return state.map((comment) =>
+      const newState = state.map((comment) =>
         action.payload.id === comment.id
-          ? { ...comment, body: action.payload.body }
+          ? {...comment, body: action.payload.body}
           : comment
       );
+
+      return newState;
     },
   },
 });
 
-export const { addTodo, deleteTodo, editTodo } = toDoSlice.actions;
-export const { addComment, deleteComment, updateComment } =
+export const loadCommentFromDB = () => {
+  return async function (dispatch) {
+    const commentsData = await axios.get("http://localhost:3001/comment");
+    dispatch(commentSlice.actions.loadComment(commentsData.data));
+  };
+};
+
+export const loadToDoFromDB = () => {
+  return async function (dispatch) {
+    const todoData = await (await axios("http://localhost:3001/todos")).data;
+    dispatch(toDoSlice.actions.loadTodo(todoData));
+  };
+};
+
+export const {addTodo, deleteTodo, editTodo, loadTodo} = toDoSlice.actions;
+export const {addComment, deleteComment, updateComment, loadComment} =
   commentSlice.actions;
 export default toDoSlice.reducer;

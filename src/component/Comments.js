@@ -1,21 +1,26 @@
 import React from "react";
 import styled from "styled-components";
 import Comment from "./Comment";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { addComment } from "../redux/modules/slice";
+import {useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {addComment} from "../redux/modules/slice";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import {loadCommentFromDB, deleteComment} from "../redux/modules/slice";
+import axios from "axios";
 
 const Comments = () => {
   const dispatch = useDispatch();
-  const info = useSelector((state) => state.comment);
-  const { id } = useParams();
+  React.useEffect(() => {
+    dispatch(loadCommentFromDB());
+  }, []);
+  const commentList = useSelector((state) => state.comment);
+
+  const {id} = useParams();
   const [currentEdit, setCurrentEdit] = React.useState(null);
   const [editMode, setEditMode] = React.useState(false);
   const [writer, setWriter] = React.useState("");
   const [comment, setComment] = React.useState("");
   const [up, setUp] = React.useState(false);
-
   const reset = () => {
     setWriter("");
     setComment("");
@@ -24,7 +29,6 @@ const Comments = () => {
     setCurrentEdit(id);
     setEditMode(!editMode);
   };
-
   const onChange = (event) => {
     if (event.target.name === "writer") {
       setWriter(event.target.value);
@@ -35,16 +39,16 @@ const Comments = () => {
 
   const posting = (event) => {
     if (writer === "" || comment === "") return;
+    const data = {
+      id: Date.now(),
+      todoId: id,
+      writer: writer,
+      body: comment,
+      date: Date.now(),
+    };
     event.preventDefault();
-    dispatch(
-      addComment({
-        id: Date.now(),
-        todoId: id,
-        writer: writer,
-        body: comment,
-        date: Date.now(),
-      })
-    );
+    dispatch(addComment(data));
+    axios.post("http://localhost:3001/comment", data);
     reset();
   };
 
@@ -85,7 +89,7 @@ const Comments = () => {
         </button>
       </Form>
       <CommentList>
-        {info.map((comment) => {
+        {commentList.map((comment) => {
           return comment.todoId === id ? (
             editMode ? (
               comment.id === currentEdit ? (
@@ -93,7 +97,9 @@ const Comments = () => {
                   key={comment.id}
                   writer={comment.writer}
                   body={comment.body}
+                  todoId={comment.todoId}
                   id={comment.id}
+                  date={comment.date}
                   onEditMode={onEditMode}
                   disabled={false}
                 />
@@ -102,7 +108,9 @@ const Comments = () => {
                   key={comment.id}
                   writer={comment.writer}
                   body={comment.body}
+                  todoId={comment.todoId}
                   id={comment.id}
+                  date={comment.date}
                   onEditMode={onEditMode}
                   disabled={true}
                 />
@@ -112,7 +120,9 @@ const Comments = () => {
                 key={comment.id}
                 writer={comment.writer}
                 body={comment.body}
+                todoId={comment.todoId}
                 id={comment.id}
+                date={comment.date}
                 onEditMode={onEditMode}
                 disabled={false}
               />
