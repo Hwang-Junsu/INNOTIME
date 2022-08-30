@@ -1,11 +1,11 @@
 // 글 상세 페이지
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Layout from "../component/Layout";
 import { useParams, useNavigate } from "react-router-dom";
 import Modal from "../component/Modal";
-import { useState } from "react";
+import { useDispatch } from "react-redux";
 import ArrowBack from "@material-ui/icons/ArrowBack";
 import Comments from "../component/Comments";
 import { __getTodos } from "../redux/modules/slice";
@@ -19,7 +19,7 @@ const Detail = () => {
 
   useEffect(() => {
     dispatch(__getTodos());
-  }, []);
+  }, [dispatch]);
 
   //TODO: 수정하기 버튼 클릭시 모달창 구현
   const [isOpen, setIsOpen] = useState(false);

@@ -37,9 +37,9 @@ export const toDoSlice = createSlice({
   name: "todos",
   initialState,
   reducers: {
-    addTodo: (state, action) => {
-      state.todo = [...state.todo, action.payload];
-    },
+    // addTodo: (state, action) => {
+    //   state.todo = [...state.todo, action.payload];
+    // },
     deleteTodo: (state, action) => {
       state.todos = state.todos.filter((todo) => todo.id !== action.payload);
     },
