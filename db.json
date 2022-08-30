@@ -13,13 +13,6 @@
       "body": "2",
       "isDone": false,
       "id": "todo-2"
-    },
-    {
-      "writer": "1",
-      "title": "1",
-      "body": "1",
-      "isDone": false,
-      "id": "todo-3"
     }
   ]
 }

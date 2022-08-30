@@ -8,6 +8,20 @@ const initialState = {
   isSuccess: false,
 };
 
+export const __getTodos = createAsyncThunk(
+  "todos/getTodos",
+  async (payload, thunkAPI) => {
+    try {
+      console.log(123);
+      const data = await axios.get("http://localhost:3001/todos");
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      console.log(321);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const __addTodoThunk = createAsyncThunk(
   "todos/addTodo",
   async (payload, thunkAPI) => {
@@ -28,8 +42,29 @@ export const todosSlice = createSlice({
     clearTodo: (state, _) => {
       state.isSuccess = false;
     },
+    deleteTodo: (state, action) => {
+      state.todos = state.todos.filter((todo) => todo.id !== action.payload);
+    },
+    editTodo: (state, action) => {
+      state.todos = state.todos.map((todo) =>
+        todo.id === action.payload.id
+          ? { ...todo, body: action.payload.body }
+          : todo
+      );
+    },
   },
   extraReducers: {
+    [__getTodos.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__getTodos.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.todos = action.payload;
+    },
+    [__getTodos.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
     [__addTodoThunk.pending]: (state) => {
       state.isLoading = true; // DESC: 네트워크 요청이 시작되면 로딩 상태를 true로 변경!
     },
@@ -45,5 +80,5 @@ export const todosSlice = createSlice({
   },
 });
 
-export const { clearTodo } = todosSlice.actions;
+export const { clearTodo, addTodo, deleteTodo, editTodo } = todosSlice.actions;
 export default todosSlice.reducer;

@@ -94,7 +94,7 @@ export const commentSlice = createSlice({
   },
 });
 
-export const { addTodo, deleteTodo, editTodo } = toDoSlice.actions;
+// export const { addTodo, deleteTodo, editTodo } = toDoSlice.actions;
 export const { addComment, deleteComment, updateComment } =
   commentSlice.actions;
 export default toDoSlice.reducer;

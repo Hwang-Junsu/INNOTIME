@@ -2,7 +2,7 @@ import { ContactsOutlined } from "@material-ui/icons";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { __getTodos } from "../redux/modules/slice";
+import { __getTodos } from "../redux/modules/todosSlice";
 import ToDo from "./ToDo";
 
 const ToDos = () => {

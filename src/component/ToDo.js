@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { deleteTodo } from "../redux/modules/slice";
+import { deleteTodo } from "../redux/modules/todosSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { __deleteTodos } from "../redux/modules/slice";
+import { __deleteTodos } from "../redux/modules/todosSlice";
 import { useEffect } from "react";
 
 const ToDo = ({ work }) => {
