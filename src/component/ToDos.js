@@ -23,7 +23,7 @@ const ToDos = () => {
 
   return (
     <div>
-      <h1>내 할일</h1>
+      <ListTitle>자유게시판</ListTitle>
       <ListWrapper>
         {todos.map((work) => (
           <ToDo work={work} key={work.id} />
@@ -40,4 +40,8 @@ let ListWrapper = styled.div`
   flex-wrap: wrap;
   gap: 20px;
   padding-bottom: 40px;
+`;
+
+let ListTitle = styled.h2`
+  margin: 35px 0px 35px 0px;
 `;

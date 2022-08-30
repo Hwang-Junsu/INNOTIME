@@ -42,6 +42,10 @@ let TodoListBox = styled.div`
   border: 1px solid lightgray;
   border-radius: 10px;
   padding: 5px 10px 5px 20px;
+
+  &:hover {
+    border: 2px solid #3399ff;
+  }
 `;
 
 let TodoListBoxBody = styled.div`
