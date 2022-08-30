@@ -1,6 +1,6 @@
 // 글 상세 페이지
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Layout from "../component/Layout";
 import { useParams, useNavigate } from "react-router-dom";
@@ -21,7 +21,7 @@ const Detail = () => {
     dispatch(__getTodos());
   }, []);
 
-  //TODO: 수정하기 버튼 클릭시 모달창 구현
+  //DESC: 수정하기 버튼 클릭시 모달창 구현
   const [isOpen, setIsOpen] = useState(false);
   const modalIsOpen = () => {
     setIsOpen(true);
@@ -45,7 +45,7 @@ const Detail = () => {
         <DetailTitle>{todoList?.title}</DetailTitle>
         <p>{todoList?.body}</p>
         <DetailEditBtn onClick={modalIsOpen}>수정하기</DetailEditBtn>
-        {isOpen && <Modal isOpen={isOpen} setIsOpen={setIsOpen} />}
+        {isOpen && <Modal setIsOpen={setIsOpen} />}
       </DetailLayout>
       <Comments />
     </Layout>

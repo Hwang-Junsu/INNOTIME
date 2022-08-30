@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { editTodo } from "../redux/modules/todosSlice";
+import { __editTodos } from "../redux/modules/todosSlice";
 
-function Modal({ isOpen, setIsOpen }) {
+function Modal({ setIsOpen }) {
   const closeModal = () => {
     setIsOpen(false);
   };
@@ -16,7 +16,7 @@ function Modal({ isOpen, setIsOpen }) {
   const [newBody, setNewBody] = useState(selectTodo.body);
 
   const editHandler = () => {
-    dispatch(editTodo({ id: selectTodo.id, body: newBody }));
+    dispatch(__editTodos({ id: selectTodo.id, body: newBody }));
     setIsOpen(false);
   };
 
