@@ -27,7 +27,7 @@ export const __addTodoThunk = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const { data } = await axios.post("http://localhost:3001/todos", payload);
-      console.log(data);
+
       return thunkAPI.fulfillWithValue(data);
     } catch (e) {
       return thunkAPI.rejectWithValue(e);

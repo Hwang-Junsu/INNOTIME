@@ -4,7 +4,8 @@ const Banner = ({ title, backgroundColor, textColor }) => {
   return (
     <StyledBannerContainer
       textColor={textColor}
-      backgroundColor={backgroundColor}>
+      backgroundColor={backgroundColor}
+    >
       <StyledHeroTitle>{title}</StyledHeroTitle>
     </StyledBannerContainer>
   );
@@ -17,7 +18,6 @@ const StyledBannerContainer = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 5px;
-  width: 100%;
   height: 150px;
   font-size: large;
   color: ${(props) => props.textColor || "black"};

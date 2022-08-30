@@ -10,11 +10,10 @@ export default Button;
 
 const StyledButton = styled.button`
   border: 1px solid #eee;
-  color: ${(props) => props.textColor || "#000"};
-  background-color: ${(props) => props.backgroundColor || "#fff"};
+  color: ${({ textColor }) => textColor || "#000"};
+  background-color: ${({ backgroundColor }) => backgroundColor || "#fff"};
   height: 48px;
   margin: 8px;
-  cursor: pointer;
 
   ${({ size }) => {
     switch (size) {
@@ -40,7 +39,9 @@ const StyledButton = styled.button`
   }}
 
   &:hover {
-    background-color: ${(props) => props.hoverBackgroundColor || "#fff"};
-    color: ${(props) => props.hoverTextColor || "#000"};
+    background-color: ${({ hoverBackgroundColor }) =>
+      hoverBackgroundColor || "#fff"};
+    color: ${({ hoverTextColor }) => hoverTextColor || "#000"};
+    cursor: pointer;
   }
 `;

@@ -5,8 +5,9 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import CancelIcon from "@material-ui/icons/Cancel";
 import SaveIcon from "@material-ui/icons/Save";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import { useDispatch } from "react-redux";
-import { deleteComment, updateComment } from "../redux/modules/slice";
+import {useDispatch, useSelector} from "react-redux";
+import {deleteComment, updateComment} from "../redux/modules/slice";
+import axios from "axios";
 
 const CommentBox = styled.div`
   position: relative;
@@ -74,25 +75,31 @@ const Button = styled.button`
 `;
 const Input = styled.input`
   height: 20px;
-  width: 100%;
+  width: 90%;
   border: 1px solid gray;
   border-radius: 5px;
 `;
 
-const Comment = ({ id, writer, body, onEditMode, disabled }) => {
+const Comment = ({id, date, todoId, writer, body, onEditMode, disabled}) => {
   const [isEdit, setIsEdit] = React.useState(false);
   const [editComment, setEditComment] = React.useState(body);
   const dispatch = useDispatch();
-  const onDelete = () => {
-    dispatch(deleteComment(id));
-  };
   const onIsEdit = () => {
     setIsEdit(!isEdit);
     onEditMode(id);
   };
+  const onDelete = async () => {
+    //    console.log(id);
+    const URL = `http://localhost:3001/comment/${id}`;
 
+    await axios.delete(URL);
+    dispatch(deleteComment(id));
+    //    const commentList = await axios.get("http://localhost:3001/comment");
+    //    console.log(id, commentList.data);
+  };
   const updating = () => {
-    dispatch(updateComment({ id: id, body: editComment }));
+    dispatch(updateComment({id: id, body: editComment}));
+    axios.patch(`http://localhost:3001/comment/${id}`, {body: editComment});
     setIsEdit(false);
     onEditMode(null);
   };

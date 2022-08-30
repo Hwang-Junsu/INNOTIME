@@ -16,7 +16,7 @@ const Header = () => {
         }}
       />
 
-      <StyledTitle>모두의 투두리스트</StyledTitle>
+      <StyledTitle>INNOTIME</StyledTitle>
     </StyledHeader>
   );
 };
