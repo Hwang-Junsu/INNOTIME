@@ -7,12 +7,13 @@ import Input from "./Input";
 import { useDispatch, useSelector } from "react-redux";
 import { __addTodoThunk, clearTodo } from "../redux/modules/todosSlice";
 import nextId from "react-id-generator";
+import useInput from "../hooks/useInput";
 
 const Form = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const isSuccess = useSelector((state) => state.todos.isSuccess);
+  // const isSuccess = useSelector((state) => state.todos.isSuccess);
 
   const initialTodo = {
     writer: "",
@@ -24,18 +25,23 @@ const Form = () => {
   const [todo, setTodo] = useState(initialTodo);
 
   // useEffect(() => {
-  //   if (!isSuccess) return;
-  //   // DESC: 제출 성공하면 todo list 로 이동
-  //   if (isSuccess) navigate("/todo");
+  // if (!isSuccess) return;
+  // // DESC: 제출 성공하면 todo list 로 이동
+  // if (isSuccess) navigate("/todo");
+  // console.log(isSuccess);
 
-  //   return () => dispatch(clearTodo());
+  // return () => dispatch(clearTodo());
   // }, [dispatch, isSuccess, navigate]);
 
   /** DESC: 입력 값 변화 감지*/
-  const onChangeHandler = (event) => {
-    const { name, value } = event.target;
-    setTodo({ ...todo, [name]: value });
-  };
+  // const onChangeHandler = (event) => {
+  //   const { name, value } = event.target;
+  //   setTodo({ ...todo, [name]: value });
+  // };
+
+  const [writer, onChangeWriterHandler] = useInput();
+  const [title, onChangeTitleHandler] = useInput();
+  const [body, onChangeBodyHandler] = useInput();
 
   /**DESC: 폼 제출했을 때 동작 */
   const onSubmitHandler = (event) => {
@@ -43,53 +49,68 @@ const Form = () => {
     event.preventDefault();
 
     // DESC: 유효성 검사
-    if (
-      todo.writer.trim() === "" ||
-      todo.title.trim() === "" ||
-      todo.body.trim() === ""
-    )
+    if (writer.trim() === "" || title.trim() === "" || body.trim() === "")
       return alert("빈 항목이 존재합니다.");
 
-    //TODO : ID 처리 문제..id 초기화 오류..
-    const id = nextId("todo-");
+    todo.writer = writer;
+    todo.title = title;
+    todo.body = body;
 
-    dispatch(__addTodoThunk({ ...todo, id }));
+    // setTodo({ writer: writer, title: title, body: body, isDone: false });
+
+    //TODO : ID 처리 문제..id 초기화 오류..
+    // const id = nextId();
+
+    console.log(todo);
+
+    dispatch(__addTodoThunk(todo));
 
     //DESC: todo 값 초기화
     setTodo(initialTodo);
+
+    navigate("/todo");
   };
 
   return (
     <StyledFormContainer>
       <StyledForm onSubmit={onSubmitHandler}>
         <StyledInputContainer>
-          <StyledLabel>작성자</StyledLabel>
-          <Input
-            name="writer"
-            onChange={onChangeHandler}
-            type="text"
-            value={todo.writer}
-            placeholder="작성자의 이름을 입력해주세요.(5자 이내)"
-            maxLength={5}
-          />
-          <StyledLabel>제목</StyledLabel>
-          <Input
-            name="title"
-            onChange={onChangeHandler}
-            type="text"
-            value={todo.title}
-            placeholder="제목을 입력해주세요.(50자 이내)"
-            maxLength={50}
-          />
-          <StyledLabel>내용</StyledLabel>
-          <StyledTextArea
-            name="body"
-            onChange={onChangeHandler}
-            value={todo.body}
-            rows="10"
-            placeholder="내용을 입력해주세요.(200자 이내)"
-            maxLength={200}
-          ></StyledTextArea>
+          <StyledInputBox>
+            <StyledLabel>작성자</StyledLabel>
+            <Input
+              name="writer"
+              onChange={onChangeWriterHandler}
+              type="text"
+              value={writer}
+              placeholder="이름을 입력해주세요.(5자 이내)"
+              maxLength={5}
+              width="20%"
+            />
+          </StyledInputBox>
+
+          <StyledInputBox>
+            <StyledLabel>제목</StyledLabel>
+            <Input
+              name="title"
+              onChange={onChangeTitleHandler}
+              type="text"
+              value={title}
+              placeholder="제목을 입력해주세요.(50자 이내)"
+              maxLength={50}
+              width="50%"
+            />
+          </StyledInputBox>
+          <StyledInputBox>
+            <StyledLabel>내용</StyledLabel>
+            <StyledTextArea
+              name="body"
+              onChange={onChangeBodyHandler}
+              value={body}
+              rows="10"
+              placeholder="내용을 입력해주세요.(200자 이내)"
+              maxLength={200}
+            ></StyledTextArea>
+          </StyledInputBox>
         </StyledInputContainer>
         <Button
           size="large"
@@ -123,12 +144,18 @@ const StyledLabel = styled.label`
   padding: 8px;
   font-size: x-large;
   font-weight: bold;
+  width: 5%;
+  min-width: 100px;
 `;
 
 const StyledInputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 4;
+`;
+
+const StyledInputBox = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
 
 const StyledTextArea = styled.textarea`
@@ -136,4 +163,5 @@ const StyledTextArea = styled.textarea`
   margin: 8px;
   border: 1px solid #eee;
   border-radius: 5px;
+  min-width: fit-content;
 `;

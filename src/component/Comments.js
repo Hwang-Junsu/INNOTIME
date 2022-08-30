@@ -1,21 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 import Comment from "./Comment";
-import {useParams} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {addComment} from "../redux/modules/slice";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addComment } from "../redux/modules/slice";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import {loadCommentFromDB, deleteComment} from "../redux/modules/slice";
+import { loadCommentFromDB, deleteComment } from "../redux/modules/slice";
 import axios from "axios";
 
 const Comments = () => {
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(loadCommentFromDB());
-  }, []);
+  }, [dispatch]);
   const commentList = useSelector((state) => state.comment);
 
-  const {id} = useParams();
+  const { id } = useParams();
   const [currentEdit, setCurrentEdit] = React.useState(null);
   const [editMode, setEditMode] = React.useState(false);
   const [writer, setWriter] = React.useState("");
@@ -41,7 +41,7 @@ const Comments = () => {
     if (writer === "" || comment === "") return;
     const data = {
       id: Date.now(),
-      todoId: id,
+      todo: id,
       writer: writer,
       body: comment,
       date: Date.now(),
@@ -90,14 +90,14 @@ const Comments = () => {
       </Form>
       <CommentList>
         {commentList.map((comment) => {
-          return comment.todoId === id ? (
+          return comment.todo === id ? (
             editMode ? (
               comment.id === currentEdit ? (
                 <Comment
                   key={comment.id}
                   writer={comment.writer}
                   body={comment.body}
-                  todoId={comment.todoId}
+                  todo={comment.todo}
                   id={comment.id}
                   date={comment.date}
                   onEditMode={onEditMode}
@@ -108,7 +108,7 @@ const Comments = () => {
                   key={comment.id}
                   writer={comment.writer}
                   body={comment.body}
-                  todoId={comment.todoId}
+                  todo={comment.todo}
                   id={comment.id}
                   date={comment.date}
                   onEditMode={onEditMode}
@@ -120,7 +120,7 @@ const Comments = () => {
                 key={comment.id}
                 writer={comment.writer}
                 body={comment.body}
-                todoId={comment.todoId}
+                todo={comment.todo}
                 id={comment.id}
                 date={comment.date}
                 onEditMode={onEditMode}
