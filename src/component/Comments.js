@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import {__getComments, __addComments} from "../redux/modules/slice";
 import useInput from "../hooks/useInput";
+import Button from "./Button";
 
 const Comments = () => {
   const dispatch = useDispatch();
@@ -77,9 +78,9 @@ const Comments = () => {
           maxLength={100}
           required
         />
-        <button onClick={posting}>
+        <Button onClick={posting}>
           <AddCircleOutlineIcon />
-        </button>
+        </Button>
       </Form>
       <CommentList>
         {!isLoading ? (
