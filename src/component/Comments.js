@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import Comment from "./Comment";
-import {useParams} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import {__getComments, __addComments} from "../redux/modules/slice";
+import { __getComments, __addComments } from "../redux/modules/slice";
 import useInput from "../hooks/useInput";
 import Button from "./Button";
 
@@ -13,10 +13,10 @@ const Comments = () => {
   React.useEffect(() => {
     dispatch(__getComments());
   }, []);
-  const {comments: commentList, isLoading} = useSelector(
+  const { comments: commentList, isLoading } = useSelector(
     (state) => state.comment
   );
-  const {id} = useParams();
+  const { id } = useParams();
   const [currentEdit, setCurrentEdit] = React.useState(null);
   const [editMode, setEditMode] = React.useState(false);
   const [writer, onChangeWriterHandler, writerReset] = useInput();
@@ -136,12 +136,12 @@ const Comments = () => {
 
 const Wrapper = styled.div`
   height: ${(props) => (props.isUp ? 400 : 0)}px;
-  padding-bottom: 100px;
   position: fixed;
   bottom: 0px;
   left: 0px;
   width: 100%;
   transition: height 400ms ease-in-out 0s;
+  background-color: aliceblue;
 `;
 
 const HeaderWrapper = styled.div`
@@ -194,10 +194,9 @@ const Form = styled.form`
 const CommentList = styled.div`
   display: flex;
   flex-direction: column;
-
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: 70%;
   overflow-x: hidden;
   overflow-y: auto;
   background-color: aliceblue;
