@@ -43,6 +43,7 @@ const Menu = styled(motion.div)`
   width: 60%;
   padding: 20px;
   background-color: #3399ff;
+  border: 2px solid rgba(256, 256, 256, 1);
   border-radius: 10px;
   margin-bottom: 10px;
   color: white;
