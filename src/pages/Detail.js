@@ -1,5 +1,5 @@
 // 글 상세 페이지
-import React, {useEffect} from "react";
+import React from "react";
 import {useSelector} from "react-redux";
 import styled from "styled-components";
 import Layout from "../component/Layout";
@@ -8,7 +8,7 @@ import Modal from "../component/Modal";
 import {useState} from "react";
 import ArrowBack from "@material-ui/icons/ArrowBack";
 import Comments from "../component/Comments";
-import axios from "axios";
+import {motion} from "framer-motion";
 
 const Detail = () => {
   const {id} = useParams();
@@ -23,27 +23,33 @@ const Detail = () => {
   };
 
   return (
-    <Layout>
-      <DetailLayout>
-        <DetailHeader>
-          <h2>Id : {todoList.id}</h2>
-          <DetailBackBtn
-            onClick={() => {
-              navigate("/todo");
-            }}
-          >
-            <span className="material-icons">
-              <ArrowBack />
-            </span>
-          </DetailBackBtn>
-        </DetailHeader>
-        <DetailTitle>{todoList.title}</DetailTitle>
-        <p>{todoList.body}</p>
-        <DetailEditBtn onClick={modalIsOpen}>수정하기</DetailEditBtn>
-        {isOpen && <Modal isOpen={isOpen} setIsOpen={setIsOpen} />}
-      </DetailLayout>
-      <Comments />
-    </Layout>
+    <motion.div
+      initial={{opacity: 0}}
+      animate={{opacity: 1}}
+      exit={{opacity: 0}}
+    >
+      <Layout>
+        <DetailLayout>
+          <DetailHeader>
+            <h2>Id : {todoList.id}</h2>
+            <DetailBackBtn
+              onClick={() => {
+                navigate("/todo");
+              }}
+            >
+              <span className="material-icons">
+                <ArrowBack />
+              </span>
+            </DetailBackBtn>
+          </DetailHeader>
+          <DetailTitle>{todoList.title}</DetailTitle>
+          <p>{todoList.body}</p>
+          <DetailEditBtn onClick={modalIsOpen}>수정하기</DetailEditBtn>
+          {isOpen && <Modal isOpen={isOpen} setIsOpen={setIsOpen} />}
+        </DetailLayout>
+        <Comments />
+      </Layout>
+    </motion.div>
   );
 };
 

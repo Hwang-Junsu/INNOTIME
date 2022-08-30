@@ -12,11 +12,9 @@ const Comments = () => {
   React.useEffect(() => {
     dispatch(__getComments());
   }, []);
-  const {
-    comments: commentList,
-    isLoading,
-    error,
-  } = useSelector((state) => state.comment);
+  const {comments: commentList, isLoading} = useSelector(
+    (state) => state.comment
+  );
   const {id} = useParams();
   const [currentEdit, setCurrentEdit] = React.useState(null);
   const [editMode, setEditMode] = React.useState(false);

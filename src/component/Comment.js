@@ -7,7 +7,6 @@ import SaveIcon from "@material-ui/icons/Save";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import {useDispatch} from "react-redux";
 import {__deleteComments, __updateComments} from "../redux/modules/slice";
-import client from "../client";
 
 const CommentBox = styled.div`
   position: relative;
@@ -80,7 +79,7 @@ const Input = styled.input`
   border-radius: 5px;
 `;
 
-const Comment = ({id, date, todoId, writer, body, onEditMode, disabled}) => {
+const Comment = ({id, writer, body, onEditMode, disabled}) => {
   const [isEdit, setIsEdit] = React.useState(false);
   const [editComment, setEditComment] = React.useState(body);
   const dispatch = useDispatch();

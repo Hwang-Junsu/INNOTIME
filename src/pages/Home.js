@@ -1,32 +1,36 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import {motion} from "framer-motion";
 import Banner from "../component/Banner";
 import HomeBox from "../component/HomeBox";
 
 import Layout from "../component/Layout";
 
 const Home = () => {
-  const todos = useSelector((state) => state.todos);
-  console.log(todos);
   const navigate = useNavigate();
 
   return (
-    <Layout>
-      <Banner title="무엇을 할까요?" backgroundColor="#ffffff" />
-      <HomeBox
-        onClick={() => {
-          navigate("/add");
-        }}
-        title="할 일 추가하기 ➡"
-      ></HomeBox>
-      <HomeBox
-        onClick={() => {
-          navigate("/todo");
-        }}
-        title="Todo List   ➡"
-      ></HomeBox>
-    </Layout>
+    <motion.div
+      initial={{opacity: 0}}
+      animate={{opacity: 1}}
+      exit={{opacity: 0}}
+    >
+      <Layout>
+        <Banner title="무엇을 할까요?" backgroundColor="#ffffff" />
+        <HomeBox
+          onClick={() => {
+            navigate("/add");
+          }}
+          title="할 일 추가하기 ➡"
+        ></HomeBox>
+        <HomeBox
+          onClick={() => {
+            navigate("/todo");
+          }}
+          title="Todo List   ➡"
+        ></HomeBox>
+      </Layout>
+    </motion.div>
   );
 };
 
