@@ -12,9 +12,11 @@ export const __getTodos = createAsyncThunk(
   "todos/getTodos",
   async (payload, thunkAPI) => {
     try {
+      console.log(123);
       const data = await axios.get("http://localhost:3001/todos");
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
+      console.log(321);
       return thunkAPI.rejectWithValue(error);
     }
   }
