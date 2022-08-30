@@ -5,6 +5,7 @@ import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import {__getComments, __addComments} from "../redux/modules/slice";
+import useInput from "../hooks/useInput";
 
 const Comments = () => {
   const dispatch = useDispatch();
@@ -19,23 +20,17 @@ const Comments = () => {
   const {id} = useParams();
   const [currentEdit, setCurrentEdit] = React.useState(null);
   const [editMode, setEditMode] = React.useState(false);
-  const [writer, setWriter] = React.useState("");
-  const [comment, setComment] = React.useState("");
+  const [writer, onChangeWriterHandler, writerReset] = useInput();
+  const [comment, onChangeCommentHandler, commentReset] = useInput();
   const [up, setUp] = React.useState(false);
+
   const reset = () => {
-    setWriter("");
-    setComment("");
+    writerReset();
+    commentReset();
   };
   const onEditMode = (id) => {
     setCurrentEdit(id);
     setEditMode(!editMode);
-  };
-  const onChange = (event) => {
-    if (event.target.name === "writer") {
-      setWriter(event.target.value);
-    } else if (event.target.name === "comment") {
-      setComment(event.target.value);
-    }
   };
 
   const posting = (event) => {
@@ -66,7 +61,7 @@ const Comments = () => {
       <Form>
         <input
           id="writerInput"
-          onChange={onChange}
+          onChange={onChangeWriterHandler}
           name="writer"
           value={writer}
           placeholder="이름 (5자 이내)"
@@ -76,7 +71,7 @@ const Comments = () => {
         />
         <input
           id="commentInput"
-          onChange={onChange}
+          onChange={onChangeCommentHandler}
           name="comment"
           value={comment}
           placeholder="댓글을 추가하세요(100자 이내)"
