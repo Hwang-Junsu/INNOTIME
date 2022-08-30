@@ -8,7 +8,7 @@ import Modal from "../component/Modal";
 import { useState } from "react";
 import ArrowBack from "@material-ui/icons/ArrowBack";
 import Comments from "../component/Comments";
-import { __getTodos } from "../redux/modules/slice";
+import { __getTodos } from "../redux/modules/todosSlice";
 
 const Detail = () => {
   const dispatch = useDispatch();

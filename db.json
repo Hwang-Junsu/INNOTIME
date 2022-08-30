@@ -1,25 +1,23 @@
-{
-  "todos": [
-    {
-      "writer": "1",
-      "title": "1",
-      "body": "1",
-      "isDone": false,
-      "id": "todo-1"
-    },
-    {
-      "writer": "2",
-      "title": "2",
-      "body": "2",
-      "isDone": false,
-      "id": "todo-2"
-    },
-    {
-      "writer": "1",
-      "title": "1",
-      "body": "1",
-      "isDone": false,
-      "id": "todo-3"
-    }
-  ]
-}
+[
+  {
+    "writer": "2",
+    "title": "2",
+    "body": "2",
+    "isDone": false,
+    "id": "todo-2"
+  },
+  {
+    "writer": "작",
+    "title": "성",
+    "body": "자",
+    "isDone": false,
+    "id": "todo-4"
+  },
+  {
+    "writer": "d",
+    "title": "fw",
+    "body": "fwef",
+    "isDone": false,
+    "id": "todo-1"
+  }
+]

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { editTodo } from "../redux/modules/slice";
+import { editTodo } from "../redux/modules/todosSlice";
 
 function Modal({ isOpen, setIsOpen }) {
   const closeModal = () => {
