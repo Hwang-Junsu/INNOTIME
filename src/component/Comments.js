@@ -5,13 +5,13 @@ import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {addComment} from "../redux/modules/slice";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import {loadCommentFromDB, deleteComment} from "../redux/modules/slice";
+import {__getComments} from "../redux/modules/slice";
 import axios from "axios";
 
 const Comments = () => {
   const dispatch = useDispatch();
   React.useEffect(() => {
-    dispatch(loadCommentFromDB());
+    dispatch(__getComments());
   }, []);
   const commentList = useSelector((state) => state.comment);
 
@@ -41,7 +41,7 @@ const Comments = () => {
     if (writer === "" || comment === "") return;
     const data = {
       id: Date.now(),
-      todoId: id,
+      todo: id,
       writer: writer,
       body: comment,
       date: Date.now(),
@@ -90,7 +90,7 @@ const Comments = () => {
       </Form>
       <CommentList>
         {commentList.map((comment) => {
-          return comment.todoId === id ? (
+          return comment.todo === id ? (
             editMode ? (
               comment.id === currentEdit ? (
                 <Comment
@@ -136,6 +136,7 @@ const Comments = () => {
 
 const Wrapper = styled.div`
   height: ${(props) => (props.isUp ? 400 : 0)}px;
+  padding-bottom: 100px;
   position: fixed;
   bottom: 0px;
   left: 0px;

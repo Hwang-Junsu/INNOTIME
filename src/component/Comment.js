@@ -5,9 +5,9 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import CancelIcon from "@material-ui/icons/Cancel";
 import SaveIcon from "@material-ui/icons/Save";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {deleteComment, updateComment} from "../redux/modules/slice";
-import axios from "axios";
+import client from "../client";
 
 const CommentBox = styled.div`
   position: relative;
@@ -88,18 +88,15 @@ const Comment = ({id, date, todoId, writer, body, onEditMode, disabled}) => {
     setIsEdit(!isEdit);
     onEditMode(id);
   };
-  const onDelete = async () => {
-    //    console.log(id);
-    const URL = `http://localhost:3001/comment/${id}`;
-
-    await axios.delete(URL);
-    dispatch(deleteComment(id));
+  const onDelete = (_id) => {
+    client.delete(`/comment/${_id}`);
+    dispatch(deleteComment(_id));
     //    const commentList = await axios.get("http://localhost:3001/comment");
     //    console.log(id, commentList.data);
   };
-  const updating = () => {
-    dispatch(updateComment({id: id, body: editComment}));
-    axios.patch(`http://localhost:3001/comment/${id}`, {body: editComment});
+  const updating = (_id, _body) => {
+    dispatch(updateComment({id: _id, body: _body}));
+    client.patch(`/comment/${_id}`, {body: _body});
     setIsEdit(false);
     onEditMode(null);
   };
@@ -135,11 +132,14 @@ const Comment = ({id, date, todoId, writer, body, onEditMode, disabled}) => {
             {!isEdit ? <EditIcon /> : <CancelIcon />}
           </Button>
           {!isEdit ? (
-            <Button onClick={() => onDelete()} disabled={disabled}>
+            <Button onClick={() => onDelete(id)} disabled={disabled}>
               <DeleteIcon />
             </Button>
           ) : (
-            <Button onClick={() => updating()} disabled={disabled}>
+            <Button
+              onClick={() => updating(id, editComment)}
+              disabled={disabled}
+            >
               <SaveIcon />
             </Button>
           )}
