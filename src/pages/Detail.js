@@ -9,13 +9,14 @@ import ArrowBack from "@material-ui/icons/ArrowBack";
 import Comments from "../component/Comments";
 import { motion } from "framer-motion";
 import { __getTodos } from "../redux/modules/todosSlice";
+import Button from "../component/Button";
 
 const Detail = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const navigate = useNavigate();
   const { todos } = useSelector((state) => state.todos);
-  const todoList = todos.find((todo) => todo.id === id);
+  const todoList = todos.find((todo) => todo.id === +id); //DESC: ID 숫자일 때만 +
 
   useEffect(() => {
     dispatch(__getTodos());
@@ -49,9 +50,11 @@ const Detail = () => {
           </DetailHeader>
           <DetailTitle>{todoList?.title}</DetailTitle>
           <p>{todoList?.body}</p>
-          <DetailEditBtn onClick={modalIsOpen}>수정하기</DetailEditBtn>
-          {isOpen && <Modal setIsOpen={setIsOpen} />}
         </DetailLayout>
+        <Button size="detailEditBtn" onClick={modalIsOpen}>
+          수정하기
+        </Button>
+        {isOpen && <Modal setIsOpen={setIsOpen} />}
         <Comments />
       </Layout>
     </motion.div>
@@ -77,13 +80,13 @@ let DetailBackBtn = styled.h2`
   cursor: pointer;
 `;
 
-let DetailEditBtn = styled.button`
-  width: 90vw;
-  height: 35px;
-  position: absolute;
-  bottom: 60px;
+// let DetailEditBtn = styled.button`
+//   width: 90vw;
+//   height: 35px;
+//   position: absolute;
+//   bottom: 60px;
 
-  background-color: transparent;
-  border: 1px solid lightgray;
-  border-radius: 10px;
-`;
+//   background-color: transparent;
+//   border: 1px solid lightgray;
+//   border-radius: 10px;
+// `;
