@@ -12,7 +12,7 @@ const Comments = () => {
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(__getComments());
-  }, []);
+  }, [dispatch]);
   const { comments: commentList, isLoading } = useSelector(
     (state) => state.comment
   );

@@ -1,8 +1,8 @@
 //만능 버튼 만들기
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 import React from "react";
 
-const Button = ({children, ...props}) => {
+const Button = ({ children, ...props }) => {
   return <StyledButton {...props}>{children}</StyledButton>;
 };
 
@@ -15,11 +15,11 @@ const StyledButton = styled.button`
   height: 48px;
   margin: 8px;
 
-  ${({size}) => {
+  ${({ size }) => {
     switch (size) {
       case "large":
         return css`
-          width: 90%;
+          width: 100%;
           margin: 8px;
           align-self: center;
         `;

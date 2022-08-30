@@ -3,18 +3,18 @@ import React from "react";
 import Layout from "../component/Layout";
 import Form from "../component/Form";
 import Banner from "../component/Banner";
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
 
 const Add = () => {
   return (
     <motion.div
-      initial={{opacity: 0}}
-      animate={{opacity: 1}}
-      exit={{opacity: 0}}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
     >
       <Layout>
         <Banner
-          title="할 일 추가"
+          title="새 글 쓰기"
           backgroundColor="#3399ff"
           textColor="#ffffff"
         />

@@ -27,7 +27,7 @@ export const __addTodoThunk = createAsyncThunk(
       const data = await axios.post("http://localhost:3001/todos", arg);
       console.log(data);
 
-      return thunkAPI.fulfillWithValue(data.data.data);
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (e) {
       return thunkAPI.rejectWithValue(e);
     }
@@ -86,7 +86,7 @@ export const todosSlice = createSlice({
       state.error = action.payload;
     },
     [__addTodoThunk.pending]: (state) => {
-      state.isSuccess = false;
+      // state.isSuccess = false;
       state.isLoading = true; // DESC: 네트워크 요청이 시작되면 로딩 상태를 true로 변경!
     },
     [__addTodoThunk.fulfilled]: (state, action) => {

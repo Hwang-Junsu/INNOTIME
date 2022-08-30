@@ -66,7 +66,7 @@ const Form = () => {
     dispatch(__addTodoThunk(todo));
 
     //DESC: todo 값 초기화
-    setTodo(initialTodo);
+    // setTodo(initialTodo);
 
     navigate("/todo");
   };
@@ -84,7 +84,7 @@ const Form = () => {
               value={writer}
               placeholder="이름을 입력해주세요.(5자 이내)"
               maxLength={5}
-              width="20%"
+              width="90%"
             />
           </StyledInputBox>
 
@@ -97,7 +97,7 @@ const Form = () => {
               value={title}
               placeholder="제목을 입력해주세요.(50자 이내)"
               maxLength={50}
-              width="50%"
+              width="90%"
             />
           </StyledInputBox>
           <StyledInputBox>
@@ -164,4 +164,5 @@ const StyledTextArea = styled.textarea`
   border: 1px solid #eee;
   border-radius: 5px;
   min-width: fit-content;
+  width: 90%;
 `;

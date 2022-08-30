@@ -9,9 +9,10 @@ const ToDos = () => {
   const dispatch = useDispatch();
   const { isLoading, error, todos } = useSelector((state) => state.todos);
 
+  console.log(todos);
   useEffect(() => {
     dispatch(__getTodos());
-  }, []);
+  }, [dispatch]);
 
   if (isLoading) {
     return <div>로딩 중...</div>;

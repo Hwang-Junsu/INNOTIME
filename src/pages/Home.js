@@ -21,13 +21,13 @@ const Home = () => {
           onClick={() => {
             navigate("/add");
           }}
-          title="할 일 추가하기 ➡"
+          title="새 글 쓰기"
         ></HomeBox>
         <HomeBox
           onClick={() => {
             navigate("/todo");
           }}
-          title="Todo List   ➡"
+          title="자유게시판"
         ></HomeBox>
       </Layout>
     </motion.div>
