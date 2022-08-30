@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
@@ -12,7 +12,7 @@ export const __addTodoThunk = createAsyncThunk(
   "todos/addTodo",
   async (payload, thunkAPI) => {
     try {
-      const { data } = await axios.post("http://localhost:3001/todos", payload);
+      const {data} = await axios.post("http://localhost:3001/todos", payload);
       console.log(data);
       return thunkAPI.fulfillWithValue(data);
     } catch (e) {
@@ -45,5 +45,5 @@ export const todosSlice = createSlice({
   },
 });
 
-export const { clearTodo } = todosSlice.actions;
+export const {clearTodo} = todosSlice.actions;
 export default todosSlice.reducer;

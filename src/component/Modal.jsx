@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { editTodo } from "../redux/modules/slice";
+import {useDispatch, useSelector} from "react-redux";
+import {useParams} from "react-router-dom";
+import {editTodo} from "../redux/modules/slice";
 
-function Modal({ isOpen, setIsOpen }) {
+function Modal({isOpen, setIsOpen}) {
   const closeModal = () => {
     setIsOpen(false);
   };
-  const { id } = useParams();
+  const {id} = useParams();
   const dispatch = useDispatch();
   const todo = useSelector((state) => state.todo.todo);
   const selectTodo = todo.find((todo) => todo.id === +id);
@@ -16,7 +16,7 @@ function Modal({ isOpen, setIsOpen }) {
   const [newBody, setNewBody] = useState(selectTodo.body);
 
   const editHandler = () => {
-    dispatch(editTodo({ id: selectTodo.id, body: newBody }));
+    dispatch(editTodo({id: selectTodo.id, body: newBody}));
     setIsOpen(false);
   };
 

@@ -3,7 +3,24 @@ import axios from "axios";
 
 export const toDoSlice = createSlice({
   name: "todo",
-  initialState: {todos: [], isLoading: false, error: null},
+  initialState: {
+    todo: [
+      {
+        id: 1,
+        title: "리액트 학습",
+        body: "이번 주는 프론트 협업이다!",
+        writer: "8조 조장",
+        isDone: false,
+      },
+      {
+        id: 2,
+        title: "저녁 먹기",
+        body: "저녁 뭐먹지..?",
+        writer: "8조 조원",
+        isDone: true,
+      },
+    ],
+  },
   reducers: {
     loadTodo: (state, action) => {
       return action.payload;
@@ -24,21 +41,58 @@ export const toDoSlice = createSlice({
   },
 });
 
-let initialState = {
+const initialState = {
   comments: [],
   isLoading: false,
   error: null,
 };
 
 export const __getComments = createAsyncThunk(
-  "loadComment",
+  "getComments",
   async (payload, thunkAPI) => {
     try {
       const {data} = await axios.get("http://localhost:3001/comment");
-      console.log(data);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
-      console.log(error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+export const __addComments = createAsyncThunk(
+  "addComment",
+  async (payload, thunkAPI) => {
+    try {
+      const {data} = await axios.post("http://localhost:3001/comment", payload);
+      return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+export const __deleteComments = createAsyncThunk(
+  "deleteComment",
+  async (payload, thunkAPI) => {
+    try {
+      const {data} = await axios.delete(
+        `http://localhost:3001/comment/${payload}`
+      );
+      return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __updateComments = createAsyncThunk(
+  "updateComment",
+  async (payload, thunkAPI) => {
+    try {
+      const {data} = await axios.patch(
+        `http://localhost:3001/comment/${payload.id}`,
+        {body: payload.body}
+      );
+      return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -47,48 +101,49 @@ export const __getComments = createAsyncThunk(
 export const commentSlice = createSlice({
   name: "comment",
   initialState,
-  reducers: {
-    loadComment: (state, action) => {
-      return action.payload;
+  reducers: {},
+  extraReducers: {
+    [__getComments.pending]: (state, action) => {
+      state.isLoading = false;
     },
-    addComment: (state, action) => {
-      state.push(action.payload);
+    [__getComments.fulfilled]: (state, action) => {
+      state.isLoading = true;
+      state.comments = action.payload;
     },
-    deleteComment: (state, action) => {
-      const newState = state.filter((comment) => comment.id !== action.payload);
-      return newState;
+    [__getComments.rejected]: (state, action) => {
+      return;
     },
-    updateComment: (state, action) => {
-      const newState = state.map((comment) =>
+    [__addComments.fulfilled]: (state, action) => {
+      state.comments.push(action.payload);
+    },
+    [__addComments.rejected]: (state, action) => {
+      return;
+    },
+    [__deleteComments.fulfilled]: (state, action) => {
+      const newState = state.comments.filter(
+        (comment) => comment.id !== action.meta.arg
+      );
+      state.comments = newState;
+      return state;
+    },
+    [__deleteComments.rejected]: (state, action) => {
+      return;
+    },
+    [__updateComments.fulfilled]: (state, action) => {
+      const newState = state.comments.map((comment) =>
         action.payload.id === comment.id
           ? {...comment, body: action.payload.body}
           : comment
       );
-      return newState;
+      state.comments = newState;
+      return state;
     },
-  },
-  extraReducer: {
-    [__getComments.fulfilled]: (state, action) => {
-      state = action.payload;
+    [__updateComments.rejected]: (state, action) => {
+      return;
     },
   },
 });
 
-export const loadCommentFromDB = () => {
-  return async function (dispatch) {
-    const commentsData = await axios.get("http://localhost:3001/comment");
-    dispatch(commentSlice.actions.loadComment(commentsData.data));
-  };
-};
-
-export const loadToDoFromDB = () => {
-  return async function (dispatch) {
-    const todoData = await (await axios("http://localhost:3001/todos")).data;
-    dispatch(toDoSlice.actions.loadTodo(todoData));
-  };
-};
-
 export const {addTodo, deleteTodo, editTodo, loadTodo} = toDoSlice.actions;
-export const {addComment, deleteComment, updateComment, loadComment} =
-  commentSlice.actions;
+export const {addComment, deleteComment, updateComment} = commentSlice.actions;
 export default toDoSlice.reducer;

@@ -6,7 +6,7 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import SaveIcon from "@material-ui/icons/Save";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import {useDispatch} from "react-redux";
-import {deleteComment, updateComment} from "../redux/modules/slice";
+import {__deleteComments, __updateComments} from "../redux/modules/slice";
 import client from "../client";
 
 const CommentBox = styled.div`
@@ -89,14 +89,10 @@ const Comment = ({id, date, todoId, writer, body, onEditMode, disabled}) => {
     onEditMode(id);
   };
   const onDelete = (_id) => {
-    client.delete(`/comment/${_id}`);
-    dispatch(deleteComment(_id));
-    //    const commentList = await axios.get("http://localhost:3001/comment");
-    //    console.log(id, commentList.data);
+    dispatch(__deleteComments(_id));
   };
   const updating = (_id, _body) => {
-    dispatch(updateComment({id: _id, body: _body}));
-    client.patch(`/comment/${_id}`, {body: _body});
+    dispatch(__updateComments({id: _id, body: _body}));
     setIsEdit(false);
     onEditMode(null);
   };
