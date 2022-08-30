@@ -13,36 +13,15 @@
       "body": "2",
       "isDone": false,
       "id": "todo-2"
-    },
-    {
-      "writer": "1",
-      "title": "1",
-      "body": "1",
-      "isDone": false,
-      "id": "todo-3"
-    },
-    {
-      "writer": "이건되나",
-      "title": "하이용",
-      "body": "이건됩니다\n",
-      "isDone": false,
-      "id": "gHMlRz5"
     }
   ],
   "comment": [
     {
-      "id": 1661860915354,
-      "todo": "todo-1",
-      "writer": "asd",
-      "body": "adasdsadsd",
-      "date": 1661860915354
-    },
-    {
-      "id": 1661860959777,
+      "id": 1661864737861,
       "todo": "gHMlRz5",
-      "writer": "글이보입니",
-      "body": "댓글을 작성해주세요",
-      "date": 1661860959777
+      "writer": "a",
+      "body": "sdsadasdㅁㄴㅇㅁㄴㅇ",
+      "date": 1661864737861
     }
   ]
 }
