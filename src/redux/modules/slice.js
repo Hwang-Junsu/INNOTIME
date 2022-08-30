@@ -1,5 +1,9 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import {
+  createAsyncThunk,
+  createAsyncThunk,
+  createSlice,
+} from "@reduxjs/toolkit";
+import client from "../../client";
 
 const initialState = {
   todos: [],
@@ -66,47 +70,107 @@ export const toDoSlice = createSlice({
   },
 });
 
+const initialState = {
+  comments: [],
+  isLoading: false,
+  error: null,
+};
+
+export const __getComments = createAsyncThunk(
+  "getComments",
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await client.get("/comment");
+      return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+export const __addComments = createAsyncThunk(
+  "addComment",
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await client.post("/comment", payload);
+      return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+export const __deleteComments = createAsyncThunk(
+  "deleteComment",
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await client.delete(`/comment/${payload}`);
+      return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __updateComments = createAsyncThunk(
+  "updateComment",
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await client.patch(`/comment/${payload.id}`, {
+        body: payload.body,
+      });
+      return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const commentSlice = createSlice({
   name: "comment",
-  initialState: [],
-  reducers: {
-    loadComment: (state, action) => {
-      return action.payload;
+  initialState,
+  reducers: {},
+  extraReducers: {
+    [__getComments.pending]: (state, action) => {
+      state.isLoading = false;
     },
-    addComment: (state, action) => {
-      state.push(action.payload);
+    [__getComments.fulfilled]: (state, action) => {
+      state.isLoading = true;
+      state.comments = action.payload;
     },
-    deleteComment: (state, action) => {
-      const newState = state.filter((comment) => comment.id !== action.payload);
-      return newState;
+    [__getComments.rejected]: (state, action) => {
+      return;
     },
-    updateComment: (state, action) => {
-      const newState = state.map((comment) =>
+    [__addComments.fulfilled]: (state, action) => {
+      state.comments.push(action.payload);
+    },
+    [__addComments.rejected]: (state, action) => {
+      return;
+    },
+    [__deleteComments.fulfilled]: (state, action) => {
+      const newState = state.comments.filter(
+        (comment) => comment.id !== action.meta.arg
+      );
+      state.comments = newState;
+      return state;
+    },
+    [__deleteComments.rejected]: (state, action) => {
+      return;
+    },
+    [__updateComments.fulfilled]: (state, action) => {
+      const newState = state.comments.map((comment) =>
         action.payload.id === comment.id
           ? { ...comment, body: action.payload.body }
           : comment
       );
-
-      return newState;
+      state.comments = newState;
+      return state;
+    },
+    [__updateComments.rejected]: (state, action) => {
+      return;
     },
   },
 });
 
-export const loadCommentFromDB = () => {
-  return async function (dispatch) {
-    const commentsData = await axios.get("http://localhost:3001/comment");
-    dispatch(commentSlice.actions.loadComment(commentsData.data));
-  };
-};
-
-export const loadToDoFromDB = () => {
-  return async function (dispatch) {
-    const todoData = await (await axios("http://localhost:3001/todos")).data;
-    dispatch(toDoSlice.actions.loadTodo(todoData));
-  };
-};
-
 export const { addTodo, deleteTodo, editTodo, loadTodo } = toDoSlice.actions;
-export const { addComment, deleteComment, updateComment, loadComment } =
+export const { addComment, deleteComment, updateComment } =
   commentSlice.actions;
 export default toDoSlice.reducer;

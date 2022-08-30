@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import Banner from "../component/Banner";
 import HomeBox from "../component/HomeBox";
 
@@ -9,21 +10,27 @@ const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <Layout>
-      <Banner title="무엇을 할까요?" backgroundColor="#ffffff" />
-      <HomeBox
-        onClick={() => {
-          navigate("/add");
-        }}
-        title="할 일 추가하기 (새 게시글) ➡"
-      ></HomeBox>
-      <HomeBox
-        onClick={() => {
-          navigate("/todo");
-        }}
-        title="Todo List (게시판 보기) ➡ "
-      ></HomeBox>
-    </Layout>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <Layout>
+        <Banner title="무엇을 할까요?" backgroundColor="#ffffff" />
+        <HomeBox
+          onClick={() => {
+            navigate("/add");
+          }}
+          title="할 일 추가하기 ➡"
+        ></HomeBox>
+        <HomeBox
+          onClick={() => {
+            navigate("/todo");
+          }}
+          title="Todo List   ➡"
+        ></HomeBox>
+      </Layout>
+    </motion.div>
   );
 };
 

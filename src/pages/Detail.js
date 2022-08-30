@@ -8,6 +8,7 @@ import Modal from "../component/Modal";
 import { useDispatch } from "react-redux";
 import ArrowBack from "@material-ui/icons/ArrowBack";
 import Comments from "../component/Comments";
+import { motion } from "framer-motion";
 import { __getTodos } from "../redux/modules/todosSlice";
 
 const Detail = () => {
@@ -28,27 +29,33 @@ const Detail = () => {
   };
 
   return (
-    <Layout>
-      <DetailLayout>
-        <DetailHeader>
-          <h2>Id : {todoList?.id}</h2>
-          <DetailBackBtn
-            onClick={() => {
-              navigate("/todo");
-            }}
-          >
-            <span className="material-icons">
-              <ArrowBack />
-            </span>
-          </DetailBackBtn>
-        </DetailHeader>
-        <DetailTitle>{todoList?.title}</DetailTitle>
-        <p>{todoList?.body}</p>
-        <DetailEditBtn onClick={modalIsOpen}>수정하기</DetailEditBtn>
-        {isOpen && <Modal setIsOpen={setIsOpen} />}
-      </DetailLayout>
-      <Comments />
-    </Layout>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <Layout>
+        <DetailLayout>
+          <DetailHeader>
+            <h2>Id : {todoList?.id}</h2>
+            <DetailBackBtn
+              onClick={() => {
+                navigate("/todo");
+              }}
+            >
+              <span className="material-icons">
+                <ArrowBack />
+              </span>
+            </DetailBackBtn>
+          </DetailHeader>
+          <DetailTitle>{todoList?.title}</DetailTitle>
+          <p>{todoList?.body}</p>
+          <DetailEditBtn onClick={modalIsOpen}>수정하기</DetailEditBtn>
+          {isOpen && <Modal setIsOpen={setIsOpen} />}
+        </DetailLayout>
+        <Comments />
+      </Layout>
+    </motion.div>
   );
 };
 

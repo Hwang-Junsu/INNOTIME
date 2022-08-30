@@ -5,9 +5,9 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import CancelIcon from "@material-ui/icons/Cancel";
 import SaveIcon from "@material-ui/icons/Save";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import {useDispatch, useSelector} from "react-redux";
-import {deleteComment, updateComment} from "../redux/modules/slice";
-import axios from "axios";
+import {useDispatch} from "react-redux";
+import {__deleteComments, __updateComments} from "../redux/modules/slice";
+import Button from "./Button";
 
 const CommentBox = styled.div`
   position: relative;
@@ -61,18 +61,6 @@ const Buttons = styled.div`
   align-items: center;
   margin-right: 20px;
 `;
-const Button = styled.button`
-  margin-right: 5px;
-  border-radius: 5px;
-  border: none;
-  background-color: white;
-  color: #3399ff;
-
-  &:hover {
-    transform: scale(1.1);
-    transition: 0.1s linear;
-  }
-`;
 const Input = styled.input`
   height: 20px;
   width: 90%;
@@ -80,7 +68,7 @@ const Input = styled.input`
   border-radius: 5px;
 `;
 
-const Comment = ({id, date, todoId, writer, body, onEditMode, disabled}) => {
+const Comment = ({id, writer, body, onEditMode, disabled}) => {
   const [isEdit, setIsEdit] = React.useState(false);
   const [editComment, setEditComment] = React.useState(body);
   const dispatch = useDispatch();
@@ -88,18 +76,11 @@ const Comment = ({id, date, todoId, writer, body, onEditMode, disabled}) => {
     setIsEdit(!isEdit);
     onEditMode(id);
   };
-  const onDelete = async () => {
-    //    console.log(id);
-    const URL = `http://localhost:3001/comment/${id}`;
-
-    await axios.delete(URL);
-    dispatch(deleteComment(id));
-    //    const commentList = await axios.get("http://localhost:3001/comment");
-    //    console.log(id, commentList.data);
+  const onDelete = (_id) => {
+    dispatch(__deleteComments(_id));
   };
-  const updating = () => {
-    dispatch(updateComment({id: id, body: editComment}));
-    axios.patch(`http://localhost:3001/comment/${id}`, {body: editComment});
+  const updating = (_id, _body) => {
+    dispatch(__updateComments({id: _id, body: _body}));
     setIsEdit(false);
     onEditMode(null);
   };
@@ -131,15 +112,27 @@ const Comment = ({id, date, todoId, writer, body, onEditMode, disabled}) => {
           )}
         </Wrapper>
         <Buttons>
-          <Button onClick={() => onIsEdit()} disabled={disabled}>
+          <Button
+            onClick={() => onIsEdit()}
+            disabled={disabled}
+            size="commentButton"
+          >
             {!isEdit ? <EditIcon /> : <CancelIcon />}
           </Button>
           {!isEdit ? (
-            <Button onClick={() => onDelete()} disabled={disabled}>
+            <Button
+              onClick={() => onDelete(id)}
+              disabled={disabled}
+              size="commentButton"
+            >
               <DeleteIcon />
             </Button>
           ) : (
-            <Button onClick={() => updating()} disabled={disabled}>
+            <Button
+              onClick={() => updating(id, editComment)}
+              disabled={disabled}
+              size="commentButton"
+            >
               <SaveIcon />
             </Button>
           )}

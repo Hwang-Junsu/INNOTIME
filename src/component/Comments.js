@@ -3,38 +3,33 @@ import styled from "styled-components";
 import Comment from "./Comment";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addComment } from "../redux/modules/slice";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import { loadCommentFromDB, deleteComment } from "../redux/modules/slice";
-import axios from "axios";
+import { __getComments, __addComments } from "../redux/modules/slice";
+import useInput from "../hooks/useInput";
+import Button from "./Button";
 
 const Comments = () => {
   const dispatch = useDispatch();
   React.useEffect(() => {
-    dispatch(loadCommentFromDB());
-  }, [dispatch]);
-  const commentList = useSelector((state) => state.comment);
-
+    dispatch(__getComments());
+  }, []);
+  const { comments: commentList, isLoading } = useSelector(
+    (state) => state.comment
+  );
   const { id } = useParams();
   const [currentEdit, setCurrentEdit] = React.useState(null);
   const [editMode, setEditMode] = React.useState(false);
-  const [writer, setWriter] = React.useState("");
-  const [comment, setComment] = React.useState("");
+  const [writer, onChangeWriterHandler, writerReset] = useInput();
+  const [comment, onChangeCommentHandler, commentReset] = useInput();
   const [up, setUp] = React.useState(false);
+
   const reset = () => {
-    setWriter("");
-    setComment("");
+    writerReset();
+    commentReset();
   };
   const onEditMode = (id) => {
     setCurrentEdit(id);
     setEditMode(!editMode);
-  };
-  const onChange = (event) => {
-    if (event.target.name === "writer") {
-      setWriter(event.target.value);
-    } else if (event.target.name === "comment") {
-      setComment(event.target.value);
-    }
   };
 
   const posting = (event) => {
@@ -47,8 +42,7 @@ const Comments = () => {
       date: Date.now(),
     };
     event.preventDefault();
-    dispatch(addComment(data));
-    axios.post("http://localhost:3001/comment", data);
+    dispatch(__addComments(data));
     reset();
   };
 
@@ -66,7 +60,7 @@ const Comments = () => {
       <Form>
         <input
           id="writerInput"
-          onChange={onChange}
+          onChange={onChangeWriterHandler}
           name="writer"
           value={writer}
           placeholder="이름 (5자 이내)"
@@ -76,7 +70,7 @@ const Comments = () => {
         />
         <input
           id="commentInput"
-          onChange={onChange}
+          onChange={onChangeCommentHandler}
           name="comment"
           value={comment}
           placeholder="댓글을 추가하세요(100자 이내)"
@@ -84,51 +78,57 @@ const Comments = () => {
           maxLength={100}
           required
         />
-        <button onClick={posting}>
+        <Button onClick={posting}>
           <AddCircleOutlineIcon />
-        </button>
+        </Button>
       </Form>
       <CommentList>
-        {commentList.map((comment) => {
-          return comment.todo === id ? (
-            editMode ? (
-              comment.id === currentEdit ? (
-                <Comment
-                  key={comment.id}
-                  writer={comment.writer}
-                  body={comment.body}
-                  todo={comment.todo}
-                  id={comment.id}
-                  date={comment.date}
-                  onEditMode={onEditMode}
-                  disabled={false}
-                />
-              ) : (
-                <Comment
-                  key={comment.id}
-                  writer={comment.writer}
-                  body={comment.body}
-                  todo={comment.todo}
-                  id={comment.id}
-                  date={comment.date}
-                  onEditMode={onEditMode}
-                  disabled={true}
-                />
-              )
-            ) : (
-              <Comment
-                key={comment.id}
-                writer={comment.writer}
-                body={comment.body}
-                todo={comment.todo}
-                id={comment.id}
-                date={comment.date}
-                onEditMode={onEditMode}
-                disabled={false}
-              />
-            )
-          ) : null;
-        })}
+        {!isLoading ? (
+          <h1>Loading...</h1>
+        ) : (
+          <>
+            {commentList.map((comment) => {
+              return comment.todo === id ? (
+                editMode ? (
+                  comment.id === currentEdit ? (
+                    <Comment
+                      key={comment.id}
+                      writer={comment.writer}
+                      body={comment.body}
+                      todoId={comment.todoId}
+                      id={comment.id}
+                      date={comment.date}
+                      onEditMode={onEditMode}
+                      disabled={false}
+                    />
+                  ) : (
+                    <Comment
+                      key={comment.id}
+                      writer={comment.writer}
+                      body={comment.body}
+                      todoId={comment.todoId}
+                      id={comment.id}
+                      date={comment.date}
+                      onEditMode={onEditMode}
+                      disabled={true}
+                    />
+                  )
+                ) : (
+                  <Comment
+                    key={comment.id}
+                    writer={comment.writer}
+                    body={comment.body}
+                    todoId={comment.todoId}
+                    id={comment.id}
+                    date={comment.date}
+                    onEditMode={onEditMode}
+                    disabled={false}
+                  />
+                )
+              ) : null;
+            })}
+          </>
+        )}
       </CommentList>
     </Wrapper>
   );
@@ -141,6 +141,7 @@ const Wrapper = styled.div`
   left: 0px;
   width: 100%;
   transition: height 400ms ease-in-out 0s;
+  background-color: aliceblue;
 `;
 
 const HeaderWrapper = styled.div`
@@ -193,10 +194,9 @@ const Form = styled.form`
 const CommentList = styled.div`
   display: flex;
   flex-direction: column;
-
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: 70%;
   overflow-x: hidden;
   overflow-y: auto;
   background-color: aliceblue;
