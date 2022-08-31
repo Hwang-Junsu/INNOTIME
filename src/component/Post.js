@@ -1,48 +1,44 @@
-import React, {useState} from "react";
+import React from "react";
 import styled from "styled-components";
-import {deleteTodo} from "../redux/modules/todosSlice";
-import {useDispatch} from "react-redux";
-import {useNavigate} from "react-router-dom";
-import axios from "axios";
-import {__deleteTodos} from "../redux/modules/todosSlice";
-import {useEffect} from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { __deletePosts } from "../redux/modules/postSlice";
 import Button from "./Button";
 import DeleteIcon from "@material-ui/icons/Delete";
-const ToDo = ({work}) => {
+
+const Post = ({ work }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   function deleteHandler(event) {
     event.stopPropagation(); //DESC: 삭제 버튼 클릭시 상세페이지에 진입하는 현상 방지
-    dispatch(__deleteTodos(work.id));
+    dispatch(__deletePosts(work.id));
   }
 
   return (
-    <TodoListBox
+    <PostListBox
       onClick={() => {
-        navigate(`/todo/${work.id}`);
+        navigate(`/community/${work.id}`);
       }}
     >
-      <TodoListBoxBody>
-        <ToDoTitle>{work.title}</ToDoTitle>
-        <TodoWriterP>작성자: {work.writer}</TodoWriterP>
-      </TodoListBoxBody>
-      {/* <Button size="listDeleteBtn" onClick={deleteHandler}>
-        🗑
-      </Button> */}
-      <Button size="listDeleteBtn" onClick={deleteHandler}>
+      <PostListBoxBody>
+        <PostTitle>{work.title}</PostTitle>
+        <PostWriterP>작성자: {work.writer}</PostWriterP>
+      </PostListBoxBody>
+
+      <Button name="listDeleteBtn" onClick={deleteHandler}>
         <DeleteIcon />
       </Button>
-    </TodoListBox>
+    </PostListBox>
   );
 };
 
-export default ToDo;
+export default Post;
 
-const ToDoTitle = styled.h3`
+const PostTitle = styled.h3`
   font-family: "LeferiPoint-BlackObliqueA";
 `;
 
-let TodoListBox = styled.div`
+let PostListBox = styled.div`
   display: flex;
   justify-content: space-between;
 
@@ -56,7 +52,7 @@ let TodoListBox = styled.div`
   }
 `;
 
-let TodoListBoxBody = styled.div`
+let PostListBoxBody = styled.div`
   flex-direction: column;
 `;
 
@@ -69,6 +65,6 @@ let TodoListBoxBody = styled.div`
 //   cursor: pointer;
 // `;
 
-let TodoWriterP = styled.p`
+let PostWriterP = styled.p`
   font-size: 13px;
 `;

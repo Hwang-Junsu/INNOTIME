@@ -1,18 +1,18 @@
-import React, {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import {__getTodos} from "../redux/modules/todosSlice";
-import ToDo from "./ToDo";
+import { __getPosts } from "../redux/modules/postSlice";
+import ToDo from "./Post";
 import Button from "./Button";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const ToDos = () => {
+const Posts = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {isLoading, error, todos} = useSelector((state) => state.todos);
+  const { isLoading, error, posts } = useSelector((state) => state.posts);
 
   useEffect(() => {
-    dispatch(__getTodos());
+    dispatch(__getPosts());
   }, [dispatch]);
 
   if (isLoading) {
@@ -23,13 +23,12 @@ const ToDos = () => {
     return <div>{error.message}</div>;
   }
 
-  if (todos.length === 0) {
+  if (posts.length === 0) {
     return (
       <EmptyPage>
-        <h3>앗! 아직 게시글이 없어요.</h3>
-        ➡️
+        <h3>앗! 아직 게시글이 없어요.</h3>➡
         <Button
-          size="emptyPageBtn"
+          name="emptyPageBtn"
           hoverBackgroundColor="#3399ff"
           hoverTextColor="white"
           onClick={() => {
@@ -46,7 +45,7 @@ const ToDos = () => {
     <div>
       <ListTitle>자유게시판</ListTitle>
       <ListWrapper>
-        {todos.map((work) => (
+        {posts.map((work) => (
           <ToDo work={work} key={work.id} />
         ))}
       </ListWrapper>
@@ -54,7 +53,7 @@ const ToDos = () => {
   );
 };
 
-export default ToDos;
+export default Posts;
 
 let ListWrapper = styled.div`
   display: flex;

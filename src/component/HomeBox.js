@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
 import AssignmentOutlinedIcon from "@material-ui/icons/AssignmentOutlined";
 import React from "react";
 
-const HomeBox = ({title, onClick, value}) => {
+const HomeBox = ({ title, onClick, value }) => {
   const constraintsRef = React.useRef(null);
   return (
     <StyledHomeBox
@@ -23,14 +23,14 @@ const HomeBox = ({title, onClick, value}) => {
       ) : (
         <Wrapper>
           <DocIcon ref={constraintsRef} variants={barVariantsAdd}>
-            <AssignmentOutlinedIcon style={{fontSize: 250}} />
+            <AssignmentOutlinedIcon style={{ fontSize: 250 }} />
           </DocIcon>
           <PencilIcon>
             <PencilImg
               src="https://cdn-icons-png.flaticon.com/512/2071/2071353.png"
               drag
               dragSnapToOrigin
-              drageElastic={0}
+              drageelastic={0}
               dragConstraints={constraintsRef}
               variants={pencilVariant}
             />
@@ -47,8 +47,8 @@ const HomeBox = ({title, onClick, value}) => {
 export default HomeBox;
 
 const createAnimation = {
-  start: {opacity: 0, y: -15},
-  end: {opacity: 1, y: 0, transition: {type: "spring", delay: 0.3}},
+  start: { opacity: 0, y: -15 },
+  end: { opacity: 1, y: 0, transition: { type: "spring", delay: 0.3 } },
   hover: {
     scale: 1,
     opacity: 1,
@@ -85,7 +85,7 @@ const pencilVariant = {
   start: {
     opacity: 0,
     x: -20,
-    transition: {type: "bounce"},
+    transition: { type: "bounce" },
   },
   hover: {
     opacity: 1,
@@ -97,7 +97,7 @@ const StyledHomeBox = styled(motion.div)`
   display: flex;
   flex-direction: column;
   height: 400px;
-  width: 400px;
+  width: 350px;
   min-width: 200px;
   border: 2px solid #3399ff;
   color: #3399ff;

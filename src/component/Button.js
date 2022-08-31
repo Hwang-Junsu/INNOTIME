@@ -15,19 +15,16 @@ const StyledButton = styled.button`
   height: 48px;
   margin: 8px;
 
-  ${({ size }) => {
-    switch (size) {
-      case "large":
+  ${({ name }) => {
+    switch (name) {
+      case "addButton":
         return css`
           width: 100%;
           margin: 8px;
           align-self: center;
           border-radius: 5px;
         `;
-      case "medium":
-        return css`
-          width: 80px;
-        `;
+
       case "commentButton":
         return css`
           width: 36px;

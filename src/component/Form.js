@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import Input from "./Input";
 import { useDispatch } from "react-redux";
-import { __addNewPost } from "../redux/modules/todosSlice";
+import { __addNewPost } from "../redux/modules/postSlice";
 import { v4 as uuid } from "uuid";
 import useInput from "../hooks/useInput";
 
@@ -14,9 +14,15 @@ const Form = () => {
   const navigate = useNavigate();
 
   /** DESC: 입력 값 변화 감지 -커스텀 훅(useInput) 사용*/
-  const [writer, onChangeWriterHandler] = useInput();
-  const [title, onChangeTitleHandler] = useInput();
-  const [body, onChangeBodyHandler] = useInput();
+  const [writer, onChangeWriterHandler, writerReset] = useInput();
+  const [title, onChangeTitleHandler, titleReset] = useInput();
+  const [body, onChangeBodyHandler, bodyReset] = useInput();
+
+  const reset = () => {
+    writerReset();
+    titleReset();
+    bodyReset();
+  };
 
   /**DESC: 폼 제출했을 때 동작 */
   const onSubmitHandler = (event) => {
@@ -35,77 +41,76 @@ const Form = () => {
     };
 
     dispatch(__addNewPost(post));
+    reset();
 
-    navigate("/todo");
+    navigate("/community");
   };
 
   return (
-    <StyledFormContainer>
-      <StyledForm onSubmit={onSubmitHandler}>
-        <StyledInputContainer>
-          <StyledInputBox>
-            <StyledLabel>작성자</StyledLabel>
-            <Input
-              name="writer"
-              onChange={onChangeWriterHandler}
-              type="text"
-              value={writer}
-              placeholder="이름을 입력해주세요.(5자 이내)"
-              maxLength={5}
-              width="90%"
-            />
-          </StyledInputBox>
+    <StyledForm onSubmit={onSubmitHandler}>
+      <StyledInputContainer>
+        <StyledInputBox>
+          <StyledLabel>작성자</StyledLabel>
+          <Input
+            name="writer"
+            onChange={onChangeWriterHandler}
+            type="text"
+            value={writer}
+            placeholder="이름을 입력해주세요.(5자 이내)"
+            maxLength={5}
+            width="90%"
+          />
+        </StyledInputBox>
 
-          <StyledInputBox>
-            <StyledLabel>제목</StyledLabel>
-            <Input
-              name="title"
-              onChange={onChangeTitleHandler}
-              type="text"
-              value={title}
-              placeholder="제목을 입력해주세요.(50자 이내)"
-              maxLength={50}
-              width="90%"
-            />
-          </StyledInputBox>
-          <StyledInputBox>
-            <StyledLabel>내용</StyledLabel>
-            <StyledTextArea
-              name="body"
-              onChange={onChangeBodyHandler}
-              value={body}
-              rows="10"
-              placeholder="내용을 입력해주세요.(200자 이내)"
-              maxLength={200}
-            ></StyledTextArea>
-          </StyledInputBox>
-        </StyledInputContainer>
-        <Button
-          size="large"
-          hoverBackgroundColor="#3399ff"
-          hoverTextColor="#fff"
-        >
-          추가하기
-        </Button>
-      </StyledForm>
-    </StyledFormContainer>
+        <StyledInputBox>
+          <StyledLabel>제 목</StyledLabel>
+          <Input
+            name="title"
+            onChange={onChangeTitleHandler}
+            type="text"
+            value={title}
+            placeholder="제목을 입력해주세요.(50자 이내)"
+            maxLength={50}
+            width="90%"
+          />
+        </StyledInputBox>
+        <StyledInputBox>
+          <StyledLabel>내 용</StyledLabel>
+          <StyledTextArea
+            name="body"
+            onChange={onChangeBodyHandler}
+            value={body}
+            rows="10"
+            placeholder="내용을 입력해주세요.(200자 이내)"
+            maxLength={200}
+          ></StyledTextArea>
+        </StyledInputBox>
+      </StyledInputContainer>
+      <Button
+        name="addButton"
+        hoverBackgroundColor="#3399ff"
+        hoverTextColor="#fff"
+      >
+        추가하기
+      </Button>
+    </StyledForm>
   );
 };
 
 export default Form;
 
-const StyledFormContainer = styled.div`
-  height: 100%;
-  border: 1px solid #eee;
-  padding: 8px;
-  margin-top: 20px;
-  border-radius: 5px;
-`;
-
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
+
+  border-radius: 5px;
   height: 100%;
+
+  border: 1px solid #eee;
+  padding: 8px;
+  margin-top: 20px;
+
+  justify-content: space-between;
 `;
 
 const StyledLabel = styled.label`
