@@ -17,7 +17,7 @@ const Home = () => {
       exit={{opacity: 0}}
     >
       <Layout>
-        <Banner title="WHAT TO DO" backgroundColor="#ffffff" />
+        <Banner title="WELCOME TO INNOTIME!" backgroundColor="#ffffff" />
         <HomeBoxWrapper>
           <HomeBox
             onClick={() => {

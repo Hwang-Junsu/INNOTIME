@@ -1,17 +1,16 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
-import { deleteTodo } from "../redux/modules/todosSlice";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import {deleteTodo} from "../redux/modules/todosSlice";
+import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import { __deleteTodos } from "../redux/modules/todosSlice";
-import { useEffect } from "react";
+import {__deleteTodos} from "../redux/modules/todosSlice";
+import {useEffect} from "react";
 import Button from "./Button";
 
-const ToDo = ({ work }) => {
+const ToDo = ({work}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   function deleteHandler(event) {
     event.stopPropagation(); //DESC: 삭제 버튼 클릭시 상세페이지에 진입하는 현상 방지
     dispatch(__deleteTodos(work.id));
