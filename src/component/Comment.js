@@ -5,13 +5,13 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import CancelIcon from "@material-ui/icons/Cancel";
 import SaveIcon from "@material-ui/icons/Save";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import { useDispatch } from "react-redux";
+import {useDispatch} from "react-redux";
 import {
   __deleteComments,
   __updateComments,
 } from "../redux/modules/commentSlice";
 import Button from "./Button";
-import { motion, AnimatePresence } from "framer-motion";
+import {motion, AnimatePresence} from "framer-motion";
 
 const CommentBox = styled.div`
   position: relative;
@@ -48,11 +48,11 @@ const Wrapper = styled.div`
   font-size: 14px;
 `;
 const WriterBox = styled.div`
+  width: 90%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-bottom: 5px;
-  width: 90%;
+  justify-content: space-between;
 `;
 const Writer = styled.div`
   font-size: 15px;
@@ -72,6 +72,19 @@ const Input = styled.input`
   border: 1px solid gray;
   border-radius: 5px;
 `;
+const DateBox = styled.div`
+  width: 40%;
+  margin-left: 10px;
+  font-size: calc(0.2em + 0.5vw);
+  text-align: right;
+`;
+const WrapperUserInfo = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 5px;
+  width: 90%;
+`;
 const WrapperContainer = styled(motion.div)`
   width: 100%;
   display: flex;
@@ -79,7 +92,7 @@ const WrapperContainer = styled(motion.div)`
   align-items: center;
 `;
 
-const Comment = ({ id, writer, body, onEditMode, disabled }) => {
+const Comment = ({id, date, writer, body, onEditMode, disabled}) => {
   const [isEdit, setIsEdit] = React.useState(false);
   const [editComment, setEditComment] = React.useState(body);
   const [showing, setShowing] = React.useState(true);
@@ -95,13 +108,21 @@ const Comment = ({ id, writer, body, onEditMode, disabled }) => {
     setTimeout(() => dispatch(__deleteComments(_id)), 1000);
   };
   const updating = (_id, _body) => {
-    dispatch(__updateComments({ id: _id, body: _body }));
+    dispatch(__updateComments({id: _id, body: _body}));
     setIsEdit(false);
     onEditMode(null);
   };
   const onChange = (event) => {
     setEditComment(event.target.value);
   };
+
+  const dateData = new Date(date);
+  const year = dateData.getFullYear();
+  const month = ("" + (dateData.getMonth() + 1)).padStart(2, 0);
+  const day = ("" + dateData.getDate()).padStart(2, 0);
+  const hours = ("" + dateData.getHours()).padStart(2, 0);
+  const minutes = ("" + dateData.getMinutes()).padStart(2, 0);
+  const seconds = ("" + dateData.getSeconds()).padStart(2, 0);
 
   return (
     <AnimatePresence>
@@ -114,8 +135,11 @@ const Comment = ({ id, writer, body, onEditMode, disabled }) => {
             exit="exit"
           >
             <WriterBox>
-              <AccountCircleIcon />
-              <Writer>{writer}</Writer>
+              <WrapperUserInfo>
+                <AccountCircleIcon />
+                <Writer>{writer}</Writer>
+              </WrapperUserInfo>
+              <DateBox>{`${year}-${month}-${day} ${hours}:${minutes}:${seconds}`}</DateBox>
             </WriterBox>
             <CommentBox>
               <Wrapper>
@@ -172,7 +196,7 @@ const Comment = ({ id, writer, body, onEditMode, disabled }) => {
 export default Comment;
 
 const commentAnimation = {
-  start: { opacity: 0, y: 10 },
-  end: { opacity: 1, y: 0 },
-  exit: { opacity: 0, x: -300, transition: { duration: 1 } },
+  start: {opacity: 0, y: 10},
+  end: {opacity: 1, y: 0},
+  exit: {opacity: 0, x: -300, transition: {duration: 1}},
 };
