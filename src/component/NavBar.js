@@ -41,6 +41,8 @@ const Container = styled(motion.div)`
 
 const Menu = styled(motion.div)`
   display: flex;
+  flex-direction: row;
+  align-items: center;
   width: 20rem;
   padding: 20px;
   background-color: #3399ff;

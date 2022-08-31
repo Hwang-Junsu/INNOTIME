@@ -1,9 +1,9 @@
-import { createGlobalStyle } from "styled-components";
+import {createGlobalStyle} from "styled-components";
+import font from "./font.css";
 
 const GlobalStyle = createGlobalStyle`
-
 *{
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: "LeferiPoint-WhiteObliqueA";
 }
 
 `;

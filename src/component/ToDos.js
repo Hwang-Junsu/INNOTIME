@@ -1,13 +1,13 @@
-import { ContactsOutlined } from "@material-ui/icons";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {ContactsOutlined} from "@material-ui/icons";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import styled from "styled-components";
-import { __getTodos } from "../redux/modules/todosSlice";
+import {__getTodos} from "../redux/modules/todosSlice";
 import ToDo from "./ToDo";
 
 const ToDos = () => {
   const dispatch = useDispatch();
-  const { isLoading, error, todos } = useSelector((state) => state.todos);
+  const {isLoading, error, todos} = useSelector((state) => state.todos);
 
   useEffect(() => {
     dispatch(__getTodos());
@@ -43,5 +43,6 @@ let ListWrapper = styled.div`
 `;
 
 let ListTitle = styled.h2`
+  font-family: "LeferiPoint-BlackObliqueA";
   margin: 35px 0px 35px 0px;
 `;

@@ -23,7 +23,7 @@ const ToDo = ({work}) => {
       }}
     >
       <TodoListBoxBody>
-        <h3>{work.title}</h3>
+        <ToDoTitle>{work.title}</ToDoTitle>
         <TodoWriterP>작성자: {work.writer}</TodoWriterP>
       </TodoListBoxBody>
       <Button size="listDeleteBtn" onClick={deleteHandler}>
@@ -34,6 +34,10 @@ const ToDo = ({work}) => {
 };
 
 export default ToDo;
+
+const ToDoTitle = styled.h3`
+  font-family: "LeferiPoint-BlackObliqueA";
+`;
 
 let TodoListBox = styled.div`
   display: flex;

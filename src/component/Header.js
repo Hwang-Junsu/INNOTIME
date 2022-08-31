@@ -1,13 +1,13 @@
 // 페이지별 공통 header
 import styled from "styled-components";
 import React from "react";
-import {useNavigate} from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
 import NavBar from "./NavBar";
 import {AnimatePresence, motion} from "framer-motion";
 
 const Header = () => {
   const [onNav, setOnNav] = React.useState(false);
+  const [isHover, setIsHover] = React.useState(false);
 
   const toggleOnNav = () => setOnNav((prev) => !prev);
 
@@ -33,16 +33,93 @@ const Header = () => {
           ) : null}
         </AnimatePresence>
       </Wrapper>
-      <StyledTitle>INNOTIME</StyledTitle>
+      <StyledTitle
+        onMouseOver={() => setIsHover(true)}
+        onMouseOut={() => setIsHover(false)}
+      >
+        <AnimatePresence>
+          {!isHover ? (
+            <HeaderTitle>INNOTIME.</HeaderTitle>
+          ) : (
+            <StyledHeroSubTitle
+              variants={CharacterAnimation}
+              initial="start"
+              animate="end"
+              exit="exit"
+            >
+              <Character variants={CharAnimation}>모</Character>
+              <Character variants={CharAnimation}>두</Character>
+              <Character variants={CharAnimation}>의</Character>
+              <Character variants={CharAnimation}>&nbsp;</Character>
+              <Character variants={CharAnimation}>이</Character>
+              <Character variants={CharAnimation}>노</Character>
+              <Character variants={CharAnimation}>베</Character>
+              <Character variants={CharAnimation}>이</Character>
+              <Character variants={CharAnimation}>션</Character>
+              <Character variants={CharAnimation}>&nbsp;</Character>
+              <Character variants={CharAnimation}>캠</Character>
+              <Character variants={CharAnimation}>프</Character>
+              <Character variants={CharAnimation}>&nbsp;</Character>
+              <Character variants={CharAnimation}>커</Character>
+              <Character variants={CharAnimation}>뮤</Character>
+              <Character variants={CharAnimation}>니</Character>
+              <Character variants={CharAnimation}>티</Character>
+            </StyledHeroSubTitle>
+          )}
+        </AnimatePresence>
+      </StyledTitle>
     </StyledHeader>
   );
 };
 
 export default Header;
 
+const CharacterAnimation = {
+  start: {x: 20, opacity: 0},
+  end: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      type: "spring",
+      duration: 0.5,
+      bounce: 0.5,
+      delayChildren: 0.05,
+      staggerChildren: 0.05,
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: {duration: 0.5},
+  },
+};
+const CharAnimation = {
+  start: {x: 10, opacity: 0},
+  end: {x: 0, opacity: 1},
+};
+
+const Character = styled(motion.div)`
+  font-size: 27px;
+`;
+
+const StyledHeroSubTitle = styled(motion.div)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: gray;
+  overflow: hidden;
+  height: 80px;
+`;
+
+const HeaderTitle = styled.div`
+  font-family: "Monoton", cursive;
+  font-size: 50px;
+`;
+
 const StyledHeader = styled.div`
   display: flex;
   width: 100%;
+  height: 120px;
   justify-content: space-between;
   padding: 8px 0;
 `;
@@ -54,10 +131,11 @@ const Wrapper = styled.div`
 const StyledTitle = styled.div`
   display: flex;
   justify-content: flex-end;
-  font-weight: bold;
-  font-size: large;
+  font-size: 40px;
   margin: 0;
   padding: 0;
+  color: black;
+  font-family: "Monoton", cursive;
 `;
 
 const Navigator = styled(motion.div)``;

@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import {motion} from "framer-motion";
 import AssignmentOutlinedIcon from "@material-ui/icons/AssignmentOutlined";
-import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
+import React from "react";
 
 const HomeBox = ({title, onClick, value}) => {
+  const constraintsRef = React.useRef(null);
   return (
     <StyledHomeBox
       onClick={onClick}
@@ -21,11 +22,18 @@ const HomeBox = ({title, onClick, value}) => {
         </>
       ) : (
         <Wrapper>
-          <DocIcon variants={barVariantsAdd}>
+          <DocIcon ref={constraintsRef} variants={barVariantsAdd}>
             <AssignmentOutlinedIcon style={{fontSize: 250}} />
           </DocIcon>
-          <PencilIcon variants={pencilVariant}>
-            <CreateOutlinedIcon style={{fontSize: 100}} />
+          <PencilIcon>
+            <PencilImg
+              src="https://cdn-icons-png.flaticon.com/512/2071/2071353.png"
+              drag
+              dragSnapToOrigin
+              drageElastic={0}
+              dragConstraints={constraintsRef}
+              variants={pencilVariant}
+            />
           </PencilIcon>
         </Wrapper>
       )}
@@ -35,6 +43,7 @@ const HomeBox = ({title, onClick, value}) => {
   );
 };
 
+//<CreateOutlinedIcon style={{fontSize: 100}} />
 export default HomeBox;
 
 const createAnimation = {
@@ -66,13 +75,9 @@ const barVariantsToDo = {
 const barVariantsAdd = {
   start: {
     opacity: 0,
-    y: 20,
-    x: 20,
   },
   hover: {
     opacity: 1,
-    x: 0,
-    y: 0,
   },
 };
 
@@ -110,7 +115,9 @@ const StyledHomeBox = styled(motion.div)`
   }
 `;
 
-const StyledTitle = styled.h2``;
+const StyledTitle = styled.h2`
+  font-family: "LeferiPoint-BlackObliqueA";
+`;
 
 const MotionBar = styled(motion.div)`
   width: 60%;
@@ -128,10 +135,17 @@ const DocIcon = styled(motion.div)`
   z-index: 1;
 `;
 
+const PencilImg = styled(motion.img)`
+  width: 100%;
+  height: 100%;
+`;
+
 const PencilIcon = styled(motion.div)`
   position: absolute;
-  bottom: 65px;
-  left: 80px;
-  color: black;
+  width: 80px;
+  height: 80px;
+  bottom: 85px;
+  left: 95px;
+  color: #284a77;
   z-index: 2;
 `;

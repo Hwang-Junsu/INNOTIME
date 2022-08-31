@@ -1,17 +1,26 @@
 import styled from "styled-components";
 
-const Banner = ({ title, backgroundColor, textColor }) => {
+const Banner = ({title, backgroundColor, textColor}) => {
   return (
     <StyledBannerContainer
       textColor={textColor}
       backgroundColor={backgroundColor}
     >
-      <StyledHeroTitle>{title}</StyledHeroTitle>
+      <Wrapper>
+        <StyledHeroTitle>{title}</StyledHeroTitle>
+      </Wrapper>
     </StyledBannerContainer>
   );
 };
 
 export default Banner;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
 
 const StyledBannerContainer = styled.div`
   display: flex;
@@ -25,4 +34,7 @@ const StyledBannerContainer = styled.div`
   background-color: ${(props) => props.backgroundColor || "black"};
 `;
 
-const StyledHeroTitle = styled.h2``;
+const StyledHeroTitle = styled.div`
+  font-family: "LeferiPoint-BlackObliqueA";
+  font-size: 50px;
+`;
