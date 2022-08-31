@@ -75,7 +75,7 @@ const Header = () => {
 export default Header;
 
 const CharacterAnimation = {
-  start: {x: 20, opacity: 0},
+  start: {x: 15, opacity: 0},
   end: {
     x: 0,
     opacity: 1,
@@ -98,7 +98,7 @@ const CharAnimation = {
 };
 
 const Character = styled(motion.div)`
-  font-size: 27px;
+  font-size: calc(0.35em + 1vw);
 `;
 
 const StyledHeroSubTitle = styled(motion.div)`
@@ -109,17 +109,18 @@ const StyledHeroSubTitle = styled(motion.div)`
   color: gray;
   overflow: hidden;
   height: 80px;
+  width: 100%;
 `;
 
 const HeaderTitle = styled.div`
   font-family: "Monoton", cursive;
-  font-size: 50px;
+  font-size: calc(0.75em + 1vw);
 `;
 
 const StyledHeader = styled.div`
   display: flex;
-  width: 100%;
   height: 120px;
+  margin: auto;
   justify-content: space-between;
   padding: 8px 0;
 `;

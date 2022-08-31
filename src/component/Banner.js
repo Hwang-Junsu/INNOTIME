@@ -36,5 +36,6 @@ const StyledBannerContainer = styled.div`
 
 const StyledHeroTitle = styled.div`
   font-family: "LeferiPoint-BlackObliqueA";
-  font-size: 50px;
+  font-size: calc(1.5em + 0.8vw);
+  text-align: center;
 `;

@@ -56,6 +56,7 @@ const WriterBox = styled.div`
 `;
 const Writer = styled.div`
   font-size: 15px;
+  font-family: "LeferiPoint-BlackObliqueA";
   margin-left: 7px;
 `;
 const Contents = styled.div``;

@@ -41,7 +41,7 @@ const Detail = () => {
             <h2>작성자 : {todoList?.writer}</h2>
             <DetailBackBtn
               onClick={() => {
-                navigate("/todo");
+                navigate("/community");
               }}
             >
               <span className="material-icons">

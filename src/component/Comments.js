@@ -54,7 +54,11 @@ const Comments = () => {
     <Wrapper isUp={up}>
       <HeaderWrapper>
         <HeaderButton onClick={onClick}>
-          {up ? "눌러서 댓글 내리기" : "눌러서 댓글 올리기"}
+          {up ? (
+            <ButtonContent>눌러서 댓글 내리기</ButtonContent>
+          ) : (
+            <ButtonContent>눌러서 댓글 올리기</ButtonContent>
+          )}
         </HeaderButton>
       </HeaderWrapper>
       <Form>
@@ -133,6 +137,9 @@ const Comments = () => {
     </Wrapper>
   );
 };
+const ButtonContent = styled.div`
+  font-family: "LeferiPoint-BlackObliqueA";
+`;
 
 const Wrapper = styled.div`
   height: ${(props) => (props.isUp ? 400 : 0)}px;

@@ -1,11 +1,8 @@
-import React, {useState} from "react";
+import React from "react";
 import styled from "styled-components";
-import {deleteTodo} from "../redux/modules/todosSlice";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import axios from "axios";
 import {__deleteTodos} from "../redux/modules/todosSlice";
-import {useEffect} from "react";
 import Button from "./Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 const ToDo = ({work}) => {
@@ -19,7 +16,7 @@ const ToDo = ({work}) => {
   return (
     <TodoListBox
       onClick={() => {
-        navigate(`/todo/${work.id}`);
+        navigate(`/community/${work.id}`);
       }}
     >
       <TodoListBoxBody>

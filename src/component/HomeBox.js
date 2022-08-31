@@ -30,7 +30,7 @@ const HomeBox = ({title, onClick, value}) => {
               src="https://cdn-icons-png.flaticon.com/512/2071/2071353.png"
               drag
               dragSnapToOrigin
-              drageElastic={0}
+              dragelastic={0}
               dragConstraints={constraintsRef}
               variants={pencilVariant}
             />
@@ -94,10 +94,11 @@ const pencilVariant = {
 };
 
 const StyledHomeBox = styled(motion.div)`
+  position: relative;
   display: flex;
   flex-direction: column;
-  height: 400px;
-  width: 400px;
+  height: 37vh;
+  width: 20vw;
   min-width: 200px;
   border: 2px solid #3399ff;
   color: #3399ff;
@@ -117,6 +118,8 @@ const StyledHomeBox = styled(motion.div)`
 
 const StyledTitle = styled.h2`
   font-family: "LeferiPoint-BlackObliqueA";
+  position: absolute;
+  bottom: 5px;
 `;
 
 const MotionBar = styled(motion.div)`

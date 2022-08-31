@@ -1,6 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import {useNavigate} from "react-router-dom";
+import {motion} from "framer-motion";
 import Banner from "../component/Banner";
 import HomeBox from "../component/HomeBox";
 import styled from "styled-components";
@@ -12,9 +12,9 @@ const Home = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      initial={{opacity: 0}}
+      animate={{opacity: 1}}
+      exit={{opacity: 0}}
     >
       <Layout>
         <Banner title="WELCOME TO INNOTIME!" backgroundColor="#ffffff" />
@@ -28,7 +28,7 @@ const Home = () => {
           ></HomeBox>
           <HomeBox
             onClick={() => {
-              navigate("/todo");
+              navigate("/community");
             }}
             title="COMMUNITY   ➡"
             value="todoButton"
@@ -47,7 +47,6 @@ const HomeBoxWrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 60%;
-  height: 60%;
+  width: 100%;
   margin: auto;
 `;

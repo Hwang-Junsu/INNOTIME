@@ -1,12 +1,12 @@
 // 할 일 기록하기 form
 import React from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import Button from "./Button";
 import Input from "./Input";
-import { useDispatch } from "react-redux";
-import { __addNewPost } from "../redux/modules/todosSlice";
-import { v4 as uuid } from "uuid";
+import {useDispatch} from "react-redux";
+import {__addNewPost} from "../redux/modules/todosSlice";
+import {v4 as uuid} from "uuid";
 import useInput from "../hooks/useInput";
 
 const Form = () => {
@@ -36,7 +36,7 @@ const Form = () => {
 
     dispatch(__addNewPost(post));
 
-    navigate("/todo");
+    navigate("/community");
   };
 
   return (

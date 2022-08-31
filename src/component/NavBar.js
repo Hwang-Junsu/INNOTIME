@@ -18,24 +18,23 @@ export default function NavBar() {
         <AddCommentIcon />
         <MenuName>Add Post</MenuName>
       </Menu>
-      <Menu variants={menuAnimation} onClick={() => navigate("/todo")}>
+      <Menu variants={menuAnimation} onClick={() => navigate("/community")}>
         <ForumIcon />
         <MenuName>Community</MenuName>
       </Menu>
     </Container>
   );
 }
-
+// background-color: rgba(0, 0, 0, 0);
 const Container = styled(motion.div)`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 35rem;
-  height: 6rem;
-  background-color: rgba(0, 0, 0, 0);
+  width: 30vw;
+  height: 10vh;
   position: absolute;
-  left: 60px;
+  left: calc(1.5em + 100%);
   top: -20px;
 `;
 
@@ -43,8 +42,9 @@ const Menu = styled(motion.div)`
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 20rem;
-  padding: 20px;
+  width: 30%;
+  height: 30%;
+  padding: 15px;
   background-color: #3399ff;
   border: 2px solid rgba(256, 256, 256, 1);
   border-radius: 10px;
@@ -53,6 +53,7 @@ const Menu = styled(motion.div)`
 `;
 const MenuName = styled.div`
   margin-left: 10px;
+  font-size: calc(0.001em + 1vw);
 `;
 
 const menuAnimation = {
