@@ -50,6 +50,7 @@ const Menu = styled(motion.div)`
   border-radius: 10px;
   margin-bottom: 10px;
   color: white;
+  cursor: pointer;
 `;
 const MenuName = styled.div`
   margin-left: 10px;

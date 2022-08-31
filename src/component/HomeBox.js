@@ -106,7 +106,7 @@ const StyledHomeBox = styled(motion.div)`
   align-items: center;
   justify-content: center;
   margin: 20px;
-  padding: 16px;
+  padding: 0 16px 16px 16px;
   border-radius: 10px;
   &:hover {
     cursor: pointer;
@@ -119,7 +119,7 @@ const StyledHomeBox = styled(motion.div)`
 const StyledTitle = styled.h2`
   font-family: "LeferiPoint-BlackObliqueA";
   position: absolute;
-  bottom: 5px;
+  bottom: 0px;
 `;
 
 const MotionBar = styled(motion.div)`
