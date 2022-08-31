@@ -3,7 +3,7 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 
 import Detail from "./pages/Detail";
 import Add from "./pages/Add";
-import ToDoList from "./pages/ToDoList";
+import Posts from "./pages/Community";
 import Home from "./pages/Home";
 
 const Router = () => {
@@ -11,7 +11,7 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/community" element={<ToDoList />} />
+        <Route path="/community" element={<Posts />} />
         <Route path="/community/:id" element={<Detail />} />
         <Route path="/add" element={<Add />} />
       </Routes>

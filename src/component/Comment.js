@@ -5,13 +5,13 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import CancelIcon from "@material-ui/icons/Cancel";
 import SaveIcon from "@material-ui/icons/Save";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import {useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   __deleteComments,
   __updateComments,
 } from "../redux/modules/commentSlice";
 import Button from "./Button";
-import {motion, AnimatePresence} from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const CommentBox = styled.div`
   position: relative;
@@ -79,7 +79,7 @@ const WrapperContainer = styled(motion.div)`
   align-items: center;
 `;
 
-const Comment = ({id, writer, body, onEditMode, disabled}) => {
+const Comment = ({ id, writer, body, onEditMode, disabled }) => {
   const [isEdit, setIsEdit] = React.useState(false);
   const [editComment, setEditComment] = React.useState(body);
   const [showing, setShowing] = React.useState(true);
@@ -95,7 +95,7 @@ const Comment = ({id, writer, body, onEditMode, disabled}) => {
     setTimeout(() => dispatch(__deleteComments(_id)), 1000);
   };
   const updating = (_id, _body) => {
-    dispatch(__updateComments({id: _id, body: _body}));
+    dispatch(__updateComments({ id: _id, body: _body }));
     setIsEdit(false);
     onEditMode(null);
   };
@@ -138,7 +138,7 @@ const Comment = ({id, writer, body, onEditMode, disabled}) => {
                 <Button
                   onClick={() => onIsEdit()}
                   disabled={disabled}
-                  size="commentButton"
+                  name="commentButton"
                 >
                   {!isEdit ? <EditIcon /> : <CancelIcon />}
                 </Button>
@@ -146,7 +146,7 @@ const Comment = ({id, writer, body, onEditMode, disabled}) => {
                   <Button
                     onClick={() => onDelete(id)}
                     disabled={disabled}
-                    size="commentButton"
+                    name="commentButton"
                   >
                     <DeleteIcon />
                   </Button>
@@ -154,7 +154,7 @@ const Comment = ({id, writer, body, onEditMode, disabled}) => {
                   <Button
                     onClick={() => updating(id, editComment)}
                     disabled={disabled}
-                    size="commentButton"
+                    name="commentButton"
                   >
                     <SaveIcon />
                   </Button>
@@ -172,7 +172,7 @@ const Comment = ({id, writer, body, onEditMode, disabled}) => {
 export default Comment;
 
 const commentAnimation = {
-  start: {opacity: 0, y: 10},
-  end: {opacity: 1, y: 0},
-  exit: {opacity: 0, x: -300, transition: {duration: 1}},
+  start: { opacity: 0, y: 10 },
+  end: { opacity: 1, y: 0 },
+  exit: { opacity: 0, x: -300, transition: { duration: 1 } },
 };

@@ -4,6 +4,7 @@ import React from "react";
 import MenuIcon from "@material-ui/icons/Menu";
 import NavBar from "./NavBar";
 import {AnimatePresence, motion} from "framer-motion";
+import SubTitle from "./SubTitle";
 
 const Header = () => {
   const [onNav, setOnNav] = React.useState(false);
@@ -37,7 +38,7 @@ const Header = () => {
         onMouseOver={() => setIsHover(true)}
         onMouseOut={() => setIsHover(false)}
       >
-        <AnimatePresence>
+        {/* <AnimatePresence>
           {!isHover ? (
             <HeaderTitle>INNOTIME.</HeaderTitle>
           ) : (
@@ -66,6 +67,15 @@ const Header = () => {
               <Character variants={CharAnimation}>티</Character>
             </StyledHeroSubTitle>
           )}
+        </AnimatePresence> */}
+        <AnimatePresence>
+          {!isHover ? (
+            <HeaderTitle>INNOTIME.</HeaderTitle>
+          ) : (
+            <SubTitle
+              title={`모두의\u00A0이노베이션\u00A0캠프\u00A0커뮤니티`}
+            />
+          )}
         </AnimatePresence>
       </StyledTitle>
     </StyledHeader>
@@ -74,43 +84,42 @@ const Header = () => {
 
 export default Header;
 
-const CharacterAnimation = {
-  start: {x: 15, opacity: 0},
-  end: {
-    x: 0,
-    opacity: 1,
-    transition: {
-      type: "spring",
-      duration: 0.5,
-      bounce: 0.5,
-      delayChildren: 0.05,
-      staggerChildren: 0.05,
-    },
-  },
-  exit: {
-    opacity: 0,
-    transition: {duration: 0.5},
-  },
-};
-const CharAnimation = {
-  start: {x: 10, opacity: 0},
-  end: {x: 0, opacity: 1},
-};
+// const CharacterAnimation = {
+//   start: { x: 20, opacity: 0 },
+//   end: {
+//     x: 0,
+//     opacity: 1,
+//     transition: {
+//       type: "spring",
+//       duration: 0.5,
+//       bounce: 0.5,
+//       delayChildren: 0.05,
+//       staggerChildren: 0.05,
+//     },
+//   },
+//   exit: {
+//     opacity: 0,
+//     transition: { duration: 0.5 },
+//   },
+// };
+// const CharAnimation = {
+//   start: { x: 10, opacity: 0 },
+//   end: { x: 0, opacity: 1 },
+// };
 
 const Character = styled(motion.div)`
   font-size: calc(0.35em + 1vw);
 `;
 
-const StyledHeroSubTitle = styled(motion.div)`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  color: gray;
-  overflow: hidden;
-  height: 80px;
-  width: 100%;
-`;
+// const StyledHeroSubTitle = styled(motion.div)`
+//   display: flex;
+//   flex-direction: row;
+//   align-items: center;
+//   justify-content: center;
+//   color: gray;
+//   overflow: hidden;
+//   height: 80px;
+// `;
 
 const HeaderTitle = styled.div`
   font-family: "Monoton", cursive;

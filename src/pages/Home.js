@@ -31,7 +31,7 @@ const Home = () => {
               navigate("/community");
             }}
             title="COMMUNITY   ➡"
-            value="todoButton"
+            value="listButton"
           ></HomeBox>
         </HomeBoxWrapper>
       </Layout>
@@ -48,5 +48,6 @@ const HomeBoxWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  height: 60%;
   margin: auto;
 `;

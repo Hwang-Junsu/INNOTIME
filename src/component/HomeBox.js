@@ -13,12 +13,12 @@ const HomeBox = ({title, onClick, value}) => {
       animate="end"
       whileHover="hover"
     >
-      {value === "todoButton" ? (
+      {value === "listButton" ? (
         <>
-          <MotionBar variants={barVariantsToDo} />
-          <MotionBar variants={barVariantsToDo} />
-          <MotionBar variants={barVariantsToDo} />
-          <MotionBar variants={barVariantsToDo} />
+          <MotionBar variants={barVariantsList} />
+          <MotionBar variants={barVariantsList} />
+          <MotionBar variants={barVariantsList} />
+          <MotionBar variants={barVariantsList} />
         </>
       ) : (
         <Wrapper>
@@ -62,7 +62,7 @@ const createAnimation = {
   },
 };
 
-const barVariantsToDo = {
+const barVariantsList = {
   start: {
     opacity: 0,
     y: 10,

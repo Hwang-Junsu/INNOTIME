@@ -1,26 +1,24 @@
-import React, {useState} from "react";
+import React from "react";
 import styled from "styled-components";
-import {useDispatch, useSelector} from "react-redux";
-import {useParams} from "react-router-dom";
-import {__editTodos} from "../redux/modules/todosSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { __editPosts } from "../redux/modules/postSlice";
 import Button from "./Button";
 import useInput from "../hooks/useInput";
 
-function Modal({setIsOpen}) {
+function Modal({ setIsOpen }) {
   const closeModal = () => {
     setIsOpen(false);
   };
-  const {id} = useParams();
+  const { id } = useParams();
   const dispatch = useDispatch();
-  const {todos} = useSelector((state) => state.todos);
-  const selectTodo = todos.find((todo) => todo.id === id); //DESC: ID 숫자일 때만 +
+  const { posts } = useSelector((state) => state.posts);
+  const selectPost = posts.find((post) => post.id === id); //DESC: ID 숫자일 때만 +
 
-  const [body, onChangeBodyHandler] = useInput(selectTodo.body);
-
-  // const [newBody, setNewBody] = useState(selectTodo.body);
+  const [body, onChangeBodyHandler] = useInput(selectPost.body);
 
   const editHandler = () => {
-    dispatch(__editTodos({id: selectTodo.id, body: body}));
+    dispatch(__editPosts({ id: selectPost.id, body: body }));
     setIsOpen(false);
   };
 
@@ -28,14 +26,14 @@ function Modal({setIsOpen}) {
     <ModalBack onClick={closeModal}>
       <ModalBox onClick={(e) => e.stopPropagation()}>
         <ModalHeader>
-          <h1>{selectTodo.title}</h1>
+          <h1>{selectPost.title}</h1>
           <h3 onClick={closeModal}>X</h3>
         </ModalHeader>
         <ModalText
-          defaultValue={selectTodo.body}
+          defaultValue={selectPost.body}
           onChange={onChangeBodyHandler}
         ></ModalText>
-        <Button size="modalSaveBtn" onClick={editHandler}>
+        <Button name="modalSaveBtn" onClick={editHandler}>
           저장하기
         </Button>
       </ModalBox>
