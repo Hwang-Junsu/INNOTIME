@@ -28,12 +28,6 @@ const StyledButton = styled.button`
         return css`
           width: 80px;
         `;
-      case "logo":
-        return css`
-          width: 36px;
-          height: 36px;
-          border: none;
-        `;
       case "commentButton":
         return css`
           width: 36px;

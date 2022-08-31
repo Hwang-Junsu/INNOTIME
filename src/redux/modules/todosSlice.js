@@ -25,8 +25,6 @@ export const __addNewPost = createAsyncThunk(
   async (arg, thunkAPI) => {
     try {
       const { data } = await axios.post("http://localhost:3001/todos", arg);
-      console.log(data);
-
       return thunkAPI.fulfillWithValue(data);
     } catch (e) {
       return thunkAPI.rejectWithValue(e);

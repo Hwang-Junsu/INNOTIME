@@ -24,6 +24,7 @@
     "request": "^2.88.2",
     "styled-components": "^5.3.5",
     "styled-reset": "^4.4.2",
+    "uuid": "^8.3.2",
     "web-vitals": "^2.1.0",
     "yarn": "^1.22.19"
   },

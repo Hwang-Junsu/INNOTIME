@@ -7,7 +7,7 @@ import axios from "axios";
 import { __deleteTodos } from "../redux/modules/todosSlice";
 import { useEffect } from "react";
 import Button from "./Button";
-
+import DeleteIcon from "@material-ui/icons/Delete";
 const ToDo = ({ work }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,8 +27,11 @@ const ToDo = ({ work }) => {
         <h3>{work.title}</h3>
         <TodoWriterP>작성자: {work.writer}</TodoWriterP>
       </TodoListBoxBody>
-      <Button size="listDeleteBtn" onClick={deleteHandler}>
+      {/* <Button size="listDeleteBtn" onClick={deleteHandler}>
         🗑
+      </Button> */}
+      <Button size="listDeleteBtn" onClick={deleteHandler}>
+        <DeleteIcon />
       </Button>
     </TodoListBox>
   );

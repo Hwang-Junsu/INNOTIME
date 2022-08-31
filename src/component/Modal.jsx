@@ -13,7 +13,7 @@ function Modal({ setIsOpen }) {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { todos } = useSelector((state) => state.todos);
-  const selectTodo = todos.find((todo) => todo.id === +id);
+  const selectTodo = todos.find((todo) => todo.id === id); //DESC: ID 숫자일 때만 +
 
   const [body, onChangeBodyHandler] = useInput(selectTodo.body);
 

@@ -6,7 +6,7 @@ import Button from "./Button";
 import Input from "./Input";
 import { useDispatch } from "react-redux";
 import { __addNewPost } from "../redux/modules/todosSlice";
-
+import { v4 as uuid } from "uuid";
 import useInput from "../hooks/useInput";
 
 const Form = () => {
@@ -28,10 +28,10 @@ const Form = () => {
       return;
 
     const post = {
+      id: uuid().slice(-4),
       writer: writer,
       title: title,
       body: body,
-      isDone: false,
     };
 
     dispatch(__addNewPost(post));
