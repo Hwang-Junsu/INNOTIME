@@ -83,6 +83,7 @@ const Form = () => {
             rows="10"
             placeholder="내용을 입력해주세요.(200자 이내)"
             maxLength={200}
+            required
           ></StyledTextArea>
         </StyledInputBox>
       </StyledInputContainer>

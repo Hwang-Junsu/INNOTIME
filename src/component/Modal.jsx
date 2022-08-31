@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -13,11 +13,9 @@ function Modal({ setIsOpen }) {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { posts } = useSelector((state) => state.posts);
-  const selectPost = posts.find((todo) => todo.id === id); //DESC: ID 숫자일 때만 +
+  const selectPost = posts.find((post) => post.id === id); //DESC: ID 숫자일 때만 +
 
   const [body, onChangeBodyHandler] = useInput(selectPost.body);
-
-  // const [newBody, setNewBody] = useState(selectTodo.body);
 
   const editHandler = () => {
     dispatch(__editPosts({ id: selectPost.id, body: body }));

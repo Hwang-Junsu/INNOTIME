@@ -56,15 +56,6 @@ let PostListBoxBody = styled.div`
   flex-direction: column;
 `;
 
-// let TodoListBtn = styled.button`
-//   border: none;
-//   background-color: white;
-//   width: 35px;
-//   height: 35px;
-//   margin-top: 5px;
-//   cursor: pointer;
-// `;
-
 let PostWriterP = styled.p`
   font-size: 13px;
 `;

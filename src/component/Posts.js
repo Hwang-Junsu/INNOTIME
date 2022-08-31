@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { __getPosts } from "../redux/modules/postSlice";
-import ToDo from "./Post";
+import Post from "./Post";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 
@@ -46,7 +46,7 @@ const Posts = () => {
       <ListTitle>자유게시판</ListTitle>
       <ListWrapper>
         {posts.map((work) => (
-          <ToDo work={work} key={work.id} />
+          <Post work={work} key={work.id} />
         ))}
       </ListWrapper>
     </div>

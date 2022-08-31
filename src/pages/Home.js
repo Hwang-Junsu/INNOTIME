@@ -31,7 +31,7 @@ const Home = () => {
               navigate("/community");
             }}
             title="COMMUNITY   ➡"
-            value="todoButton"
+            value="listButton"
           ></HomeBox>
         </HomeBoxWrapper>
       </Layout>

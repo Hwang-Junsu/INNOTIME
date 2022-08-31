@@ -37,11 +37,10 @@ const Detail = () => {
       <Layout>
         <DetailLayout>
           <DetailHeader>
-            {/* <h2>Id : {todoList?.id}</h2> */}
             <h2>작성자 : {postList?.writer}</h2>
             <DetailBackBtn
               onClick={() => {
-                navigate("/todo");
+                navigate("/community");
               }}
             >
               <span className="material-icons">

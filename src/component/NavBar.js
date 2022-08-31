@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
 import HomeIcon from "@material-ui/icons/Home";
 import AddCommentIcon from "@material-ui/icons/AddComment";
 import ForumIcon from "@material-ui/icons/Forum";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function NavBar() {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ export default function NavBar() {
         <AddCommentIcon />
         <MenuName>Add Post</MenuName>
       </Menu>
-      <Menu variants={menuAnimation} onClick={() => navigate("/todo")}>
+      <Menu variants={menuAnimation} onClick={() => navigate("/community")}>
         <ForumIcon />
         <MenuName>Community</MenuName>
       </Menu>
@@ -56,6 +56,6 @@ const MenuName = styled.div`
 `;
 
 const menuAnimation = {
-  visible: {opacity: 0, x: -20},
-  end: {opacity: 1, x: 0},
+  visible: { opacity: 0, x: -20 },
+  end: { opacity: 1, x: 0 },
 };
