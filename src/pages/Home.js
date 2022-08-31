@@ -9,7 +9,6 @@ import Layout from "../component/Layout";
 
 const Home = () => {
   const navigate = useNavigate();
-
   return (
     <motion.div
       initial={{opacity: 0}}

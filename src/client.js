@@ -1,7 +1,5 @@
 import axios from "axios";
 
-const client = axios.create({
-  baseURL: "https://innotime-sparta-8.herokuapp.com/",
-});
+const client = axios.create({baseURL: process.env.REACT_APP_API_URL});
 
 export default client;
