@@ -30,7 +30,7 @@ const HomeBox = ({title, onClick, value}) => {
               src="https://cdn-icons-png.flaticon.com/512/2071/2071353.png"
               drag
               dragSnapToOrigin
-              dragelastic={0}
+              drageelastic={0}
               dragConstraints={constraintsRef}
               variants={pencilVariant}
             />

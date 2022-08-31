@@ -5,6 +5,7 @@ import {__getTodos} from "../redux/modules/todosSlice";
 import ToDo from "./ToDo";
 import Button from "./Button";
 import {useNavigate} from "react-router-dom";
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 
 const ToDos = () => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const ToDos = () => {
     return (
       <EmptyPage>
         <h3>앗! 아직 게시글이 없어요.</h3>
-        ➡️
+        <ArrowForwardIcon />
         <Button
           size="emptyPageBtn"
           hoverBackgroundColor="#3399ff"
