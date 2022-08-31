@@ -16,7 +16,7 @@ const Detail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { todos } = useSelector((state) => state.todos);
-  const todoList = todos.find((todo) => todo.id === +id); //DESC: ID 숫자일 때만 +
+  const todoList = todos.find((todo) => todo.id === id); //DESC: ID 숫자일 때만 +
 
   useEffect(() => {
     dispatch(__getTodos());
@@ -37,7 +37,8 @@ const Detail = () => {
       <Layout>
         <DetailLayout>
           <DetailHeader>
-            <h2>Id : {todoList?.id}</h2>
+            {/* <h2>Id : {todoList?.id}</h2> */}
+            <h2>작성자 : {todoList?.writer}</h2>
             <DetailBackBtn
               onClick={() => {
                 navigate("/todo");

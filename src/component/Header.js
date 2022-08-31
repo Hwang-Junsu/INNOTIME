@@ -1,7 +1,6 @@
 // 페이지별 공통 header
 import styled from "styled-components";
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
 import NavBar from "./NavBar";
 import { AnimatePresence, motion } from "framer-motion";
