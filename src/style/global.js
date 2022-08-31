@@ -9,7 +9,7 @@ html{
     font-size: 16px;
 }
 main{
-    height: 65%;
+    height: 60%;
 }
 
 `;
