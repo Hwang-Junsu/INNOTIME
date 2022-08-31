@@ -35,9 +35,7 @@ export const __addPost = createAsyncThunk(
 export const __deletePosts = createAsyncThunk(
   "posts/deletePosts",
   async (payload) => {
-    const {data} = await client.delete(
-      `http://localhost:3001/posts/${payload}`
-    );
+    const {data} = await client.delete(`/posts/${payload}`);
     return payload;
   }
 );
@@ -45,10 +43,9 @@ export const __deletePosts = createAsyncThunk(
 export const __editPosts = createAsyncThunk(
   "posts/editPosts",
   async (payload) => {
-    const {data} = await client.patch(
-      `http://localhost:3001/posts/${payload.id}`,
-      {body: payload.body}
-    );
+    const {data} = await client.patch(`/posts/${payload.id}`, {
+      body: payload.body,
+    });
     return data;
   }
 );
