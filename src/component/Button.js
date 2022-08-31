@@ -19,17 +19,14 @@ const StyledButton = styled.button`
     switch (size) {
       case "large":
         return css`
-          width: 90%;
+          width: 100%;
           margin: 8px;
           align-self: center;
+          border-radius: 5px;
         `;
       case "medium":
         return css`
           width: 80px;
-        `;
-      case "small":
-        return css`
-          width: 48px;
         `;
       case "commentButton":
         return css`
@@ -66,6 +63,14 @@ const StyledButton = styled.button`
           background-color: transparent;
           border: 1px solid gray;
           border-radius: 5px;
+        `;
+      case "emptyPageBtn":
+        return css`
+          width: 160px;
+          height: 50px;
+          border-radius: 5px;
+          border: 1px solid #3399ff;
+          margin: 0px 0px 0px 15px;
         `;
       default:
         return css`

@@ -1,44 +1,19 @@
 // 할 일 기록하기 form
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import Input from "./Input";
-import { useDispatch, useSelector } from "react-redux";
-import { __addTodoThunk, clearTodo } from "../redux/modules/todosSlice";
-import nextId from "react-id-generator";
+import { useDispatch } from "react-redux";
+import { __addNewPost } from "../redux/modules/todosSlice";
+import { v4 as uuid } from "uuid";
 import useInput from "../hooks/useInput";
 
 const Form = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // const isSuccess = useSelector((state) => state.todos.isSuccess);
-
-  const initialTodo = {
-    writer: "",
-    title: "",
-    body: "",
-    isDone: false,
-  };
-
-  const [todo, setTodo] = useState(initialTodo);
-
-  // useEffect(() => {
-  // if (!isSuccess) return;
-  // // DESC: 제출 성공하면 todo list 로 이동
-  // if (isSuccess) navigate("/todo");
-  // console.log(isSuccess);
-
-  // return () => dispatch(clearTodo());
-  // }, [dispatch, isSuccess, navigate]);
-
-  /** DESC: 입력 값 변화 감지*/
-  // const onChangeHandler = (event) => {
-  //   const { name, value } = event.target;
-  //   setTodo({ ...todo, [name]: value });
-  // };
-
+  /** DESC: 입력 값 변화 감지 -커스텀 훅(useInput) 사용*/
   const [writer, onChangeWriterHandler] = useInput();
   const [title, onChangeTitleHandler] = useInput();
   const [body, onChangeBodyHandler] = useInput();
@@ -50,23 +25,16 @@ const Form = () => {
 
     // DESC: 유효성 검사
     if (writer.trim() === "" || title.trim() === "" || body.trim() === "")
-      return alert("빈 항목이 존재합니다.");
+      return;
 
-    todo.writer = writer;
-    todo.title = title;
-    todo.body = body;
+    const post = {
+      id: uuid().slice(-4),
+      writer: writer,
+      title: title,
+      body: body,
+    };
 
-    // setTodo({ writer: writer, title: title, body: body, isDone: false });
-
-    //TODO : ID 처리 문제..id 초기화 오류..
-    // const id = nextId();
-
-    console.log(todo);
-
-    dispatch(__addTodoThunk(todo));
-
-    //DESC: todo 값 초기화
-    setTodo(initialTodo);
+    dispatch(__addNewPost(post));
 
     navigate("/todo");
   };
@@ -84,7 +52,7 @@ const Form = () => {
               value={writer}
               placeholder="이름을 입력해주세요.(5자 이내)"
               maxLength={5}
-              width="20%"
+              width="90%"
             />
           </StyledInputBox>
 
@@ -97,7 +65,7 @@ const Form = () => {
               value={title}
               placeholder="제목을 입력해주세요.(50자 이내)"
               maxLength={50}
-              width="50%"
+              width="90%"
             />
           </StyledInputBox>
           <StyledInputBox>
@@ -145,7 +113,7 @@ const StyledLabel = styled.label`
   font-size: x-large;
   font-weight: bold;
   width: 5%;
-  min-width: 100px;
+  min-width: 80px;
 `;
 
 const StyledInputContainer = styled.div`
@@ -164,4 +132,5 @@ const StyledTextArea = styled.textarea`
   border: 1px solid #eee;
   border-radius: 5px;
   min-width: fit-content;
+  width: 90%;
 `;

@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import {__editTodos} from "../redux/modules/todosSlice";
 import Button from "./Button";
+import useInput from "../hooks/useInput";
 
 function Modal({setIsOpen}) {
   const closeModal = () => {
@@ -14,10 +15,12 @@ function Modal({setIsOpen}) {
   const {todos} = useSelector((state) => state.todos);
   const selectTodo = todos.find((todo) => todo.id === id); //DESC: ID 숫자일 때만 +
 
-  const [newBody, setNewBody] = useState(selectTodo.body);
+  const [body, onChangeBodyHandler] = useInput(selectTodo.body);
+
+  // const [newBody, setNewBody] = useState(selectTodo.body);
 
   const editHandler = () => {
-    dispatch(__editTodos({id: selectTodo.id, body: newBody}));
+    dispatch(__editTodos({id: selectTodo.id, body: body}));
     setIsOpen(false);
   };
 
@@ -30,7 +33,7 @@ function Modal({setIsOpen}) {
         </ModalHeader>
         <ModalText
           defaultValue={selectTodo.body}
-          onChange={(e) => setNewBody(e.target.value)}
+          onChange={onChangeBodyHandler}
         ></ModalText>
         <Button size="modalSaveBtn" onClick={editHandler}>
           저장하기
