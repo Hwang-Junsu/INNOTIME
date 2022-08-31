@@ -3,18 +3,21 @@ import styled from "styled-components";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Home } from "@material-ui/icons";
+import Button from "./Button";
 
 const Header = () => {
   const navigate = useNavigate();
 
   return (
     <StyledHeader>
-      <Home
-        fontSize="large"
-        onClick={() => {
-          navigate("/");
-        }}
-      />
+      <Button size="logo">
+        <Home
+          fontSize="large"
+          onClick={() => {
+            navigate("/");
+          }}
+        />
+      </Button>
 
       <StyledTitle>INNOTIME</StyledTitle>
     </StyledHeader>
@@ -29,11 +32,12 @@ const StyledHeader = styled.div`
   padding: 8px 0;
 `;
 
-const StyledTitle = styled.div`
+const StyledTitle = styled.h2`
   display: flex;
   justify-content: flex-end;
+  align-self: center;
   font-weight: bold;
-  font-size: large;
+  font-size: 27px;
   margin: 0;
   padding: 0;
 `;

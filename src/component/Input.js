@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Input = (props) => {
-  return <StyledInput {...props}></StyledInput>;
+  return <StyledInput {...props} required></StyledInput>;
 };
 
 const StyledInput = styled.input`

@@ -14,7 +14,7 @@ const StyledHomeBox = styled.div`
   display: flex;
   height: 96px;
   border: 2px solid #eee;
-  color: #3399ff;
+  color: black;
   align-items: center;
   justify-content: center;
   margin: 20px;
@@ -22,8 +22,7 @@ const StyledHomeBox = styled.div`
   border-radius: 10px;
   &:hover {
     cursor: pointer;
-    background-color: #3399ff;
-    color: white;
+    border: 2px solid ${(props) => props.theme.mainColor};
   }
 `;
 

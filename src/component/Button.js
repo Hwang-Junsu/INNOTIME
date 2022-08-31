@@ -22,14 +22,17 @@ const StyledButton = styled.button`
           width: 100%;
           margin: 8px;
           align-self: center;
+          border-radius: 5px;
         `;
       case "medium":
         return css`
           width: 80px;
         `;
-      case "small":
+      case "logo":
         return css`
-          width: 48px;
+          width: 36px;
+          height: 36px;
+          border: none;
         `;
       case "commentButton":
         return css`

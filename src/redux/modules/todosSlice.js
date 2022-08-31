@@ -20,14 +20,14 @@ export const __getTodos = createAsyncThunk(
   }
 );
 
-export const __addTodoThunk = createAsyncThunk(
-  "todos/addTodo",
+export const __addNewPost = createAsyncThunk(
+  "todos/addPost",
   async (arg, thunkAPI) => {
     try {
-      const data = await axios.post("http://localhost:3001/todos", arg);
+      const { data } = await axios.post("http://localhost:3001/todos", arg);
       console.log(data);
 
-      return thunkAPI.fulfillWithValue(data.data);
+      return thunkAPI.fulfillWithValue(data);
     } catch (e) {
       return thunkAPI.rejectWithValue(e);
     }
@@ -85,16 +85,16 @@ export const todosSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
-    [__addTodoThunk.pending]: (state) => {
+    [__addNewPost.pending]: (state) => {
       // state.isSuccess = false;
       state.isLoading = true; // DESC: 네트워크 요청이 시작되면 로딩 상태를 true로 변경!
     },
-    [__addTodoThunk.fulfilled]: (state, action) => {
+    [__addNewPost.fulfilled]: (state, action) => {
       // state.isSuccess = true;
       state.isLoading = false; // DESC: 네트워크 요청이 끝났으니, 로딩 상태를 false로 변경!
       state.todos.push(action.payload); //DESC: Store에 있는 todos에 새 todo를 추가합니다.
     },
-    [__addTodoThunk.rejected]: (state, action) => {
+    [__addNewPost.rejected]: (state, action) => {
       state.isLoading = false; // DESC: 네트워크 요청이 끝났으니, 로딩 상태를 false로 변경!
       state.error = action.payload; // DESC: catch된 error 객체를 state.error에 넣습니다.
     },
