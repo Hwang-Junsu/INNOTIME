@@ -21,7 +21,7 @@ export const __getPosts = createAsyncThunk(
   }
 );
 
-export const __addNewPost = createAsyncThunk(
+export const __addPost = createAsyncThunk(
   "posts/addPost",
   async (arg, thunkAPI) => {
     try {
@@ -84,14 +84,14 @@ export const postSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
-    [__addNewPost.pending]: (state) => {
+    [__addPost.pending]: (state) => {
       state.isLoading = true; // DESC: 네트워크 요청이 시작되면 로딩 상태를 true로 변경!
     },
-    [__addNewPost.fulfilled]: (state, action) => {
+    [__addPost.fulfilled]: (state, action) => {
       state.isLoading = false; // DESC: 네트워크 요청이 끝났으니, 로딩 상태를 false로 변경!
       state.posts.push(action.payload); //DESC: Store에 있는 posts에 새 todo를 추가합니다.
     },
-    [__addNewPost.rejected]: (state, action) => {
+    [__addPost.rejected]: (state, action) => {
       state.isLoading = false; // DESC: 네트워크 요청이 끝났으니, 로딩 상태를 false로 변경!
       state.error = action.payload; // DESC: catch된 error 객체를 state.error에 넣습니다.
     },

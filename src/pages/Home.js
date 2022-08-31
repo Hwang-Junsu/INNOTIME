@@ -28,7 +28,7 @@ const Home = () => {
           ></HomeBox>
           <HomeBox
             onClick={() => {
-              navigate("/todo");
+              navigate("/community");
             }}
             title="COMMUNITY   ➡"
             value="todoButton"

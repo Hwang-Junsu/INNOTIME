@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import Input from "./Input";
 import { useDispatch } from "react-redux";
-import { __addNewPost } from "../redux/modules/postSlice";
+import { __addPost } from "../redux/modules/postSlice";
 import { v4 as uuid } from "uuid";
 import useInput from "../hooks/useInput";
 
@@ -40,7 +40,7 @@ const Form = () => {
       body: body,
     };
 
-    dispatch(__addNewPost(post));
+    dispatch(__addPost(post));
     reset();
 
     navigate("/community");
