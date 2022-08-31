@@ -2,23 +2,37 @@
 import styled from "styled-components";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Home } from "@material-ui/icons";
-import Button from "./Button";
+import MenuIcon from "@material-ui/icons/Menu";
+import NavBar from "./NavBar";
+import { AnimatePresence, motion } from "framer-motion";
 
 const Header = () => {
-  const navigate = useNavigate();
+  const [onNav, setOnNav] = React.useState(false);
+
+  const toggleOnNav = () => setOnNav((prev) => !prev);
 
   return (
     <StyledHeader>
-      <Button size="logo">
-        <Home
+      <Wrapper>
+        <MenuIcon
           fontSize="large"
           onClick={() => {
-            navigate("/");
+            toggleOnNav();
           }}
         />
-      </Button>
-
+        <AnimatePresence>
+          {onNav ? (
+            <Navigator
+              variants={navAnimation}
+              initial="visible"
+              animate="end"
+              exit="exit"
+            >
+              <NavBar />
+            </Navigator>
+          ) : null}
+        </AnimatePresence>
+      </Wrapper>
       <StyledTitle>INNOTIME</StyledTitle>
     </StyledHeader>
   );
@@ -32,7 +46,11 @@ const StyledHeader = styled.div`
   padding: 8px 0;
 `;
 
-const StyledTitle = styled.h2`
+const Wrapper = styled.div`
+  position: relative;
+`;
+
+const StyledTitle = styled.div`
   display: flex;
   justify-content: flex-end;
   align-self: center;
@@ -41,3 +59,10 @@ const StyledTitle = styled.h2`
   margin: 0;
   padding: 0;
 `;
+
+const Navigator = styled(motion.div)``;
+const navAnimation = {
+  visible: { opacity: 0 },
+  end: { opacity: 1, transition: { staggerChildren: 0.2 } },
+  exit: { opacity: 0 },
+};

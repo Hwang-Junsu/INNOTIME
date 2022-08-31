@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Banner from "../component/Banner";
 import HomeBox from "../component/HomeBox";
+import styled from "styled-components";
 
 import Layout from "../component/Layout";
 
@@ -16,22 +17,36 @@ const Home = () => {
       exit={{ opacity: 0 }}
     >
       <Layout>
-        <Banner title="무엇을 할까요?" backgroundColor="#ffffff" />
-        <HomeBox
-          onClick={() => {
-            navigate("/add");
-          }}
-          title="새 글 쓰기"
-        ></HomeBox>
-        <HomeBox
-          onClick={() => {
-            navigate("/todo");
-          }}
-          title="자유게시판"
-        ></HomeBox>
+        <Banner title="WHAT TO DO" backgroundColor="#ffffff" />
+        <HomeBoxWrapper>
+          <HomeBox
+            onClick={() => {
+              navigate("/add");
+            }}
+            title="ADD POST ➡"
+            value="addButton"
+          ></HomeBox>
+          <HomeBox
+            onClick={() => {
+              navigate("/todo");
+            }}
+            title="COMMUNITY   ➡"
+            value="todoButton"
+          ></HomeBox>
+        </HomeBoxWrapper>
       </Layout>
     </motion.div>
   );
 };
 
 export default Home;
+
+const HomeBoxWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  height: 60%;
+  margin: auto;
+`;

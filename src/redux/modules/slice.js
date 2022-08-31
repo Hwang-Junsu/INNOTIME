@@ -103,4 +103,3 @@ export const commentSlice = createSlice({
 
 export const { addComment, deleteComment, updateComment } =
   commentSlice.actions;
-export default commentSlice.reducer;

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { __editTodos } from "../redux/modules/todosSlice";
+import Button from "./Button";
 
 function Modal({ setIsOpen }) {
   const closeModal = () => {
@@ -11,7 +12,7 @@ function Modal({ setIsOpen }) {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { todos } = useSelector((state) => state.todos);
-  const selectTodo = todos.find((todo) => todo.id === id);
+  const selectTodo = todos.find((todo) => todo.id === +id); //DESC: ID 숫자일 때만 +
 
   const [newBody, setNewBody] = useState(selectTodo.body);
 
@@ -31,7 +32,9 @@ function Modal({ setIsOpen }) {
           defaultValue={selectTodo.body}
           onChange={(e) => setNewBody(e.target.value)}
         ></ModalText>
-        <ModalEditBtn onClick={editHandler}>저장하기</ModalEditBtn>
+        <Button size="modalSaveBtn" onClick={editHandler}>
+          저장하기
+        </Button>
       </ModalBox>
     </ModalBack>
   );
@@ -84,12 +87,12 @@ let ModalText = styled.textarea`
   border: 1px solid gray;
 `;
 
-let ModalEditBtn = styled.button`
-  width: 100%;
-  height: 35px;
-  margin-top: 25px;
+// let ModalEditBtn = styled.button`
+//   width: 100%;
+//   height: 35px;
+//   margin-top: 25px;
 
-  background-color: transparent;
-  border: 1px solid gray;
-  border-radius: 5px;
-`;
+//   background-color: transparent;
+//   border: 1px solid gray;
+//   border-radius: 5px;
+// `;

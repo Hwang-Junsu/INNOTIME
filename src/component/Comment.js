@@ -8,6 +8,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import {useDispatch} from "react-redux";
 import {__deleteComments, __updateComments} from "../redux/modules/slice";
 import Button from "./Button";
+import {motion, AnimatePresence} from "framer-motion";
 
 const CommentBox = styled.div`
   position: relative;
@@ -67,17 +68,27 @@ const Input = styled.input`
   border: 1px solid gray;
   border-radius: 5px;
 `;
+const WrapperContainer = styled(motion.div)`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const Comment = ({id, writer, body, onEditMode, disabled}) => {
   const [isEdit, setIsEdit] = React.useState(false);
   const [editComment, setEditComment] = React.useState(body);
+  const [showing, setShowing] = React.useState(true);
+  const toggleShowing = () => setShowing((prev) => !prev);
+
   const dispatch = useDispatch();
   const onIsEdit = () => {
     setIsEdit(!isEdit);
     onEditMode(id);
   };
   const onDelete = (_id) => {
-    dispatch(__deleteComments(_id));
+    toggleShowing();
+    setTimeout(() => dispatch(__deleteComments(_id)), 1000);
   };
   const updating = (_id, _body) => {
     dispatch(__updateComments({id: _id, body: _body}));
@@ -89,58 +100,75 @@ const Comment = ({id, writer, body, onEditMode, disabled}) => {
   };
 
   return (
-    <>
-      <WriterBox>
-        <AccountCircleIcon />
-        <Writer>{writer}</Writer>
-      </WriterBox>
-      <CommentBox>
-        <Wrapper>
-          {!isEdit ? (
-            <>
-              <Contents>
-                {body.length >= 80 ? body.slice(0, 85) + "..." : body}
-              </Contents>
-            </>
-          ) : (
-            <Input
-              onChange={onChange}
-              value={editComment}
-              placeholder="내용을 입력해주세요."
-              maxLength={100}
-            />
-          )}
-        </Wrapper>
-        <Buttons>
-          <Button
-            onClick={() => onIsEdit()}
-            disabled={disabled}
-            size="commentButton"
+    <AnimatePresence>
+      {showing && (
+        <>
+          <WrapperContainer
+            variants={commentAnimation}
+            initial="start"
+            animate="end"
+            exit="exit"
           >
-            {!isEdit ? <EditIcon /> : <CancelIcon />}
-          </Button>
-          {!isEdit ? (
-            <Button
-              onClick={() => onDelete(id)}
-              disabled={disabled}
-              size="commentButton"
-            >
-              <DeleteIcon />
-            </Button>
-          ) : (
-            <Button
-              onClick={() => updating(id, editComment)}
-              disabled={disabled}
-              size="commentButton"
-            >
-              <SaveIcon />
-            </Button>
-          )}
-        </Buttons>
-        <Tail />
-      </CommentBox>
-    </>
+            <WriterBox>
+              <AccountCircleIcon />
+              <Writer>{writer}</Writer>
+            </WriterBox>
+            <CommentBox>
+              <Wrapper>
+                {!isEdit ? (
+                  <>
+                    <Contents>
+                      {body.length >= 80 ? body.slice(0, 85) + "..." : body}
+                    </Contents>
+                  </>
+                ) : (
+                  <Input
+                    onChange={onChange}
+                    value={editComment}
+                    placeholder="내용을 입력해주세요."
+                    maxLength={100}
+                  />
+                )}
+              </Wrapper>
+              <Buttons>
+                <Button
+                  onClick={() => onIsEdit()}
+                  disabled={disabled}
+                  size="commentButton"
+                >
+                  {!isEdit ? <EditIcon /> : <CancelIcon />}
+                </Button>
+                {!isEdit ? (
+                  <Button
+                    onClick={() => onDelete(id)}
+                    disabled={disabled}
+                    size="commentButton"
+                  >
+                    <DeleteIcon />
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={() => updating(id, editComment)}
+                    disabled={disabled}
+                    size="commentButton"
+                  >
+                    <SaveIcon />
+                  </Button>
+                )}
+              </Buttons>
+              <Tail />
+            </CommentBox>
+          </WrapperContainer>
+        </>
+      )}
+    </AnimatePresence>
   );
 };
 
 export default Comment;
+
+const commentAnimation = {
+  start: {opacity: 0, y: 10},
+  end: {opacity: 1, y: 0},
+  exit: {opacity: 0, x: -300, transition: {duration: 1}},
+};
