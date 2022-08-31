@@ -47,7 +47,6 @@ const HomeBoxWrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 60%;
-  height: 60%;
+  width: 100%;
   margin: auto;
 `;
