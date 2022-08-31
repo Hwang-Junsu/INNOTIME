@@ -1,23 +1,23 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { __editTodos } from "../redux/modules/todosSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {useParams} from "react-router-dom";
+import {__editTodos} from "../redux/modules/todosSlice";
 import Button from "./Button";
 
-function Modal({ setIsOpen }) {
+function Modal({setIsOpen}) {
   const closeModal = () => {
     setIsOpen(false);
   };
-  const { id } = useParams();
+  const {id} = useParams();
   const dispatch = useDispatch();
-  const { todos } = useSelector((state) => state.todos);
-  const selectTodo = todos.find((todo) => todo.id === +id); //DESC: ID 숫자일 때만 +
+  const {todos} = useSelector((state) => state.todos);
+  const selectTodo = todos.find((todo) => todo.id === id); //DESC: ID 숫자일 때만 +
 
   const [newBody, setNewBody] = useState(selectTodo.body);
 
   const editHandler = () => {
-    dispatch(__editTodos({ id: selectTodo.id, body: newBody }));
+    dispatch(__editTodos({id: selectTodo.id, body: newBody}));
     setIsOpen(false);
   };
 

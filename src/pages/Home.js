@@ -43,6 +43,7 @@ export default Home;
 
 const HomeBoxWrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
   align-items: center;

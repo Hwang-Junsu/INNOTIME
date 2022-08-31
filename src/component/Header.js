@@ -42,6 +42,7 @@ export default Header;
 
 const StyledHeader = styled.div`
   display: flex;
+  width: 100%;
   justify-content: space-between;
   padding: 8px 0;
 `;

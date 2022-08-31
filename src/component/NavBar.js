@@ -28,19 +28,20 @@ export default function NavBar() {
 
 const Container = styled(motion.div)`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 200px;
-  height: 300px;
+  width: 35rem;
+  height: 6rem;
   background-color: rgba(0, 0, 0, 0);
   position: absolute;
-  top: 20px;
+  left: 60px;
+  top: -20px;
 `;
 
 const Menu = styled(motion.div)`
   display: flex;
-  width: 60%;
+  width: 20rem;
   padding: 20px;
   background-color: #3399ff;
   border: 2px solid rgba(256, 256, 256, 1);
@@ -53,6 +54,6 @@ const MenuName = styled.div`
 `;
 
 const menuAnimation = {
-  visible: {opacity: 0, y: -20},
-  end: {opacity: 1, y: 0},
+  visible: {opacity: 0, x: -20},
+  end: {opacity: 1, x: 0},
 };

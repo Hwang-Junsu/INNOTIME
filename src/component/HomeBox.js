@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import {motion} from "framer-motion";
+import AssignmentOutlinedIcon from "@material-ui/icons/AssignmentOutlined";
+import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 
 const HomeBox = ({title, onClick, value}) => {
   return (
@@ -18,12 +20,14 @@ const HomeBox = ({title, onClick, value}) => {
           <MotionBar variants={barVariantsToDo} />
         </>
       ) : (
-        <>
-          <MotionBar variants={barVariantsAdd} />
-          <MotionBar variants={barVariantsAdd} />
-          <MotionBar variants={barVariantsAdd} />
-          <MotionBar variants={barVariantsAdd} />
-        </>
+        <Wrapper>
+          <DocIcon variants={barVariantsAdd}>
+            <AssignmentOutlinedIcon style={{fontSize: 250}} />
+          </DocIcon>
+          <PencilIcon variants={pencilVariant}>
+            <CreateOutlinedIcon style={{fontSize: 100}} />
+          </PencilIcon>
+        </Wrapper>
       )}
 
       <StyledTitle>{title}</StyledTitle>
@@ -72,11 +76,24 @@ const barVariantsAdd = {
   },
 };
 
+const pencilVariant = {
+  start: {
+    opacity: 0,
+    x: -20,
+    transition: {type: "bounce"},
+  },
+  hover: {
+    opacity: 1,
+    x: 20,
+  },
+};
+
 const StyledHomeBox = styled(motion.div)`
   display: flex;
   flex-direction: column;
   height: 400px;
   width: 400px;
+  min-width: 200px;
   border: 2px solid #3399ff;
   color: #3399ff;
   background-color: white;
@@ -101,4 +118,20 @@ const MotionBar = styled(motion.div)`
   margin-bottom: 10px;
   background-color: white;
   border-radius: 15px;
+`;
+
+const Wrapper = styled(motion.div)`
+  position: relative;
+`;
+
+const DocIcon = styled(motion.div)`
+  z-index: 1;
+`;
+
+const PencilIcon = styled(motion.div)`
+  position: absolute;
+  bottom: 65px;
+  left: 80px;
+  color: black;
+  z-index: 2;
 `;

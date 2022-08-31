@@ -6,7 +6,10 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import SaveIcon from "@material-ui/icons/Save";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import {useDispatch} from "react-redux";
-import {__deleteComments, __updateComments} from "../redux/modules/slice";
+import {
+  __deleteComments,
+  __updateComments,
+} from "../redux/modules/commentSlice";
 import Button from "./Button";
 import {motion, AnimatePresence} from "framer-motion";
 
