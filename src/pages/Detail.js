@@ -16,7 +16,7 @@ const Detail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { todos } = useSelector((state) => state.todos);
-  const todoList = todos.find((todo) => todo.id === +id); //DESC: ID 숫자일 때만 +
+  const todoList = todos.find((todo) => todo.id === +id);
 
   useEffect(() => {
     dispatch(__getTodos());

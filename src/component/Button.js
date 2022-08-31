@@ -70,6 +70,14 @@ const StyledButton = styled.button`
           border: 1px solid gray;
           border-radius: 5px;
         `;
+      case "emptyPageBtn":
+        return css`
+          width: 160px;
+          height: 50px;
+          border-radius: 5px;
+          border: 1px solid #3399ff;
+          margin: 0px 0px 0px 15px;
+        `;
       default:
         return css`
           width: 120px;
