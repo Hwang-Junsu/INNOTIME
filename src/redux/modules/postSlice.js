@@ -1,5 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import client from "../../client";
 
 const initialState = {
@@ -13,7 +12,7 @@ export const __getPosts = createAsyncThunk(
   "posts/getPosts",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get("http://localhost:3001/posts");
+      const data = await client.get("http://localhost:3001/posts");
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -25,7 +24,7 @@ export const __addPost = createAsyncThunk(
   "posts/addPost",
   async (arg, thunkAPI) => {
     try {
-      const { data } = await client.post("/posts", arg);
+      const {data} = await client.post("/posts", arg);
       return thunkAPI.fulfillWithValue(data);
     } catch (e) {
       return thunkAPI.rejectWithValue(e);
@@ -36,7 +35,7 @@ export const __addPost = createAsyncThunk(
 export const __deletePosts = createAsyncThunk(
   "posts/deletePosts",
   async (payload) => {
-    const { data } = await axios.delete(
+    const {data} = await client.delete(
       `http://localhost:3001/posts/${payload}`
     );
     return payload;
@@ -46,9 +45,9 @@ export const __deletePosts = createAsyncThunk(
 export const __editPosts = createAsyncThunk(
   "posts/editPosts",
   async (payload) => {
-    const { data } = await axios.patch(
+    const {data} = await client.patch(
       `http://localhost:3001/posts/${payload.id}`,
-      { body: payload.body }
+      {body: payload.body}
     );
     return data;
   }
@@ -67,7 +66,7 @@ export const postSlice = createSlice({
     editPost: (state, action) => {
       state.posts = state.posts.map((post) =>
         post.id === action.payload.id
-          ? { ...post, body: action.payload.body }
+          ? {...post, body: action.payload.body}
           : post
       );
     },
@@ -95,16 +94,16 @@ export const postSlice = createSlice({
       state.isLoading = false; // DESC: 네트워크 요청이 끝났으니, 로딩 상태를 false로 변경!
       state.error = action.payload; // DESC: catch된 error 객체를 state.error에 넣습니다.
     },
-    [__deletePosts.fulfilled]: (state, { payload }) => {
+    [__deletePosts.fulfilled]: (state, {payload}) => {
       state.posts = state.posts.filter((post) => post.id !== payload);
     },
-    [__editPosts.fulfilled]: (state, { payload }) => {
+    [__editPosts.fulfilled]: (state, {payload}) => {
       state.posts = state.posts.map((post) =>
-        post.id === payload.id ? { ...post, body: payload.body } : post
+        post.id === payload.id ? {...post, body: payload.body} : post
       );
     },
   },
 });
 
-export const { clearPost, addPost, deletePost, editPost } = postSlice.actions;
+export const {clearPost, addPost, deletePost, editPost} = postSlice.actions;
 export default postSlice.reducer;
