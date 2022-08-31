@@ -53,6 +53,8 @@ const Menu = styled(motion.div)`
 `;
 const MenuName = styled.div`
   margin-left: 10px;
+  padding-top: 5px;
+  font-family: "LeferiPoint-BlackObliqueA";
   font-size: calc(0.001em + 1vw);
 `;
 
