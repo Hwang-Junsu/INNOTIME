@@ -77,3 +77,13 @@
 ![image](https://user-images.githubusercontent.com/83802168/187857899-034754a4-5372-42af-b9c8-50a90d02ece2.png)
 
 [바로가기](https://innotime.vercel.app)
+
+## Stack
+<img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"><img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=React&logoColor=white">
+<img src="https://img.shields.io/badge/styled-components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white">
+<img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white">
+<img src="https://img.shields.io/badge/heroku-430098?style=for-the-badge&logo=Heroku&logoColor=white">
+<img src="https://img.shields.io/badge/vercel-000000?style=for-the-badge&logo=Vercel&logoColor=white">
+<img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=Axios&logoColor=white">
+<img src="https://img.shields.io/badge/.ENV-ECD53F?style=for-the-badge&logo=.ENV&logoColor=white">
+
