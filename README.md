@@ -51,14 +51,17 @@
   - Navigation Menu 구현
 
 - 문지웅
+  - `Header Component` 구현
+  
+  - `Banner Component` 구현
 
-  - 새 게시글 작성을 위한 Form Component 구현
+  - 새 게시글 CREATE 구현 -`Form Component` 구현
 
     게시글마다 고유한 ID를 부여하기 위해, `UUID` 라이브러리 활용
 
-  - 만능 버튼 Component 구현
+  - `만능 버튼 Component` 구현
 
-  -
+  - `SubTitle` Code Component로 리팩토링 
 
 ### 구현에 사용한 패키지 List
 
@@ -71,5 +74,6 @@
 - `framer-motion`
 
 ## 구현 결과
+![image](https://user-images.githubusercontent.com/83802168/187857899-034754a4-5372-42af-b9c8-50a90d02ece2.png)
 
-[바로가기]("https://innotime.vercel.app")
+[바로가기](https://innotime.vercel.app)
