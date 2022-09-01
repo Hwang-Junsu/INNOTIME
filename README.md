@@ -26,9 +26,15 @@
 
 ### 팀원별 역할
 
+- 공통
+
+  - Heroku(DB), Vercel(Client) 이용하여 배포
+  
+  - 노력
+
 - 차혜인
 
-  - 게시글 GET, DELETE, UPDATE 기능 구현
+  - 게시글 READ, DELETE, UPDATE 기능 구현
   
   - 게시글 수정 모달창 구현
   
@@ -36,8 +42,13 @@
 
 - 황준수
 
-  -
-  -
+  - Comment(댓글) CRUD 구현
+
+  - 화면 애니메이션 구현 (`framer-motion` 라이브러리 활용)
+  
+  - infinite scrolling 구현
+  
+  - Navigation Menu 구현
 
 - 문지웅
 
