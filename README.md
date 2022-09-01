@@ -28,8 +28,11 @@
 
 - 차혜인
 
-  -
-  -
+  - 게시글 GET, DELETE, UPDATE 기능 구현
+  
+  - 게시글 수정 모달창 구현
+  
+  - DETAIL, EMPTY PAGE 제작
 
 - 황준수
 
