@@ -1,70 +1,61 @@
-# Getting Started with Create React App
+# ⭐ INNOTIME ⭐
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 개요
 
-## Available Scripts
+- 이노베이션 캠프에 가지고 있는 생각들을 자유롭게 적을 수 있는 공간의 필요성을 느낌
 
-In the project directory, you can run:
+## 프로젝트 내용
 
-### `yarn start`
+### 주제: INNOTIME - 이노베이션 캠프 익명 게시판
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 기간: 2022.08.26(금) - 2022.09.01(목)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 필수 요구사항
 
-### `yarn test`
+1. 동적 라우팅 사용 (✅)
+2. 1개 이상의 `Custom Hook` 구현 -> `useInput( )` (✅)
+3. Form에 유효성 검증 적용 (✅)
+4. 버튼 컴포넌트 1개로 모든 버튼 구현(만능 버튼) (✅)
+5. `development` 환경에서만 `redux devtool` 활성화 (✅)
+6. 배포된 결과물에서 console.log() 보이지 않도록 처리 (✅)
+7. `.env` 를 이용해서 API 서버의 URL 코드 상에서 숨기도록 처리 (✅)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 추가 기능 구현
 
-### `yarn build`
+- 게시판 목록 무한 스크롤 구현 (✅)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 팀원별 역할
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- 차혜인
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  -
+  -
 
-### `yarn eject`
+- 황준수
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+  -
+  -
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- 문지웅
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+  - 새 게시글 작성을 위한 Form Component 구현
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    게시글마다 고유한 ID를 부여하기 위해, `UUID` 라이브러리 활용
 
-## Learn More
+  - 만능 버튼 Component 구현
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  -
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 구현에 사용한 패키지 List
 
-### Code Splitting
+- `redux-toolkit`
+- `axios`
+- `cross-env`
+- `json-server`
+- `styled-components`
+- `uuid`
+- `framer-motion`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 구현 결과
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[바로가기]("https://innotime.vercel.app")
