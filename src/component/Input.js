@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Input = (props) => {
-  return <StyledInput {...props}></StyledInput>;
+  return <StyledInput {...props} required></StyledInput>;
 };
 
 const StyledInput = styled.input`
@@ -10,6 +10,7 @@ const StyledInput = styled.input`
   border-radius: 5px;
   padding: 0 8px 0;
   height: 40px;
+  width: ${({ width }) => width || ""};
 `;
 
 export default Input;

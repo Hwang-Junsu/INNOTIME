@@ -1,22 +1,28 @@
 // 글 상세 페이지
-import React from "react";
-import {useSelector} from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Layout from "../component/Layout";
-import {useParams, useNavigate} from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Modal from "../component/Modal";
-import {useState} from "react";
 import ArrowBack from "@material-ui/icons/ArrowBack";
 import Comments from "../component/Comments";
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
+import { __getPosts } from "../redux/modules/postSlice";
+import Button from "../component/Button";
 
 const Detail = () => {
-  const {id} = useParams();
+  const dispatch = useDispatch();
+  const { id } = useParams();
   const navigate = useNavigate();
-  const todo = useSelector((state) => state.todo.todo);
-  const todoList = todo.find((todo) => todo.id === +id);
+  const { posts } = useSelector((state) => state.posts);
+  const postList = posts.find((post) => post.id === id); //DESC: ID 숫자일 때만 +
 
-  //TODO: 수정하기 버튼 클릭시 모달창 구현
+  useEffect(() => {
+    dispatch(__getPosts());
+  }, []);
+
+  //DESC: 수정하기 버튼 클릭시 모달창 구현
   const [isOpen, setIsOpen] = useState(false);
   const modalIsOpen = () => {
     setIsOpen(true);
@@ -24,17 +30,17 @@ const Detail = () => {
 
   return (
     <motion.div
-      initial={{opacity: 0}}
-      animate={{opacity: 1}}
-      exit={{opacity: 0}}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
     >
       <Layout>
         <DetailLayout>
           <DetailHeader>
-            <h2>Id : {todoList.id}</h2>
+            <h2>작성자 : {postList?.writer}</h2>
             <DetailBackBtn
               onClick={() => {
-                navigate("/todo");
+                navigate("/community");
               }}
             >
               <span className="material-icons">
@@ -42,11 +48,13 @@ const Detail = () => {
               </span>
             </DetailBackBtn>
           </DetailHeader>
-          <DetailTitle>{todoList.title}</DetailTitle>
-          <p>{todoList.body}</p>
-          <DetailEditBtn onClick={modalIsOpen}>수정하기</DetailEditBtn>
-          {isOpen && <Modal isOpen={isOpen} setIsOpen={setIsOpen} />}
+          <DetailTitle>{postList?.title}</DetailTitle>
+          <p>{postList?.body}</p>
         </DetailLayout>
+        <Button name="detailEditBtn" onClick={modalIsOpen}>
+          수정하기
+        </Button>
+        {isOpen && <Modal setIsOpen={setIsOpen} />}
         <Comments />
       </Layout>
     </motion.div>
@@ -72,13 +80,13 @@ let DetailBackBtn = styled.h2`
   cursor: pointer;
 `;
 
-let DetailEditBtn = styled.button`
-  width: 90vw;
-  height: 35px;
-  position: absolute;
-  bottom: 60px;
+// let DetailEditBtn = styled.button`
+//   width: 90vw;
+//   height: 35px;
+//   position: absolute;
+//   bottom: 60px;
 
-  background-color: transparent;
-  border: 1px solid lightgray;
-  border-radius: 10px;
-`;
+//   background-color: transparent;
+//   border: 1px solid lightgray;
+//   border-radius: 10px;
+// `;

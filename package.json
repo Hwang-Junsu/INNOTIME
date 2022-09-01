@@ -5,6 +5,8 @@
   "dependencies": {
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
+    "@mui/icons-material": "^5.10.3",
+    "@mui/material": "^5.10.3",
     "@reduxjs/toolkit": "^1.8.5",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
@@ -20,9 +22,12 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "redux": "^4.2.0",
+    "request": "^2.88.2",
     "styled-components": "^5.3.5",
     "styled-reset": "^4.4.2",
-    "web-vitals": "^2.1.0"
+    "uuid": "^8.3.2",
+    "web-vitals": "^2.1.0",
+    "yarn": "^1.22.19"
   },
   "scripts": {
     "start": "node server",

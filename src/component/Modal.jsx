@@ -1,22 +1,24 @@
-import React, {useState} from "react";
+import React from "react";
 import styled from "styled-components";
-import {useDispatch, useSelector} from "react-redux";
-import {useParams} from "react-router-dom";
-import {editTodo} from "../redux/modules/slice";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { __editPosts } from "../redux/modules/postSlice";
+import Button from "./Button";
+import useInput from "../hooks/useInput";
 
-function Modal({isOpen, setIsOpen}) {
+function Modal({ setIsOpen }) {
   const closeModal = () => {
     setIsOpen(false);
   };
-  const {id} = useParams();
+  const { id } = useParams();
   const dispatch = useDispatch();
-  const todo = useSelector((state) => state.todo.todo);
-  const selectTodo = todo.find((todo) => todo.id === +id);
+  const { posts } = useSelector((state) => state.posts);
+  const selectPost = posts.find((post) => post.id === id); //DESC: ID 숫자일 때만 +
 
-  const [newBody, setNewBody] = useState(selectTodo.body);
+  const [body, onChangeBodyHandler] = useInput(selectPost.body);
 
   const editHandler = () => {
-    dispatch(editTodo({id: selectTodo.id, body: newBody}));
+    dispatch(__editPosts({ id: selectPost.id, body: body }));
     setIsOpen(false);
   };
 
@@ -24,14 +26,16 @@ function Modal({isOpen, setIsOpen}) {
     <ModalBack onClick={closeModal}>
       <ModalBox onClick={(e) => e.stopPropagation()}>
         <ModalHeader>
-          <h1>{selectTodo.title}</h1>
+          <h1>{selectPost.title}</h1>
           <h3 onClick={closeModal}>X</h3>
         </ModalHeader>
         <ModalText
-          defaultValue={selectTodo.body}
-          onChange={(e) => setNewBody(e.target.value)}
+          defaultValue={selectPost.body}
+          onChange={onChangeBodyHandler}
         ></ModalText>
-        <ModalEditBtn onClick={editHandler}>저장하기</ModalEditBtn>
+        <Button name="modalSaveBtn" onClick={editHandler}>
+          저장하기
+        </Button>
       </ModalBox>
     </ModalBack>
   );
@@ -84,12 +88,12 @@ let ModalText = styled.textarea`
   border: 1px solid gray;
 `;
 
-let ModalEditBtn = styled.button`
-  width: 100%;
-  height: 35px;
-  margin-top: 25px;
+// let ModalEditBtn = styled.button`
+//   width: 100%;
+//   height: 35px;
+//   margin-top: 25px;
 
-  background-color: transparent;
-  border: 1px solid gray;
-  border-radius: 5px;
-`;
+//   background-color: transparent;
+//   border: 1px solid gray;
+//   border-radius: 5px;
+// `;

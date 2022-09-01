@@ -1,133 +1,135 @@
 // 할 일 기록하기 form
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import Button from "./Button";
 import Input from "./Input";
-import { useDispatch, useSelector } from "react-redux";
-import { __addTodoThunk, clearTodo } from "../redux/modules/todosSlice";
-import nextId from "react-id-generator";
+import {useDispatch} from "react-redux";
+import {__addPost} from "../redux/modules/postSlice";
+import {v4 as uuid} from "uuid";
+import useInput from "../hooks/useInput";
 
 const Form = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  //const isSuccess = useSelector((state) => state.todos.isSuccess);
 
-  const initialTodo = {
-    writer: "",
-    title: "",
-    body: "",
-    isDone: false,
+  /** DESC: 입력 값 변화 감지 -커스텀 훅(useInput) 사용*/
+  const [writer, onChangeWriterHandler, writerReset] = useInput();
+  const [title, onChangeTitleHandler, titleReset] = useInput();
+  const [body, onChangeBodyHandler, bodyReset] = useInput();
+
+  const reset = () => {
+    writerReset();
+    titleReset();
+    bodyReset();
   };
 
-  const [todo, setTodo] = useState(initialTodo);
-
-  // useEffect(() => {
-  //   if (!isSuccess) return;
-  //   // DESC: 제출 성공하면 todo list 로 이동
-  //   if (isSuccess) navigate("/todo");
-
-  //   return () => dispatch(clearTodo());
-  // }, [dispatch, isSuccess, navigate]);
-
-  //DESC: 입력값 변화감지
-  const onChangeHandler = (event) => {
-    const { name, value } = event.target;
-    setTodo({ ...todo, [name]: value });
-  };
-
-  ///DESC: 폼 제출했을 때 동작
+  /**DESC: 폼 제출했을 때 동작 */
   const onSubmitHandler = (event) => {
     // DESC: 새로고침 방지
     event.preventDefault();
 
     // DESC: 유효성 검사
-    if (
-      todo.writer.trim() === "" ||
-      todo.title.trim() === "" ||
-      todo.body.trim() === ""
-    )
-      return alert("빈 항목이 존재합니다.");
+    if (writer.trim() === "" || title.trim() === "" || body.trim() === "")
+      return;
 
-    //TODO : ID 처리 문제..id 초기화 오류..
-    const id = nextId("todo-");
+    const post = {
+      id: uuid().slice(-4),
+      writer: writer,
+      title: title,
+      body: body,
+    };
 
-    dispatch(__addTodoThunk({ ...todo, id }));
+    dispatch(__addPost(post));
+    reset();
 
-    //DESC: todo 값 초기화
-    setTodo(initialTodo);
+    navigate("/community");
   };
 
   return (
-    <StyledFormContainer>
-      <StyledForm onSubmit={onSubmitHandler}>
-        <StyledInputContainer>
+    <StyledForm onSubmit={onSubmitHandler}>
+      <StyledInputContainer>
+        <StyledInputBox>
           <StyledLabel>작성자</StyledLabel>
           <Input
             name="writer"
-            onChange={onChangeHandler}
+            onChange={onChangeWriterHandler}
             type="text"
-            value={todo.writer}
-            placeholder="작성자의 이름을 입력해주세요.(5자 이내)"
+            value={writer}
+            placeholder="이름을 입력해주세요.(5자 이내)"
             maxLength={5}
+            width="90%"
           />
-          <StyledLabel>제목</StyledLabel>
+        </StyledInputBox>
+
+        <StyledInputBox>
+          <StyledLabel>제 목</StyledLabel>
           <Input
             name="title"
-            onChange={onChangeHandler}
+            onChange={onChangeTitleHandler}
             type="text"
-            value={todo.title}
+            value={title}
             placeholder="제목을 입력해주세요.(50자 이내)"
             maxLength={50}
+            width="90%"
           />
-          <StyledLabel>내용</StyledLabel>
+        </StyledInputBox>
+        <StyledInputBox>
+          <StyledLabel>내 용</StyledLabel>
           <StyledTextArea
             name="body"
-            onChange={onChangeHandler}
-            value={todo.body}
+            onChange={onChangeBodyHandler}
+            value={body}
             rows="10"
             placeholder="내용을 입력해주세요.(200자 이내)"
             maxLength={200}
+            required
           ></StyledTextArea>
-        </StyledInputContainer>
-        <Button
-          size="large"
-          hoverBackgroundColor="#3399ff"
-          hoverTextColor="#fff"
-        >
-          추가하기
-        </Button>
-      </StyledForm>
-    </StyledFormContainer>
+        </StyledInputBox>
+      </StyledInputContainer>
+      <Button
+        name="addButton"
+        hoverBackgroundColor="#3399ff"
+        hoverTextColor="#fff"
+      >
+        추가하기
+      </Button>
+    </StyledForm>
   );
 };
 
 export default Form;
 
-const StyledFormContainer = styled.div`
-  height: 100%;
-  border: 1px solid #eee;
-  padding: 8px;
-  margin-top: 20px;
-  border-radius: 5px;
-`;
-
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
+
+  border-radius: 5px;
   height: 100%;
+
+  border: 1px solid #eee;
+  padding: 8px;
+  margin-top: 20px;
+
+  justify-content: space-between;
 `;
 
 const StyledLabel = styled.label`
   padding: 8px;
   font-size: x-large;
   font-weight: bold;
+  width: 5%;
+  min-width: 80px;
 `;
 
 const StyledInputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 4;
+`;
+
+const StyledInputBox = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
 
 const StyledTextArea = styled.textarea`
@@ -135,4 +137,6 @@ const StyledTextArea = styled.textarea`
   margin: 8px;
   border: 1px solid #eee;
   border-radius: 5px;
+  min-width: fit-content;
+  width: 90%;
 `;

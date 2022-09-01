@@ -1,11 +1,9 @@
-// 기록하기 페이지
 import React from "react";
 import Layout from "../component/Layout";
-import Form from "../component/Form";
-import Banner from "../component/Banner";
+import Posts from "../component/Posts";
 import { motion } from "framer-motion";
 
-const Add = () => {
+const Community = () => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -13,15 +11,10 @@ const Add = () => {
       exit={{ opacity: 0 }}
     >
       <Layout>
-        <Banner
-          title="새 글 쓰기"
-          backgroundColor="#3399ff"
-          textColor="#ffffff"
-        />
-        <Form />
+        <Posts />
       </Layout>
     </motion.div>
   );
 };
 
-export default Add;
+export default Community;
