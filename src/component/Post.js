@@ -1,17 +1,19 @@
 import React from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { __deletePosts } from "../redux/modules/postSlice";
+import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {__deletePosts} from "../redux/modules/postSlice";
 import Button from "./Button";
 import DeleteIcon from "@material-ui/icons/Delete";
+import {motion} from "framer-motion";
 
-const Post = ({ work }) => {
+const Post = ({work, onDelete}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   function deleteHandler(event) {
     event.stopPropagation(); //DESC: 삭제 버튼 클릭시 상세페이지에 진입하는 현상 방지
     dispatch(__deletePosts(work.id));
+    onDelete(work.id);
   }
 
   return (
@@ -19,6 +21,9 @@ const Post = ({ work }) => {
       onClick={() => {
         navigate(`/community/${work.id}`);
       }}
+      variants={createAnimation}
+      initial="start"
+      animate="end"
     >
       <PostListBoxBody>
         <PostTitle>{work.title}</PostTitle>
@@ -34,11 +39,16 @@ const Post = ({ work }) => {
 
 export default Post;
 
+const createAnimation = {
+  start: {opacity: 0, y: 15},
+  end: {opacity: 1, y: 0, transition: {duration: 0.5}},
+};
+
 const PostTitle = styled.h3`
   font-family: "LeferiPoint-BlackObliqueA";
 `;
 
-let PostListBox = styled.div`
+let PostListBox = styled(motion.div)`
   display: flex;
   justify-content: space-between;
 
