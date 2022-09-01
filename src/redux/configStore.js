@@ -1,8 +1,10 @@
-import {configureStore} from "@reduxjs/toolkit";
-import {toDoSlice, commentSlice} from "./modules/slice";
+import { configureStore } from "@reduxjs/toolkit";
+import { commentSlice } from "./modules/commentSlice";
+import posts from "./modules/postSlice";
 
 const store = configureStore({
-  reducer: {todo: toDoSlice.reducer, comment: commentSlice.reducer},
+  reducer: { comment: commentSlice.reducer, posts },
+  devTools: process.env.NODE_ENV !== "production",
 });
 
 export default store;
